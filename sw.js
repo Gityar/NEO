@@ -2,7 +2,7 @@
    Neonatal Nursing LMS — Service Worker (XAMPP / Subfolder Safe)
    ============================================================ */
 
-const CACHE = 'lms-v4';
+const CACHE = 'lms-v5';
 
 const SHELL = [
   './',
