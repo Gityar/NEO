@@ -282,7 +282,6 @@ async function idbDel(store, key) {
 }
 const kvGet = (k)      => idbGet('kv', k).then(r => r ? r.val : null);
 const kvSet = (k, v)   => idbPut('kv', { key: k, val: v, at: Date.now() });
-const kvDel = (k)      => idbDel('kv', k);
 
 /* ---------- State ---------- */
 const state = {
@@ -639,7 +638,7 @@ async function renderDashboard(app) {
           <span class="mod-num">Module ${esc(m.SortOrder)}</span>
           <h3>${esc(m.Title)}</h3>
           <p>${esc(m.Description || '')}</p>
-          <div class="mod-meta">${(m.Lessons || []).length} lesson${(m.Lessons || []).length === 1 ? '' : 's'} · ${(m.Quizzes || []).length} quiz${(m.Quizzes || []).length === 1 ? '' : 'zes'}</div>
+          <div class="mod-meta">${(m.Lessons || []).length} lesson${(m.Lessons || []).length === 1 ? '' : 's'} · ${(m.Quizzes || []).length} quiz${(m.Quizzes || []).length === 1 ? 'zes' : ''}</div>
         </article>
       `).join('')}
     </div>
@@ -710,7 +709,6 @@ async function renderModule(app, moduleId) {
 }
 
 function bindLessonInteractions() {
-  // Restore note + checklist values
   $$('[data-note-key]').forEach(ta => {
     const key = ta.dataset.noteKey;
     const val = state.userData[key];
@@ -761,7 +759,7 @@ async function renderQuizView(mod) {
   return html;
 }
 
-function renderQuizResults(data, moduleId) {
+function renderQuizResults(data) {
   const box = $('#quizResults');
   const pct = Number(data.percentage);
   const cls = pct >= PASS_THRESHOLD ? 'ok' : 'bad';
@@ -783,7 +781,6 @@ function renderQuizResults(data, moduleId) {
   html += `</div>`;
   box.innerHTML = html;
   box.hidden = false;
-  // Scroll to results
   setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
@@ -1122,7 +1119,7 @@ document.addEventListener('click', (e) => {
     apiCall('submitQuizGroup', { moduleId, answers }).then(res => {
       submitQuizBtn.disabled = false; submitQuizBtn.textContent = orig;
       if (res.ok) {
-        renderQuizResults(res.data, moduleId);
+        renderQuizResults(res.data);
         toast(res.queued ? 'Saved offline — will sync when online' : 'Quiz submitted', res.queued ? 'warn' : 'ok');
       } else toast(res.error || 'Submit failed', 'bad');
     });
@@ -1170,8 +1167,12 @@ async function boot() {
 
   // Service worker
   if (OFFLINE.ENABLED && OFFLINE.SERVICE_WORKER && 'serviceWorker' in navigator) {
-    try { await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER); }
-    catch (e) { /* SW optional */ }
+    try {
+      const reg = await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER);
+      console.log('[LMS] Service worker registered, scope:', reg.scope);
+    } catch (e) {
+      console.warn('[LMS] Service worker registration failed:', e.message);
+    }
   }
 
   // Verify session online if possible
@@ -1192,10 +1193,9 @@ async function boot() {
   }
   render();
 
-  // Background intervals
   setInterval(ping, OFFLINE.PING_INTERVAL_MS);
   setInterval(flushQueue, OFFLINE.SYNC_INTERVAL_MS);
-  ping(); // immediate probe
+  ping();
 }
 
 window.addEventListener('online', async () => {
