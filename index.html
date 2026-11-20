@@ -95,16 +95,22 @@ textarea{resize:vertical;min-height:90px}
 .note-status.ok{color:var(--ok)}.note-status.bad{color:var(--bad)}
 .lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);flex-wrap:wrap}
 
-.quiz-q{margin-bottom:1.15rem;padding-bottom:.85rem;border-bottom:1px solid var(--line-soft)}
+.quiz-q{margin-bottom:1.15rem;padding-bottom:.95rem;border-bottom:1px solid var(--line-soft)}
 .quiz-q .q-text{font-weight:600;margin-bottom:.5rem}
 .quiz-opt{display:flex;align-items:flex-start;gap:.5rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:8px;margin-bottom:.35rem;cursor:pointer;background:#fff}
 .quiz-opt input{width:auto;margin:0;flex-shrink:0;margin-top:.2rem}
 .quiz-opt.correct{border-color:var(--ok);background:var(--ok-50)}
 .quiz-opt.wrong{border-color:var(--bad);background:var(--bad-50)}
-.quiz-explain{background:var(--brand-50);padding:.55rem .75rem;border-radius:6px;margin-top:.45rem;font-size:.88rem}
+.quiz-explain{background:var(--brand-50);padding:.6rem .8rem;border-radius:6px;margin-top:.45rem;font-size:.9rem}
+.quiz-explain.ok{background:var(--ok-50);color:var(--ok)}
+.quiz-explain.bad{background:var(--bad-50);color:var(--bad)}
 .quiz-result{padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-weight:600}
 .quiz-result.ok{background:var(--ok-50);color:var(--ok)}
 .quiz-result.bad{background:var(--bad-50);color:var(--bad)}
+.check-row{margin-top:.45rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.timer-pill{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;padding:.35rem .7rem;border-radius:8px;background:var(--brand-50);color:var(--brand-600);border:1px solid var(--brand-100)}
+.timer-pill.warn{background:var(--warn-50);color:var(--warn);border-color:#fbbf24}
+.timer-pill.danger{background:var(--bad-50);color:var(--bad);border-color:#fca5a5}
 
 .osce-domain-card{border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;margin-bottom:.85rem;background:#fafdfd}
 .osce-rubric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.6rem 0}
@@ -165,7 +171,7 @@ table.data tr:last-child td{border-bottom:none}
 
 <script>
 const CFG = window.LMS_CONFIG || {};
-const API_URL = CFG.API_URL || 'https://script.google.com/macros/s/AKfycbwpJOE_nvwrOjI01sdCnHnr2uRAqbOuA54C6cKaJlV4UmZpj8qJfHg_bwydHRbULMa8Kg/exec';
+const API_URL = CFG.API_URL || '';
 const COURSE_TITLE = CFG.COURSE_TITLE || 'Neonatal Nursing';
 const PASS_THRESHOLD = Number(CFG.PASS_THRESHOLD) || 80;
 const EXAMS_CFG = Object.assign({
@@ -175,7 +181,7 @@ const EXAMS_CFG = Object.assign({
   FINAL_PASSCODE: 'FINAL2026'
 }, CFG.EXAMS || {});
 const OFFLINE = Object.assign({
-  ENABLED: true, SERVICE_WORKER: 'sw.js', CACHE_VERSION: 'lms-v4',
+  ENABLED: true, SERVICE_WORKER: 'sw.js', CACHE_VERSION: 'lms-v5',
   QUEUE_MAX_ITEMS: 200, QUEUE_MAX_RETRIES: 5, SYNC_BATCH_SIZE: 25,
   SYNC_INTERVAL_MS: 30000, PING_INTERVAL_MS: 60000
 }, CFG.OFFLINE || {});
@@ -520,7 +526,13 @@ async function ensureContent(forceRefresh) {
   return state.content || null;
 }
 
+let _examTimerId = null;
+function clearExamTimer() {
+  if (_examTimerId) { clearInterval(_examTimerId); _examTimerId = null; }
+}
+
 function render() {
+  clearExamTimer();
   const app = $('#app');
   updateNetBadge();
   if (!state.token) return renderLogin(app);
@@ -642,7 +654,7 @@ async function renderDashboard(app) {
   }));
 }
 
-/* ---------- Module View ---------- */
+/* ---------- Module View & Interactive Question Checking ---------- */
 async function renderModule(app, moduleId) {
   app.innerHTML = `<div class="card"><p class="small">Loading module…</p></div>`;
   const content = await ensureContent();
@@ -708,6 +720,29 @@ async function renderModule(app, moduleId) {
   $('#nextModBtn')?.addEventListener('click', () => { state.params = { moduleId: nextMod.ModuleID, lessonId: '' }; renderModule(app, nextMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
   $$('[data-note-key]').forEach(ta => { if (state.userData[ta.dataset.noteKey]) ta.value = state.userData[ta.dataset.noteKey]; });
+
+  // Wire per-question "Check" buttons on module quizzes
+  $$('#quizContainer .quiz-q').forEach(qEl => {
+    const checkBtn = qEl.querySelector('.check-q-btn');
+    if (!checkBtn) return;
+    checkBtn.addEventListener('click', () => {
+      const checked = qEl.querySelector('input[type=radio]:checked');
+      if (!checked) return toast('Select an option before checking', 'warn');
+      const chosen = Number(checked.value);
+      const correct = Number(qEl.dataset.correctIndex);
+      const explain = qEl.dataset.explanation || '';
+      const isRight = chosen === correct;
+      $$('.quiz-opt', qEl).forEach((optEl, idx) => {
+        optEl.classList.remove('correct', 'wrong');
+        if (idx === correct) optEl.classList.add('correct');
+        else if (idx === chosen && !isRight) optEl.classList.add('wrong');
+      });
+      const fb = qEl.querySelector('.q-feedback');
+      fb.hidden = false;
+      fb.className = 'quiz-explain q-feedback ' + (isRight ? 'ok' : 'bad');
+      fb.innerHTML = `<strong>${isRight ? '✓ Correct' : '✗ Incorrect'}</strong>${explain ? ' — ' + esc(explain) : ''}`;
+    });
+  });
 }
 
 async function renderQuizView(mod) {
@@ -718,13 +753,20 @@ async function renderQuizView(mod) {
     banner = `<div class="msg info">Previous attempt: <strong>${a.percentage}%</strong> (${a.score}/${a.total}) · attempt #${a.attemptCount}</div>`;
   }
   const quizzes = mod.Quizzes || [];
-  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2><div id="quizContainer">`;
+  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2><p class="small">Use <strong>Check</strong> on any question for immediate feedback, or <strong>Submit quiz</strong> to record your score.</p><div id="quizContainer">`;
   quizzes.forEach((q, qi) => {
-    html += `<div class="quiz-q" data-quiz-id="${esc(q.QuizID)}"><div class="q-text">${qi + 1}. ${esc(q.Question)}</div>`;
-    [q.OptionA, q.OptionB, q.OptionC, q.OptionD].forEach((opt, oi) => {
-      html += `<label class="quiz-opt"><input type="radio" name="q${qi}" value="${oi}"><span>${esc(opt)}</span></label>`;
-    });
-    html += `</div>`;
+    html += `
+      <div class="quiz-q" data-quiz-id="${esc(q.QuizID)}" data-correct-index="${Number(q.CorrectIndex)}" data-explanation="${esc(q.Explanation || '')}">
+        <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>
+        ${[q.OptionA, q.OptionB, q.OptionC, q.OptionD].map((opt, oi) => `
+          <label class="quiz-opt"><input type="radio" name="q${qi}" value="${oi}"><span><strong>${'ABCD'[oi]}.</strong> ${esc(opt)}</span></label>
+        `).join('')}
+        <div class="check-row">
+          <button type="button" class="btn btn-sm ghost check-q-btn">Check</button>
+        </div>
+        <div class="quiz-explain q-feedback" hidden></div>
+      </div>
+    `;
   });
   html += `</div><button class="btn primary" data-quiz-submit="${esc(mod.ModuleID)}">Submit quiz</button><div id="quizResults" hidden></div>`;
   return html;
@@ -732,8 +774,17 @@ async function renderQuizView(mod) {
 
 /* =====================================================================
    PASSWORD-PROTECTED MIDTERM (30 MCQs) & FINAL (40 MCQs) EXAMS
+   WITH TIMER, PER-QUESTION "CHECK" BUTTONS & FULL GRADING
    ===================================================================== */
+function formatCountdown(sec) {
+  const s = Math.max(0, Math.floor(sec));
+  const m = Math.floor(s / 60);
+  const rem = s % 60;
+  return String(m).padStart(2, '0') + ':' + String(rem).padStart(2, '0');
+}
+
 async function renderExams(app, selectedType) {
+  clearExamTimer();
   const activeType = (selectedType === 'final') ? 'final' : 'midterm';
   const sumRes = await apiCall('getMyExamSummary', {});
   const summary = (sumRes.ok && sumRes.data && sumRes.data.exams) || {};
@@ -749,6 +800,7 @@ async function renderExams(app, selectedType) {
   `;
 
   $$('[data-exam-tab]').forEach(btn => btn.addEventListener('click', () => {
+    clearExamTimer();
     state.params.examType = btn.dataset.examTab;
     renderExams(app, btn.dataset.examTab);
   }));
@@ -756,14 +808,20 @@ async function renderExams(app, selectedType) {
   const panel = $('#examPanel');
   const title = activeType === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
   const requiredCount = activeType === 'final' ? 40 : 30;
+  const totalSeconds = requiredCount * 90; // 45 min for 30 MCQs, 60 min for 40 MCQs
   const prev = summary[activeType];
 
   panel.innerHTML = `
     <div class="card">
-      <h3>${esc(title)}</h3>
-      <p class="small">Format: ${requiredCount} multiple-choice questions · Pass mark: ${PASS_THRESHOLD}%</p>
-      ${prev ? `<div class="msg info">Recorded score: <strong>${prev.percentage}%</strong> (${prev.score}/${prev.total}) · Attempt #${prev.attemptCount}</div>` : ''}
-      <form id="unlockExamForm" class="flex-row" style="align-items:flex-end">
+      <div class="space-between">
+        <div>
+          <h3 style="margin:0">${esc(title)}</h3>
+          <p class="small" style="margin:.25rem 0 0">Format: ${requiredCount} multiple-choice questions · Time limit: ${Math.round(totalSeconds / 60)} minutes · Pass mark: ${PASS_THRESHOLD}%</p>
+        </div>
+        <span class="timer-pill" id="examCountdown">⏱ ${formatCountdown(totalSeconds)}</span>
+      </div>
+      ${prev ? `<div class="msg info" style="margin-top:.75rem">Recorded score: <strong>${prev.percentage}%</strong> (${prev.score}/${prev.total}) · Attempt #${prev.attemptCount}</div>` : ''}
+      <form id="unlockExamForm" class="flex-row" style="align-items:flex-end;margin-top:.75rem">
         <label style="flex:1;min-width:220px;margin:0">
           Enter Exam Passcode
           <input type="password" id="examPasscodeInput" required placeholder="Enter exam password">
@@ -777,6 +835,7 @@ async function renderExams(app, selectedType) {
 
   $('#unlockExamForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+    clearExamTimer();
     const passcode = $('#examPasscodeInput').value.trim();
     const msgEl = $('#examUnlockMsg');
     msgEl.innerHTML = `<div class="msg info">Verifying passcode and loading ${requiredCount} MCQs…</div>`;
@@ -787,14 +846,33 @@ async function renderExams(app, selectedType) {
       return;
     }
     const questions = res.data.questions || [];
+    const hasAnswerKey = questions.length > 0 && typeof questions[0].CorrectIndex === 'number';
     msgEl.innerHTML = `<div class="msg ok">Exam unlocked (${questions.length} MCQs loaded).</div>`;
+
+    let remaining = totalSeconds;
+    let submittedNow = false;
+    const timerEl = $('#examCountdown');
+    const updateTimerDisplay = () => {
+      if (!timerEl) return;
+      timerEl.textContent = `⏱ ${formatCountdown(remaining)}`;
+      timerEl.classList.remove('warn', 'danger');
+      if (remaining <= 60) timerEl.classList.add('danger');
+      else if (remaining <= 300) timerEl.classList.add('warn');
+    };
+    updateTimerDisplay();
 
     $('#examQuestionsArea').innerHTML = `
       <div class="card">
-        <h3>${esc(title)} — Questions (${questions.length})</h3>
+        <div class="space-between" style="margin-bottom:1rem">
+          <h3 style="margin:0">${esc(title)} — Questions (${questions.length})</h3>
+          <div class="flex-row">
+            <button type="button" class="btn btn-sm ghost" id="pauseExamBtn">⏸ Pause</button>
+            <button type="button" class="btn btn-sm ghost" id="checkAllExamBtn">✓ Check selected answers</button>
+          </div>
+        </div>
         <div id="examQList">
           ${questions.map((q, qi) => `
-            <div class="quiz-q" data-eq-id="${esc(q.QuestionID)}">
+            <div class="quiz-q" data-eq-id="${esc(q.QuestionID)}" data-correct-index="${hasAnswerKey ? Number(q.CorrectIndex) : ''}" data-explanation="${esc(q.Explanation || '')}">
               <div class="small" style="margin-bottom:.25rem"><span class="badge">${esc(q.ModuleTag || '')}</span></div>
               <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>
               ${[q.OptionA, q.OptionB, q.OptionC, q.OptionD].map((opt, oi) => `
@@ -803,6 +881,10 @@ async function renderExams(app, selectedType) {
                   <span><strong>${'ABCD'[oi]}.</strong> ${esc(opt)}</span>
                 </label>
               `).join('')}
+              <div class="check-row">
+                <button type="button" class="btn btn-sm ghost check-eq-btn">Check</button>
+              </div>
+              <div class="quiz-explain eq-feedback" hidden></div>
             </div>
           `).join('')}
         </div>
@@ -811,7 +893,50 @@ async function renderExams(app, selectedType) {
       </div>
     `;
 
-    $('#submitExamBtn').addEventListener('click', async () => {
+    const evaluateQuestionDom = (qEl, notifyIfEmpty) => {
+      const checked = qEl.querySelector('input[type=radio]:checked');
+      if (!checked) {
+        if (notifyIfEmpty) toast('Select an option before checking', 'warn');
+        return false;
+      }
+      const chosen = Number(checked.value);
+      const fb = qEl.querySelector('.eq-feedback');
+      const corrAttr = qEl.dataset.correctIndex;
+      const explain = qEl.dataset.explanation || '';
+
+      if (corrAttr !== '' && corrAttr !== undefined) {
+        const correct = Number(corrAttr);
+        const isRight = chosen === correct;
+        $$('.quiz-opt', qEl).forEach((optEl, idx) => {
+          optEl.classList.remove('correct', 'wrong');
+          if (idx === correct) optEl.classList.add('correct');
+          else if (idx === chosen && !isRight) optEl.classList.add('wrong');
+        });
+        fb.hidden = false;
+        fb.className = 'quiz-explain eq-feedback ' + (isRight ? 'ok' : 'bad');
+        fb.innerHTML = `<strong>${isRight ? '✓ Correct' : '✗ Incorrect'}</strong>${explain ? ' — ' + esc(explain) : ''}`;
+      } else {
+        fb.hidden = false;
+        fb.className = 'quiz-explain eq-feedback';
+        fb.innerHTML = `<strong>Selected: ${'ABCD'[chosen] || ''}</strong> — Submit exam to grade and view full rationales.`;
+      }
+      return true;
+    };
+
+    $$('#examQList .quiz-q').forEach(qEl => {
+      qEl.querySelector('.check-eq-btn')?.addEventListener('click', () => evaluateQuestionDom(qEl, true));
+    });
+
+    $('#checkAllExamBtn')?.addEventListener('click', () => {
+      let checkedCount = 0;
+      $$('#examQList .quiz-q').forEach(qEl => {
+        if (evaluateQuestionDom(qEl, false)) checkedCount++;
+      });
+      toast(`Checked ${checkedCount} answered question(s)`, 'info');
+    });
+
+    const finalizeExamSubmission = async (forceAuto) => {
+      if (submittedNow) return;
       const answers = [];
       let unanswered = 0;
       $$('#examQList .quiz-q').forEach((qEl, qi) => {
@@ -819,13 +944,16 @@ async function renderExams(app, selectedType) {
         if (checked) answers.push({ questionId: qEl.dataset.eqId, chosenIndex: Number(checked.value) });
         else unanswered++;
       });
-      if (unanswered > 0 && !confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+      if (!forceAuto && unanswered > 0 && !confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
 
-      const sBtn = $('#submitExamBtn'); sBtn.disabled = true; sBtn.textContent = 'Submitting…';
+      clearExamTimer();
+      const sBtn = $('#submitExamBtn');
+      if (sBtn) { sBtn.disabled = true; sBtn.textContent = 'Submitting…'; }
       const subRes = await apiCall('submitExam', { examType: activeType, passcode, answers });
-      sBtn.disabled = false; sBtn.textContent = `Submit ${activeType.toUpperCase()} Exam`;
+      if (sBtn) { sBtn.disabled = false; sBtn.textContent = `Submit ${activeType.toUpperCase()} Exam`; }
 
       if (!subRes.ok) { toast(subRes.error || 'Submission failed', 'bad'); return; }
+      submittedNow = true;
       const d = subRes.data;
       const cls = Number(d.percentage) >= PASS_THRESHOLD ? 'ok' : 'bad';
       const rBox = $('#examResultBox');
@@ -841,14 +969,44 @@ async function renderExams(app, selectedType) {
                 const clsOpt = j === r.correctIndex ? 'correct' : (j === r.chosenIndex ? 'wrong' : '');
                 return `<div class="quiz-opt ${clsOpt}"><input type="radio" disabled ${j === r.chosenIndex ? 'checked' : ''}><span><strong>${'ABCD'[j]}.</strong> ${esc(opt)}</span></div>`;
               }).join('')}
-              ${r.explanation ? `<div class="quiz-explain">💡 ${esc(r.explanation)}</div>` : ''}
+              ${r.explanation ? `<div class="quiz-explain ${r.correct ? 'ok' : 'bad'}">💡 ${esc(r.explanation)}</div>` : ''}
             </div>
           `).join('')}
         </div>
       `;
       rBox.hidden = false;
       rBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    const startCountdown = () => {
+      clearExamTimer();
+      _examTimerId = setInterval(() => {
+        if (submittedNow) { clearExamTimer(); return; }
+        remaining--;
+        updateTimerDisplay();
+        if (remaining <= 0) {
+          remaining = 0;
+          updateTimerDisplay();
+          clearExamTimer();
+          toast('Time is up — submitting exam automatically', 'warn');
+          finalizeExamSubmission(true);
+        }
+      }, 1000);
+    };
+    startCountdown();
+
+    $('#pauseExamBtn')?.addEventListener('click', (ev) => {
+      if (submittedNow) return;
+      if (_examTimerId) {
+        clearExamTimer();
+        ev.target.textContent = '▶ Resume';
+      } else {
+        ev.target.textContent = '⏸ Pause';
+        startCountdown();
+      }
     });
+
+    $('#submitExamBtn')?.addEventListener('click', () => finalizeExamSubmission(false));
   });
 }
 
@@ -1324,6 +1482,23 @@ document.addEventListener('click', (e) => {
       if (res.ok) {
         const box = $('#quizResults');
         const pct = Number(res.data.percentage);
+        const rMap = {};
+        (res.data.results || []).forEach(r => { rMap[r.quizId] = r; });
+        $$('#quizContainer .quiz-q').forEach(qEl => {
+          const r = rMap[qEl.dataset.quizId];
+          if (!r) return;
+          $$('.quiz-opt', qEl).forEach((optEl, idx) => {
+            optEl.classList.remove('correct', 'wrong');
+            if (idx === r.correctIndex) optEl.classList.add('correct');
+            else if (idx === r.chosenIndex && !r.correct) optEl.classList.add('wrong');
+          });
+          const fb = qEl.querySelector('.q-feedback');
+          if (fb) {
+            fb.hidden = false;
+            fb.className = 'quiz-explain q-feedback ' + (r.correct ? 'ok' : 'bad');
+            fb.innerHTML = `<strong>${r.correct ? '✓ Correct' : '✗ Incorrect'}</strong>${r.explanation ? ' — ' + esc(r.explanation) : ''}`;
+          }
+        });
         box.innerHTML = `<div class="quiz-result ${pct >= PASS_THRESHOLD ? 'ok' : 'bad'}">Score: ${res.data.score}/${res.data.total} — <strong>${pct}%</strong></div>`;
         box.hidden = false;
         toast('Quiz submitted', 'ok');
@@ -1344,6 +1519,7 @@ document.addEventListener('input', debounce(async (e) => {
 }, 700));
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
+  clearExamTimer();
   try { await fetchJSON(API_URL, { action: 'logout', token: state.token }); } catch (e) {}
   clearSession(); state.view = 'login'; render();
 });
