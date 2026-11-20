@@ -1,19 +1,11 @@
 // ============================================================
-//  Neonatal Nursing LMS — configuration
+//  Neonatal Nursing LMS — configuration (XAMPP + Offline/Online)
 // ============================================================
-//  ⚠ EDIT THIS FILE BEFORE USING THE APP ⚠
-//
-//  1. Deploy your Code.gs as a Web App:
-//       Deploy → New deployment → Web app
-//         Execute as:  Me
-//         Who has access:  Anyone
-//
-//  2. Copy the /exec URL (ends with "/exec", NOT "/dev")
-//     and paste it into API_URL below.
+//  Place this folder in XAMPP: C:\xampp\htdocs\lms\
+//  Access via: http://localhost/lms/
 // ============================================================
 
 window.LMS_CONFIG = {
-  // Example: 'https://script.google.com/macros/s/AKfycb.../exec'
   API_URL: 'https://script.google.com/macros/s/AKfycby3GsOpDOZnMFIjNHBMO2CMYrL6J7B1QsgO19rl1CyOeBb7dcNrKywRocWlbT199AqWPw/exec',
 
   COURSE_TITLE: 'Neonatal Nursing',
@@ -21,8 +13,8 @@ window.LMS_CONFIG = {
 
   OFFLINE: {
     ENABLED: true,
-    SERVICE_WORKER: 'sw.js',          // relative to this folder
-    CACHE_VERSION: 'lms-v2',          // must match CACHE in sw.js
+    SERVICE_WORKER: 'sw.js',          // relative to http://localhost/lms/
+    CACHE_VERSION: 'lms-v3',          // must match CACHE in sw.js
     QUEUE_MAX_ITEMS: 200,
     QUEUE_MAX_RETRIES: 5,
     SYNC_BATCH_SIZE: 25,
