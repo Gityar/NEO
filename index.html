@@ -24,7 +24,6 @@ h1,h2,h3,h4{color:var(--ink);margin:0 0 .5rem;line-height:1.25}
 h1{font-size:1.6rem}h2{font-size:1.25rem}h3{font-size:1.1rem}h4{font-size:1rem}
 p{margin:0 0 .75rem}
 .small{font-size:.85rem;color:var(--muted)}
-.center{text-align:center}
 .hidden{display:none !important}
 .flex-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
 .space-between{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
@@ -42,7 +41,7 @@ p{margin:0 0 .75rem}
 .mainnav button.active{background:var(--brand-50);color:var(--brand-600);border-color:var(--brand-100)}
 .mainnav button:hover{background:var(--line-soft)}
 
-main#app{max-width:1120px;margin:1.25rem auto;padding:0 1rem}
+main#app{max-width:1140px;margin:1.25rem auto;padding:0 1rem}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
 .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
@@ -88,61 +87,42 @@ textarea{resize:vertical;min-height:90px}
 .lesson-main .lesson-lead{font-size:1.05rem;color:var(--ink-soft)}
 .lesson-main h3.lesson-h{color:var(--brand-600);margin-top:1.5rem;padding-bottom:.3rem;border-bottom:2px solid var(--brand-50)}
 .lesson-callout{padding:.9rem 1.1rem;border-left:4px solid var(--brand);background:var(--brand-50);border-radius:6px;margin:1rem 0}
-.lesson-callout.warn{border-color:var(--warn);background:var(--warn-50)}
-.lesson-callout.danger{border-color:var(--bad);background:var(--bad-50)}
-.lesson-callout.ok{border-color:var(--ok);background:var(--ok-50)}
 .lesson-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1rem 0}
 .lesson-card{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:8px;padding:.85rem}
 .lesson-card .card-num{display:inline-block;background:var(--brand);color:#fff;width:24px;height:24px;text-align:center;border-radius:50%;font-weight:700;font-size:.78rem;line-height:24px;margin-bottom:.35rem}
-.lesson-tbl{margin:1rem 0}
-.lesson-tbl figcaption{font-weight:600;margin-bottom:.5rem;color:var(--brand-600)}
-.lesson-tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
-.lesson-tbl table{width:100%;border-collapse:collapse;font-size:.9rem}
-.lesson-tbl th,.lesson-tbl td{padding:.55rem .7rem;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
-.lesson-tbl th{background:var(--line-soft);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
-.lesson-formula{background:#f8fafb;border:1px dashed var(--line);border-radius:8px;padding:1rem;margin:1rem 0;font-family:'Courier New',monospace;font-size:.92rem}
-.lesson-calc{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:8px;padding:1rem;margin:1rem 0}
-.calc-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.calc-row input{flex:1;min-width:120px;max-width:180px;margin:0}
-.calc-feedback{margin-top:.5rem;font-weight:600}
-.calc-feedback.ok{color:var(--ok)}.calc-feedback.bad{color:var(--bad)}
 .lesson-discuss{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.25rem 0}
 .note-status{font-size:.8rem;color:var(--muted);margin-top:.3rem;min-height:1.1rem}
 .note-status.ok{color:var(--ok)}.note-status.bad{color:var(--bad)}
-.lesson-pbl{background:var(--warn-50);border:1px solid #fcd34d;border-radius:10px;margin:1.25rem 0;overflow:hidden}
-.pbl-header{background:#f59e0b;color:#fff;padding:.65rem 1rem;font-weight:700;font-size:.92rem}
-.pbl-body{padding:1rem}
-.pbl-scenario{background:#fff;border-left:3px solid #f59e0b;padding:.75rem .9rem;margin-bottom:.85rem;font-style:italic;border-radius:4px}
-.lesson-checklist{background:#f8fafb;border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.25rem 0}
-.lesson-checklist label{display:flex;align-items:flex-start;gap:.55rem;margin-bottom:.45rem;font-weight:400;font-size:.92rem;cursor:pointer}
-.lesson-checklist input[type=checkbox]{margin-top:.2rem;width:auto;flex-shrink:0}
 .lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);flex-wrap:wrap}
 
-.quiz-block{margin-top:2rem;padding:1.25rem;background:#f8fafb;border:1px solid var(--line);border-radius:10px}
-.quiz-q{margin-bottom:1.25rem}
-.quiz-q .q-text{font-weight:600;margin-bottom:.6rem}
-.quiz-opt{display:flex;align-items:flex-start;gap:.5rem;padding:.55rem .75rem;border:1px solid var(--line);border-radius:8px;margin-bottom:.4rem;cursor:pointer;background:#fff}
+.quiz-q{margin-bottom:1.15rem;padding-bottom:.85rem;border-bottom:1px solid var(--line-soft)}
+.quiz-q .q-text{font-weight:600;margin-bottom:.5rem}
+.quiz-opt{display:flex;align-items:flex-start;gap:.5rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:8px;margin-bottom:.35rem;cursor:pointer;background:#fff}
 .quiz-opt input{width:auto;margin:0;flex-shrink:0;margin-top:.2rem}
 .quiz-opt.correct{border-color:var(--ok);background:var(--ok-50)}
 .quiz-opt.wrong{border-color:var(--bad);background:var(--bad-50)}
-.quiz-explain{background:var(--brand-50);padding:.6rem .8rem;border-radius:6px;margin-top:.5rem;font-size:.9rem}
+.quiz-explain{background:var(--brand-50);padding:.55rem .75rem;border-radius:6px;margin-top:.45rem;font-size:.88rem}
 .quiz-result{padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-weight:600}
 .quiz-result.ok{background:var(--ok-50);color:var(--ok)}
 .quiz-result.bad{background:var(--bad-50);color:var(--bad)}
+
+.osce-domain-card{border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;margin-bottom:.85rem;background:#fafdfd}
+.osce-rubric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.6rem 0}
+.rubric-box{border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem;background:#fff;font-size:.82rem}
+.rubric-box strong{display:block;margin-bottom:.2rem}
 
 .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
 table.data{width:100%;border-collapse:collapse;font-size:.9rem}
 table.data th,table.data td{padding:.55rem .75rem;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
 table.data th{background:var(--line-soft);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
 table.data tr:last-child td{border-bottom:none}
-table.data tr:hover{background:#f8fafb}
 
 .tabs{display:flex;gap:.25rem;border-bottom:1px solid var(--line);margin-bottom:1rem;overflow-x:auto}
 .tab{background:transparent;border:1px solid transparent;border-bottom:none;padding:.55rem .9rem;font-weight:600;color:var(--muted);border-radius:8px 8px 0 0;white-space:nowrap}
 .tab.active{background:var(--card);border-color:var(--line);color:var(--brand-600);margin-bottom:-1px}
 
 .modal-backdrop{position:fixed;inset:0;background:rgba(13,31,38,.45);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:500}
-.modal-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,.22)}
+.modal-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;width:100%;max-width:740px;max-height:90vh;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,.22)}
 
 .toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:1000;font-size:.9rem;max-width:90vw}
 .toast.ok{background:var(--ok)}.toast.bad{background:var(--bad)}.toast.warn{background:var(--warn)}
@@ -170,6 +150,7 @@ table.data tr:hover{background:#f8fafb}
 
 <nav class="mainnav hidden" id="mainNav">
   <button data-nav="dashboard" class="active">Learn</button>
+  <button data-nav="exams">Exams (30 / 40)</button>
   <button data-nav="grades">My grades</button>
   <button data-nav="certificates">Certificates</button>
   <button data-nav="portfolio">Portfolio</button>
@@ -187,11 +168,103 @@ const CFG = window.LMS_CONFIG || {};
 const API_URL = CFG.API_URL || '';
 const COURSE_TITLE = CFG.COURSE_TITLE || 'Neonatal Nursing';
 const PASS_THRESHOLD = Number(CFG.PASS_THRESHOLD) || 80;
+const EXAMS_CFG = Object.assign({
+  MIDTERM_TITLE: 'Midterm Theory Examination (30 MCQs)',
+  FINAL_TITLE: 'Final Comprehensive Examination (40 MCQs)',
+  MIDTERM_PASSCODE: 'MIDTERM2026',
+  FINAL_PASSCODE: 'FINAL2026'
+}, CFG.EXAMS || {});
 const OFFLINE = Object.assign({
-  ENABLED: true, SERVICE_WORKER: 'sw.js', CACHE_VERSION: 'lms-v3',
+  ENABLED: true, SERVICE_WORKER: 'sw.js', CACHE_VERSION: 'lms-v4',
   QUEUE_MAX_ITEMS: 200, QUEUE_MAX_RETRIES: 5, SYNC_BATCH_SIZE: 25,
   SYNC_INTERVAL_MS: 30000, PING_INTERVAL_MS: 60000
 }, CFG.OFFLINE || {});
+
+/* =====================================================================
+   10-DOMAIN OSCE RUBRIC (Explicit Behavioral Anchors for Unbiased Scoring)
+   ===================================================================== */
+const OSCE_DOMAINS = [
+  {
+    num: 1,
+    title: 'Preparation & Infection Control',
+    objective: 'Environment readiness, equipment check, hand hygiene, and clean/sterile precautions before handling.',
+    s0: 'Skips hand hygiene/equipment check or creates contamination/thermal hazard.',
+    s1: 'Performs partial prep or minor delay in checking suction/bag/warmer or hygiene.',
+    s2: 'Completes full hand hygiene, PPE/asepsis, and verifies warmer, bag/mask, suction, and O2 promptly.'
+  },
+  {
+    num: 2,
+    title: 'Initial Thermal & Airway Management',
+    objective: 'Immediate drying, removal of wet linen, hat/warmer use, sniffing position, and selective airway clearance.',
+    s0: 'Leaves infant wet/unwarmed or hyperextends/flexes neck obstructing airway.',
+    s1: 'Applies warmth or positioning with minor delay or unnecessary routine suctioning.',
+    s2: 'Dries immediately, removes wet linen, warms/hat, places in neutral sniffing position, suctions only if indicated.'
+  },
+  {
+    num: 3,
+    title: 'Rapid Assessment & APGAR Evaluation',
+    objective: 'Immediate evaluation of term status, tone, breathing/crying, heart rate, and accurate APGAR scoring.',
+    s0: 'Delays care for APGAR or misjudges apnoea/bradycardia (< 100 bpm).',
+    s1: 'Assesses key signs but states findings late or inconsistently.',
+    s2: 'Rapidly evaluates tone, breathing, and HR; initiates action immediately without delaying for APGAR.'
+  },
+  {
+    num: 4,
+    title: 'Positive Pressure Ventilation (PPV) Execution',
+    objective: 'Timely PPV initiation within the Golden Minute, proper mask seal, rate (40–60/min), and chest rise check.',
+    s0: 'Fails to start PPV when indicated or delivers erratic/unsafe ventilation.',
+    s1: 'Starts PPV late (> 60 s) or seal/rate needs prompt adjustment.',
+    s2: 'Initiates PPV within 60 s at 40–60 breaths/min with good seal and visible gentle chest rise.'
+  },
+  {
+    num: 5,
+    title: 'Corrective Ventilation Steps (MR. SOPA)',
+    objective: 'Systematic troubleshooting when chest does not rise: Mask, Reposition, Suction, Open mouth, Pressure, Alternative airway.',
+    s0: 'Random/unstructured troubleshooting or escalates to compressions without achieving chest rise.',
+    s1: 'Applies some MR. SOPA steps out of sequence or omits one check.',
+    s2: 'Executes MR. SOPA systematically in order until chest rises effectively.'
+  },
+  {
+    num: 6,
+    title: 'Chest Compressions (3:1 Ratio)',
+    objective: 'Initiation when HR < 60 bpm after effective ventilation; correct thumb placement, depth (~1/3 AP), and 3:1 cadence.',
+    s0: 'Starts compressions with HR ≥ 60 bpm without adequate PPV, or wrong technique.',
+    s1: 'Correct indication, but minor rhythm/coordination lapse during 3:1 cycles.',
+    s2: 'Starts at HR < 60 bpm with 100% O2; maintains accurate 3:1 ratio (120 events/min) and depth.'
+  },
+  {
+    num: 7,
+    title: 'Medication Preparation & Administration',
+    objective: 'Accurate weight-based dose calculation (e.g., epinephrine 0.02 mg/kg), concentration check, closed-loop verification, and route.',
+    s0: 'Calculation error, wrong concentration/route, or unverified high-alert drug.',
+    s1: 'Correct dose but slow double-check or minor documentation lag.',
+    s2: 'Calculates accurately, verifies concentration/dose aloud with second check, and administers safely.'
+  },
+  {
+    num: 8,
+    title: 'Team Communication & Closed-Loop Practice',
+    objective: 'Clear role allocation, call-outs of HR/SpO2/interventions, and explicit read-back/closed-loop confirmation.',
+    s0: 'Silent/chaotic team behavior or unacknowledged critical orders.',
+    s1: 'Communicates intermittently; occasional missing read-back.',
+    s2: 'Uses clear, calm, closed-loop communication and timely status call-outs throughout.'
+  },
+  {
+    num: 9,
+    title: 'Documentation & Timekeeping',
+    objective: 'Accurate recording of birth/intervention times, HR/SpO2 trends, medications, and post-resuscitation status.',
+    s0: 'Missing critical times/medications or inaccurate record.',
+    s1: 'Records most events accurately with minor omissions.',
+    s2: 'Tracks time intervals accurately and documents interventions, responses, and vitals clearly.'
+  },
+  {
+    num: 10,
+    title: 'Professionalism, Safety & Family Communication',
+    objective: 'Safe handling, calm demeanor, ethical care, and empathetic, clear updates to parents/family.',
+    s0: 'Unsafe handling, disrespectful tone, or no communication with family.',
+    s1: 'Safe care overall; family update brief or delayed.',
+    s2: 'Demonstrates calm professionalism, safety vigilance, and compassionate, clear family communication.'
+  }
+];
 
 const $  = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
@@ -269,7 +342,6 @@ async function idbDel(store, key) {
 const kvGet = (k)    => idbGet('kv', k).then(r => r ? r.val : null);
 const kvSet = (k, v) => idbPut('kv', { key: k, val: v, at: Date.now() });
 
-/* ---------- State ---------- */
 const state = {
   token: localStorage.getItem('lms_token') || '',
   user:  safeJSON(localStorage.getItem('lms_user')) || null,
@@ -288,22 +360,26 @@ function fetchJSON(url, body) {
 
 const READ_ACTIONS = new Set([
   'me', 'listContent', 'getQuizGroupScore', 'getUserData',
-  'listMyPortfolio', 'listAllPortfolios', 'listUsers', 'listAllGrades',
-  'listOsce', 'listCertificates', 'listAudit', 'computeLearnerGrade', 'ping'
+  'listMyPortfolio', 'listUsers', 'listAllGrades',
+  'listCertificates', 'computeLearnerGrade', 'getMyExamSummary',
+  'listExamQuestionsAdmin', 'ping'
 ]);
 const WRITE_ACTIONS = new Set([
-  'saveUserData', 'submitQuizGroup', 'updateUser', 'deleteUser', 'adminCreateUser',
+  'saveUserData', 'submitQuizGroup', 'submitExam', 'updateUser', 'deleteUser', 'adminCreateUser',
   'createModule', 'updateModule', 'deleteModule',
   'createLesson', 'updateLesson', 'deleteLesson',
-  'createQuiz', 'updateQuiz', 'deleteQuiz', 'submitOsce',
-  'adminUpdateModuleGrade', 'updatePortfolioStatus', 'submitPortfolio'
+  'createQuiz', 'updateQuiz', 'deleteQuiz',
+  'createExamQuestion', 'updateExamQuestion', 'deleteExamQuestion',
+  'submitOsce', 'adminUpdateModuleGrade', 'submitPortfolio'
 ]);
 const ONLINE_ONLY = new Set([
-  'login', 'logout', 'register', 'forgot', 'reset',
-  'submitPortfolio', 'updatePortfolioStatus', 'updateUser', 'deleteUser', 'adminCreateUser',
+  'login', 'logout', 'register', 'forgot', 'reset', 'verifyExamPasscode',
+  'submitPortfolio', 'updateUser', 'deleteUser', 'adminCreateUser',
   'createModule', 'updateModule', 'deleteModule',
   'createLesson', 'updateLesson', 'deleteLesson',
-  'createQuiz', 'updateQuiz', 'deleteQuiz', 'submitOsce', 'adminUpdateModuleGrade'
+  'createQuiz', 'updateQuiz', 'deleteQuiz',
+  'createExamQuestion', 'updateExamQuestion', 'deleteExamQuestion',
+  'submitOsce', 'adminUpdateModuleGrade'
 ]);
 
 function cacheKey(action, body) {
@@ -314,7 +390,6 @@ function cacheKey(action, body) {
 async function apiCall(action, body, opts) {
   opts = opts || {};
   const payload = Object.assign({}, body || {}, { action, token: state.token });
-
   if (state.online && !opts.forceCache) {
     try {
       const res = await fetchJSON(API_URL, payload);
@@ -326,12 +401,11 @@ async function apiCall(action, body, opts) {
       return { ok: false, error: (res && res.error) || 'Server error', code: res && res.code };
     } catch (netErr) {}
   }
-
-  if (ONLINE_ONLY.has(action)) return { ok: false, error: 'This action needs an internet connection.', offline: true };
+  if (ONLINE_ONLY.has(action)) return { ok: false, error: 'This action requires an internet connection.', offline: true };
   if (READ_ACTIONS.has(action)) {
     const cached = await kvGet(cacheKey(action, body));
     if (cached && cached.data) return { ok: true, data: cached.data, fromCache: true };
-    return { ok: false, error: 'Offline and no cached copy of this data.' };
+    return { ok: false, error: 'Offline and no cached copy available.' };
   }
   if (WRITE_ACTIONS.has(action)) {
     const optimistic = await applyOptimisticLocal(action, body || {});
@@ -346,30 +420,6 @@ async function applyOptimisticLocal(action, body) {
     state.userData[body.dataKey] = body.dataValue;
     await kvSet('userData', state.userData);
     return { message: 'Saved locally.', offline: true };
-  }
-  if (action === 'submitQuizGroup') {
-    const mod = ((state.content && state.content.modules) || []).find(m => String(m.ModuleID) === String(body.moduleId));
-    if (!mod) return { message: 'Queued.', offline: true };
-    const qmap = {}; (mod.Quizzes || []).forEach(q => qmap[q.QuizID] = q);
-    let correct = 0, total = 0; const results = [];
-    (body.answers || []).forEach(a => {
-      const q = qmap[a.quizId]; if (!q) return;
-      total++;
-      const ok = Number(a.chosenIndex) === Number(q.CorrectIndex);
-      if (ok) correct++;
-      results.push({ quizId: q.QuizID, question: q.Question, options: [q.OptionA, q.OptionB, q.OptionC, q.OptionD],
-        chosenIndex: a.chosenIndex, correctIndex: q.CorrectIndex, correct: ok, explanation: q.Explanation || '' });
-    });
-    const percentage = total ? Math.round((correct / total) * 1000) / 10 : 0;
-    const local = (await kvGet('quizLocal')) || {};
-    const prev = local[body.moduleId];
-    local[body.moduleId] = {
-      moduleId: body.moduleId, moduleTitle: mod.Title, score: correct, total, percentage,
-      attemptCount: (prev ? prev.attemptCount : 0) + 1, attemptedAt: new Date().toISOString(), offline: true
-    };
-    await kvSet('quizLocal', local);
-    return { attemptId: 'local-' + uid(), results, score: correct, total, percentage,
-      attemptCount: local[body.moduleId].attemptCount, attemptedAt: local[body.moduleId].attemptedAt, offline: true };
   }
   return { message: 'Queued.', offline: true };
 }
@@ -470,7 +520,6 @@ async function ensureContent(forceRefresh) {
   return state.content || null;
 }
 
-/* ---------- Routing ---------- */
 function render() {
   const app = $('#app');
   updateNetBadge();
@@ -478,6 +527,7 @@ function render() {
   switch (state.view) {
     case 'dashboard':    return renderDashboard(app);
     case 'module':       return renderModule(app, state.params.moduleId);
+    case 'exams':        return renderExams(app, state.params.examType);
     case 'grades':       return renderGrades(app);
     case 'certificates': return renderCertificates(app);
     case 'portfolio':    return renderPortfolio(app);
@@ -486,7 +536,7 @@ function render() {
   }
 }
 
-/* ---------- Login / Register ---------- */
+/* ---------- Login ---------- */
 function renderLogin(app) {
   app.innerHTML = `
     <div class="form-card card">
@@ -511,67 +561,50 @@ function renderLogin(app) {
       <div id="authMsg"></div>
     </div>
   `;
-  const msgBox = () => $('#authMsg');
-  const showMsg = (text, kind) => { msgBox().innerHTML = `<div class="msg ${kind}">${esc(text)}</div>`; };
-
+  const showMsg = (text, kind) => { $('#authMsg').innerHTML = `<div class="msg ${kind}">${esc(text)}</div>`; };
   $$('[data-auth-tab]').forEach(b => b.addEventListener('click', () => {
     $$('[data-auth-tab]').forEach(x => x.classList.toggle('active', x === b));
     $('#loginForm').classList.toggle('hidden', b.dataset.authTab !== 'login');
     $('#registerForm').classList.toggle('hidden', b.dataset.authTab !== 'register');
-    msgBox().innerHTML = '';
+    $('#authMsg').innerHTML = '';
   }));
-
   $('#loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const f = e.target;
-    const btn = f.querySelector('button[type=submit]');
+    const f = e.target; const btn = f.querySelector('button[type=submit]');
     btn.disabled = true; btn.textContent = 'Signing in…';
     try {
       const res = await fetchJSON(API_URL, { action: 'login', email: f.email.value.trim().toLowerCase(), password: f.password.value });
       if (!res.ok) throw new Error(res.error || 'Login failed');
       saveSession(res.data.token, res.data.user);
       state.view = 'dashboard'; state.params = {};
-      await preloadAll();
-      render();
+      await preloadAll(); render();
     } catch (err) {
       showMsg(err.message || 'Login failed', 'bad');
       btn.disabled = false; btn.textContent = 'Sign in';
     }
   });
-
   $('#registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const f = e.target;
-    const btn = f.querySelector('button[type=submit]');
+    const f = e.target; const btn = f.querySelector('button[type=submit]');
     btn.disabled = true; btn.textContent = 'Creating…';
     try {
-      const res = await fetchJSON(API_URL, {
-        action: 'register', name: f.name.value.trim(),
-        email: f.email.value.trim().toLowerCase(), password: f.password.value
-      });
+      const res = await fetchJSON(API_URL, { action: 'register', name: f.name.value.trim(), email: f.email.value.trim().toLowerCase(), password: f.password.value });
       if (!res.ok) throw new Error(res.error || 'Registration failed');
-      showMsg('Account created. You can now sign in.', 'ok');
-      f.reset();
-      $$('[data-auth-tab]').forEach(x => x.classList.toggle('active', x.dataset.authTab === 'login'));
-      $('#loginForm').classList.remove('hidden'); f.classList.add('hidden');
+      showMsg('Account created. You can now sign in.', 'ok'); f.reset();
     } catch (err) {
       showMsg(err.message || 'Registration failed', 'bad');
       btn.disabled = false; btn.textContent = 'Create account';
     }
   });
-
   $('#forgotLink').addEventListener('click', async (e) => {
     e.preventDefault();
     const email = prompt('Enter your account email:'); if (!email) return;
     try {
       const res = await fetchJSON(API_URL, { action: 'forgot', email: email.trim().toLowerCase() });
       if (!res.ok) throw new Error(res.error || 'Request failed');
-      let text = res.data.message;
-      if (res.data.code) text += ' Code: ' + res.data.code;
-      const code = prompt(text + '\n\nEnter the reset code:');
+      const code = prompt((res.data.message + (res.data.code ? ' Code: ' + res.data.code : '')) + '\n\nEnter the reset code:');
       if (!code) return;
-      const pw = prompt('Enter your new password (min 8 chars):');
-      if (!pw) return;
+      const pw = prompt('Enter your new password (min 8 chars):'); if (!pw) return;
       const r2 = await fetchJSON(API_URL, { action: 'reset', email: email.trim().toLowerCase(), code: code.trim(), password: pw });
       if (!r2.ok) throw new Error(r2.error || 'Reset failed');
       showMsg('Password reset. Please sign in.', 'ok');
@@ -583,17 +616,15 @@ function renderLogin(app) {
 async function renderDashboard(app) {
   app.innerHTML = `<div class="card"><p class="small">Loading modules…</p></div>`;
   const content = await ensureContent();
-  if (!content || !content.modules) {
-    app.innerHTML = `<div class="msg bad">Could not load course content.</div>`;
-    return;
-  }
+  if (!content || !content.modules) { app.innerHTML = `<div class="msg bad">Could not load course content.</div>`; return; }
   const mods = content.modules.slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
   app.innerHTML = `
     <div class="space-between" style="margin-bottom:1rem">
       <div>
         <h1 style="margin:0">Welcome back, ${esc(state.user ? state.user.name.split(' ')[0] : 'learner')}</h1>
-        <p class="small" style="margin:.25rem 0 0">Use the left outline or Previous/Next buttons inside any module.</p>
+        <p class="small" style="margin:.25rem 0 0">Navigate via the left outline or Previous/Next buttons.</p>
       </div>
+      <button class="btn primary btn-sm" data-nav="exams">Midterm (30) &amp; Final (40) Exams</button>
     </div>
     <div class="grid">
       ${mods.map(m => `
@@ -607,20 +638,15 @@ async function renderDashboard(app) {
     </div>
   `;
   $$('.mod-card').forEach(el => el.addEventListener('click', () => {
-    state.view = 'module';
-    state.params = { moduleId: el.dataset.moduleId, lessonId: '' };
-    render();
+    state.view = 'module'; state.params = { moduleId: el.dataset.moduleId, lessonId: '' }; render();
   }));
 }
 
-/* ---------- Module View (Left Outline + Prev/Next across Lessons, Quiz, and Modules) ---------- */
+/* ---------- Module View ---------- */
 async function renderModule(app, moduleId) {
   app.innerHTML = `<div class="card"><p class="small">Loading module…</p></div>`;
   const content = await ensureContent();
-  if (!content || !content.modules) {
-    app.innerHTML = `<div class="msg bad">Module content unavailable.</div>`;
-    return;
-  }
+  if (!content || !content.modules) { app.innerHTML = `<div class="msg bad">Module content unavailable.</div>`; return; }
   const sortedMods = content.modules.slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
   const modIdx = sortedMods.findIndex(m => String(m.ModuleID) === String(moduleId));
   const mod = modIdx >= 0 ? sortedMods[modIdx] : null;
@@ -628,8 +654,6 @@ async function renderModule(app, moduleId) {
 
   const lessons = (mod.Lessons || []).slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
   const hasQuiz = (mod.Quizzes || []).length > 0;
-
-  // Build ordered steps within this module: lessons..., optional QUIZ
   const steps = lessons.map(l => ({ type: 'lesson', id: l.LessonID, title: l.Title, lesson: l }));
   if (hasQuiz) steps.push({ type: 'quiz', id: 'QUIZ', title: '📝 Module quiz' });
 
@@ -643,27 +667,18 @@ async function renderModule(app, moduleId) {
   const nextMod = modIdx < sortedMods.length - 1 ? sortedMods[modIdx + 1] : null;
 
   let navHtml = `<h4>${esc(mod.Title)}</h4>`;
-  steps.forEach((st, idx) => {
-    navHtml += `<a data-step-idx="${idx}" class="${idx === stepIdx ? 'active' : ''}">${esc(st.title)}</a>`;
-  });
+  steps.forEach((st, idx) => { navHtml += `<a data-step-idx="${idx}" class="${idx === stepIdx ? 'active' : ''}">${esc(st.title)}</a>`; });
 
   let mainHtml = '';
-  if (!activeStep) {
-    mainHtml = `<div class="msg info">No lessons or quizzes in this module yet.</div>`;
-  } else if (activeStep.type === 'quiz') {
-    mainHtml = await renderQuizView(mod);
-  } else {
-    mainHtml = `<h2>${esc(activeStep.lesson.Title)}</h2><div class="lesson-content">${activeStep.lesson.ContentHTML}</div>`;
-  }
-
-  const hasPrevStep = stepIdx > 0;
-  const hasNextStep = stepIdx < steps.length - 1;
+  if (!activeStep) mainHtml = `<div class="msg info">No lessons or quizzes in this module yet.</div>`;
+  else if (activeStep.type === 'quiz') mainHtml = await renderQuizView(mod);
+  else mainHtml = `<h2>${esc(activeStep.lesson.Title)}</h2><div class="lesson-content">${activeStep.lesson.ContentHTML}</div>`;
 
   mainHtml += `
     <div class="lesson-actions">
       <div class="flex-row">
-        <button class="btn ghost" id="prevStepBtn" ${hasPrevStep ? '' : 'disabled'}>← Previous</button>
-        <button class="btn primary" id="nextStepBtn" ${hasNextStep ? '' : 'disabled'}>Next →</button>
+        <button class="btn ghost" id="prevStepBtn" ${stepIdx > 0 ? '' : 'disabled'}>← Previous</button>
+        <button class="btn primary" id="nextStepBtn" ${stepIdx < steps.length - 1 ? '' : 'disabled'}>Next →</button>
       </div>
       <div class="flex-row">
         ${prevMod ? `<button class="btn ghost btn-sm" id="prevModBtn">⇐ Prev Module</button>` : ''}
@@ -683,51 +698,27 @@ async function renderModule(app, moduleId) {
     </div>
   `;
 
-  $$('.lesson-nav a[data-step-idx]').forEach(a => {
-    a.addEventListener('click', () => {
-      const idx = Number(a.dataset.stepIdx);
-      if (steps[idx]) { state.params.lessonId = steps[idx].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    });
-  });
-  $('#prevStepBtn')?.addEventListener('click', () => {
-    if (stepIdx > 0) { state.params.lessonId = steps[stepIdx - 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  });
-  $('#nextStepBtn')?.addEventListener('click', () => {
-    if (stepIdx < steps.length - 1) { state.params.lessonId = steps[stepIdx + 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  });
-  $('#prevModBtn')?.addEventListener('click', () => {
-    state.params = { moduleId: prevMod.ModuleID, lessonId: '' }; renderModule(app, prevMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  $('#nextModBtn')?.addEventListener('click', () => {
-    state.params = { moduleId: nextMod.ModuleID, lessonId: '' }; renderModule(app, nextMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  $$('.lesson-nav a[data-step-idx]').forEach(a => a.addEventListener('click', () => {
+    const idx = Number(a.dataset.stepIdx);
+    if (steps[idx]) { state.params.lessonId = steps[idx].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }));
+  $('#prevStepBtn')?.addEventListener('click', () => { if (stepIdx > 0) { state.params.lessonId = steps[stepIdx - 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+  $('#nextStepBtn')?.addEventListener('click', () => { if (stepIdx < steps.length - 1) { state.params.lessonId = steps[stepIdx + 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+  $('#prevModBtn')?.addEventListener('click', () => { state.params = { moduleId: prevMod.ModuleID, lessonId: '' }; renderModule(app, prevMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  $('#nextModBtn')?.addEventListener('click', () => { state.params = { moduleId: nextMod.ModuleID, lessonId: '' }; renderModule(app, nextMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-  bindLessonInteractions();
-}
-
-function bindLessonInteractions() {
   $$('[data-note-key]').forEach(ta => { if (state.userData[ta.dataset.noteKey]) ta.value = state.userData[ta.dataset.noteKey]; });
-  $$('[data-check-key]').forEach(cb => { cb.checked = !!state.userData[cb.dataset.checkKey]; });
 }
 
-/* ---------- Quiz View ---------- */
 async function renderQuizView(mod) {
   let banner = '';
-  let prevAttempt = null;
   const remote = await apiCall('getQuizGroupScore', { moduleId: mod.ModuleID });
-  if (remote.ok && remote.data && remote.data.attempt) prevAttempt = remote.data.attempt;
-  const local = (await kvGet('quizLocal')) || {};
-  if (local[mod.ModuleID]) {
-    const l = local[mod.ModuleID];
-    if (!prevAttempt || Number(l.percentage) >= Number(prevAttempt.percentage)) prevAttempt = l;
-  }
-  if (prevAttempt) {
-    banner = `<div class="msg info">Previous attempt: <strong>${prevAttempt.percentage}%</strong> (${prevAttempt.score}/${prevAttempt.total}) · attempt #${prevAttempt.attemptCount}</div>`;
+  if (remote.ok && remote.data && remote.data.attempt) {
+    const a = remote.data.attempt;
+    banner = `<div class="msg info">Previous attempt: <strong>${a.percentage}%</strong> (${a.score}/${a.total}) · attempt #${a.attemptCount}</div>`;
   }
   const quizzes = mod.Quizzes || [];
-  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2>
-    <p class="small">Answer every question, then submit. Correct answers and explanations appear after submission.</p>
-    <div id="quizContainer">`;
+  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2><div id="quizContainer">`;
   quizzes.forEach((q, qi) => {
     html += `<div class="quiz-q" data-quiz-id="${esc(q.QuizID)}"><div class="q-text">${qi + 1}. ${esc(q.Question)}</div>`;
     [q.OptionA, q.OptionB, q.OptionC, q.OptionD].forEach((opt, oi) => {
@@ -739,25 +730,125 @@ async function renderQuizView(mod) {
   return html;
 }
 
-function renderQuizResults(data) {
-  const box = $('#quizResults');
-  const pct = Number(data.percentage);
-  const cls = pct >= PASS_THRESHOLD ? 'ok' : 'bad';
-  let html = `<div class="quiz-result ${cls}">Score: ${data.score}/${data.total} — <strong>${pct}%</strong> (attempt #${data.attemptCount})</div><div style="margin-top:1rem">`;
-  (data.results || []).forEach((r, i) => {
-    html += `<div class="quiz-q" style="margin-bottom:.75rem"><div class="q-text">${i + 1}. ${esc(r.question)}</div>`;
-    (r.options || []).forEach((opt, j) => {
-      const isChosen = j === r.chosenIndex;
-      const isCorrect = j === r.correctIndex;
-      const c = isCorrect ? 'correct' : (isChosen ? 'wrong' : '');
-      html += `<div class="quiz-opt ${c}"><input type="radio" disabled ${isChosen ? 'checked' : ''}><span>${esc(opt)}</span></div>`;
+/* =====================================================================
+   PASSWORD-PROTECTED MIDTERM (30 MCQs) & FINAL (40 MCQs) EXAMS
+   ===================================================================== */
+async function renderExams(app, selectedType) {
+  const activeType = (selectedType === 'final') ? 'final' : 'midterm';
+  const sumRes = await apiCall('getMyExamSummary', {});
+  const summary = (sumRes.ok && sumRes.data && sumRes.data.exams) || {};
+
+  app.innerHTML = `
+    <h1>Course Examinations</h1>
+    <p class="small">Both exams require an exam passcode issued by your instructor/administrator at exam time.</p>
+    <div class="tabs">
+      <button class="tab ${activeType === 'midterm' ? 'active' : ''}" data-exam-tab="midterm">${esc(EXAMS_CFG.MIDTERM_TITLE)}</button>
+      <button class="tab ${activeType === 'final' ? 'active' : ''}" data-exam-tab="final">${esc(EXAMS_CFG.FINAL_TITLE)}</button>
+    </div>
+    <div id="examPanel"></div>
+  `;
+
+  $$('[data-exam-tab]').forEach(btn => btn.addEventListener('click', () => {
+    state.params.examType = btn.dataset.examTab;
+    renderExams(app, btn.dataset.examTab);
+  }));
+
+  const panel = $('#examPanel');
+  const title = activeType === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
+  const requiredCount = activeType === 'final' ? 40 : 30;
+  const prev = summary[activeType];
+
+  panel.innerHTML = `
+    <div class="card">
+      <h3>${esc(title)}</h3>
+      <p class="small">Format: ${requiredCount} multiple-choice questions · Pass mark: ${PASS_THRESHOLD}%</p>
+      ${prev ? `<div class="msg info">Recorded score: <strong>${prev.percentage}%</strong> (${prev.score}/${prev.total}) · Attempt #${prev.attemptCount}</div>` : ''}
+      <form id="unlockExamForm" class="flex-row" style="align-items:flex-end">
+        <label style="flex:1;min-width:220px;margin:0">
+          Enter Exam Passcode
+          <input type="password" id="examPasscodeInput" required placeholder="Enter exam password">
+        </label>
+        <button type="submit" class="btn primary">Unlock ${requiredCount}-MCQ Exam</button>
+      </form>
+      <div id="examUnlockMsg" style="margin-top:.75rem"></div>
+    </div>
+    <div id="examQuestionsArea"></div>
+  `;
+
+  $('#unlockExamForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const passcode = $('#examPasscodeInput').value.trim();
+    const msgEl = $('#examUnlockMsg');
+    msgEl.innerHTML = `<div class="msg info">Verifying passcode and loading ${requiredCount} MCQs…</div>`;
+
+    const res = await apiCall('verifyExamPasscode', { examType: activeType, passcode });
+    if (!res.ok) {
+      msgEl.innerHTML = `<div class="msg bad">${esc(res.error || 'Invalid passcode')}</div>`;
+      return;
+    }
+    const questions = res.data.questions || [];
+    msgEl.innerHTML = `<div class="msg ok">Exam unlocked (${questions.length} MCQs loaded).</div>`;
+
+    $('#examQuestionsArea').innerHTML = `
+      <div class="card">
+        <h3>${esc(title)} — Questions (${questions.length})</h3>
+        <div id="examQList">
+          ${questions.map((q, qi) => `
+            <div class="quiz-q" data-eq-id="${esc(q.QuestionID)}">
+              <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>
+              ${[q.OptionA, q.OptionB, q.OptionC, q.OptionD].map((opt, oi) => `
+                <label class="quiz-opt">
+                  <input type="radio" name="eq_${qi}" value="${oi}">
+                  <span><strong>${'ABCD'[oi]}.</strong> ${esc(opt)}</span>
+                </label>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <button class="btn primary" id="submitExamBtn">Submit ${esc(activeType.toUpperCase())} Exam</button>
+        <div id="examResultBox" hidden></div>
+      </div>
+    `;
+
+    $('#submitExamBtn').addEventListener('click', async () => {
+      const answers = [];
+      let unanswered = 0;
+      $$('#examQList .quiz-q').forEach((qEl, qi) => {
+        const checked = qEl.querySelector(`input[name="eq_${qi}"]:checked`);
+        if (checked) answers.push({ questionId: qEl.dataset.eqId, chosenIndex: Number(checked.value) });
+        else unanswered++;
+      });
+      if (unanswered > 0 && !confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+
+      const sBtn = $('#submitExamBtn'); sBtn.disabled = true; sBtn.textContent = 'Submitting…';
+      const subRes = await apiCall('submitExam', { examType: activeType, passcode, answers });
+      sBtn.disabled = false; sBtn.textContent = `Submit ${activeType.toUpperCase()} Exam`;
+
+      if (!subRes.ok) { toast(subRes.error || 'Submission failed', 'bad'); return; }
+      const d = subRes.data;
+      const cls = Number(d.percentage) >= PASS_THRESHOLD ? 'ok' : 'bad';
+      const rBox = $('#examResultBox');
+      rBox.innerHTML = `
+        <div class="quiz-result ${cls}">
+          ${esc(title)} Result: <strong>${d.score}/${d.total} (${d.percentage}%)</strong> · Attempt #${d.attemptCount}
+        </div>
+        <div style="margin-top:1rem">
+          ${(d.results || []).map((r, idx) => `
+            <div class="quiz-q">
+              <div class="q-text">${idx + 1}. ${esc(r.question)}</div>
+              ${(r.options || []).map((opt, j) => {
+                const clsOpt = j === r.correctIndex ? 'correct' : (j === r.chosenIndex ? 'wrong' : '');
+                return `<div class="quiz-opt ${clsOpt}"><input type="radio" disabled ${j === r.chosenIndex ? 'checked' : ''}><span><strong>${'ABCD'[j]}.</strong> ${esc(opt)}</span></div>`;
+              }).join('')}
+              ${r.explanation ? `<div class="quiz-explain">💡 ${esc(r.explanation)}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+      rBox.hidden = false;
+      rBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    if (r.explanation) html += `<div class="quiz-explain">💡 ${esc(r.explanation)}</div>`;
-    html += `</div>`;
   });
-  html += `</div>`;
-  box.innerHTML = html; box.hidden = false;
-  setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
 /* ---------- Grades ---------- */
@@ -773,114 +864,75 @@ async function renderGrades(app) {
       <div class="space-between">
         <div>
           <h2 style="margin:0">Final weighted score</h2>
-          <p class="small" style="margin:.25rem 0">Weights — quiz ${(g.weights.quiz*100).toFixed(0)}% · OSCE ${(g.weights.osce*100).toFixed(0)}%</p>
+          <p class="small" style="margin:.25rem 0">Weights — Quizzes ${(g.weights.quiz*100).toFixed(0)}% · Midterm/Final Exams ${(g.weights.exam*100).toFixed(0)}% · OSCE ${(g.weights.osce*100).toFixed(0)}%</p>
         </div>
         <div class="quiz-result ${cls}" style="font-size:1.5rem;padding:1rem 1.5rem">${g.finalPercentage}%</div>
       </div>
       <div style="margin-top:1rem" class="small">
-        Quiz average <strong>${g.quizAverage}%</strong> (weighted ${g.quizWeighted}%) ·
-        OSCE ${g.osce ? `<strong>${g.osce.percentage}%</strong> (weighted ${g.osce.weighted}%, best of ${g.osce.attempts})` : 'not yet attempted'}
+        Quiz avg: <strong>${g.quizAverage}%</strong> (${g.quizWeighted}%) ·
+        Midterm: <strong>${g.midterm ? g.midterm.percentage + '%' : '—'}</strong> ·
+        Final: <strong>${g.finalExam ? g.finalExam.percentage + '%' : '—'}</strong> ·
+        OSCE: <strong>${g.osce ? g.osce.percentage + '%' : '—'}</strong> (${g.osceWeighted}%)
       </div>
     </div>
     <div class="card">
-      <h3>Module-by-module</h3>
+      <h3>Module quizzes</h3>
       <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Module</th><th>Quiz</th><th>Attempts</th><th>Last attempt</th></tr></thead>
+        <thead><tr><th>Module</th><th>Quiz</th><th>Attempts</th></tr></thead>
         <tbody>${g.modules.map(m => `
-          <tr>
-            <td>${esc(m.moduleTitle)}</td>
-            <td>${m.attempted ? `<strong>${m.percentage}%</strong> (${m.score}/${m.total})` : '<span class="small">—</span>'}</td>
-            <td>${m.attemptCount || '—'}</td>
-            <td>${m.attemptedAt ? esc(String(m.attemptedAt).substring(0, 16).replace('T', ' ')) : '—'}</td>
-          </tr>`).join('')}</tbody>
+          <tr><td>${esc(m.moduleTitle)}</td><td>${m.attempted ? `<strong>${m.percentage}%</strong> (${m.score}/${m.total})` : '—'}</td><td>${m.attemptCount || '—'}</td></tr>
+        `).join('')}</tbody>
       </table></div>
     </div>
   `;
 }
 
-/* ---------- Certificates ---------- */
+/* ---------- Certificates & Portfolio ---------- */
 async function renderCertificates(app) {
   app.innerHTML = `<div class="card"><p class="small">Loading certificates…</p></div>`;
   const res = await apiCall('listCertificates', {});
   if (!res.ok) { app.innerHTML = `<div class="msg bad">${esc(res.error || '')}</div>`; return; }
   const certs = res.data.certificates || [];
-  if (!certs.length) {
-    app.innerHTML = `<h1>Certificates</h1><div class="msg info">No certificates issued yet. Complete the OSCE with ${PASS_THRESHOLD}% or more to earn one.</div>`;
-    return;
-  }
-  app.innerHTML = `<h1>Certificates</h1><div class="grid">${certs.map(c => `
-    <div class="card">
-      <h3 style="margin-top:0">${esc(c.Name)}</h3>
-      <p class="small">Score: <strong>${c.Percentage}%</strong></p>
-      <p class="small">Issued: ${esc(String(c.IssuedAt || '').substring(0, 10))} · Valid until: ${esc(String(c.ValidUntil || '').substring(0, 10))}</p>
-      <p class="small">Code: <code>${esc(c.CertCode)}</code></p>
-      <p class="small">Assessor: ${esc(c.AssessorName || c.AssessorEmail || '—')}</p>
-    </div>`).join('')}</div>`;
+  app.innerHTML = `<h1>Certificates</h1>` + (certs.length
+    ? `<div class="grid">${certs.map(c => `<div class="card"><h3>${esc(c.Name)}</h3><p class="small">Score: <strong>${c.Percentage}%</strong> · Code: <code>${esc(c.CertCode)}</code></p><p class="small">Assessor: ${esc(c.AssessorName || c.AssessorEmail || '—')}</p></div>`).join('')}</div>`
+    : `<div class="msg info">No certificates issued yet.</div>`);
 }
 
-/* ---------- Portfolio ---------- */
 async function renderPortfolio(app) {
   app.innerHTML = `<div class="card"><p class="small">Loading portfolio…</p></div>`;
   const [contentRes, subsRes] = await Promise.all([ensureContent(), apiCall('listMyPortfolio', {})]);
   const submissions = (subsRes.ok && subsRes.data && subsRes.data.submissions) || [];
   const mods = (contentRes && contentRes.modules) || [];
-
   app.innerHTML = `
     <h1>Reflective portfolio</h1>
-    <p class="small">Upload your reflective portfolio or clinical practicum evidence (PDF, DOC, DOCX, JPG, JPEG, PNG; max 10 MB).</p>
     <div class="card">
       <h3>New submission</h3>
-      <label>Module
-        <select id="pfModule">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select>
-      </label>
+      <label>Module<select id="pfModule">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>
       <label>File<input type="file" id="pfFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"></label>
       <button class="btn primary" id="pfUploadBtn" ${state.online ? '' : 'disabled'}>Upload portfolio</button>
       <div id="pfStatus"></div>
     </div>
     <div class="card">
       <h3>Past submissions</h3>
-      ${submissions.length ? `<div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Module</th><th>File</th><th>Size</th><th>Status</th><th>Notes</th><th>Uploaded</th><th>Link</th></tr></thead>
-        <tbody>${submissions.map(s => `<tr>
-          <td>${esc(s.ModuleTitle)}</td>
-          <td>${esc(s.FileName)}</td>
-          <td>${(Number(s.FileSizeBytes) / 1024).toFixed(0)} KB</td>
-          <td><span class="badge ${s.Status === 'accepted' ? 'ok' : s.Status === 'rejected' ? 'bad' : 'warn'}">${esc(s.Status)}</span></td>
-          <td>${esc(s.ReviewerNotes || '—')}</td>
-          <td>${esc(String(s.UploadedAt).substring(0, 10))}</td>
-          <td><a href="${esc(s.DriveURL)}" target="_blank" rel="noopener">Open</a></td>
-        </tr>`).join('')}</tbody>
-      </table></div>` : '<p class="small">No submissions yet.</p>'}
+      ${submissions.length ? `<div class="tbl-wrap"><table class="data"><thead><tr><th>Module</th><th>File</th><th>Status</th><th>Link</th></tr></thead><tbody>${submissions.map(s => `<tr><td>${esc(s.ModuleTitle)}</td><td>${esc(s.FileName)}</td><td>${esc(s.Status)}</td><td><a href="${esc(s.DriveURL)}" target="_blank" rel="noopener">Open</a></td></tr>`).join('')}</tbody></table></div>` : '<p class="small">No submissions yet.</p>'}
     </div>
   `;
-
   $('#pfUploadBtn')?.addEventListener('click', async () => {
-    const moduleId = $('#pfModule').value;
     const file = $('#pfFile').files?.[0];
-    const status = $('#pfStatus');
-    if (!file) { status.innerHTML = '<div class="msg bad">Select a file first.</div>'; return; }
-    if (file.size > 10 * 1024 * 1024) { status.innerHTML = '<div class="msg bad">File exceeds 10 MB.</div>'; return; }
-    const btn = $('#pfUploadBtn'); btn.disabled = true; btn.textContent = 'Uploading…';
-    try {
-      const base64 = await new Promise((res, rej) => {
-        const r = new FileReader();
-        r.onload = () => res(String(r.result).substring(String(r.result).indexOf(',') + 1));
-        r.onerror = rej;
-        r.readAsDataURL(file);
-      });
-      const res = await apiCall('submitPortfolio', { moduleId, fileName: file.name, fileType: file.type || 'application/octet-stream', fileSizeBytes: file.size, fileBase64: base64 });
-      if (!res.ok) throw new Error(res.error || 'Upload failed');
-      status.innerHTML = '<div class="msg ok">Uploaded successfully.</div>';
-      setTimeout(() => renderPortfolio(app), 700);
-    } catch (err) {
-      status.innerHTML = `<div class="msg bad">${esc(err.message)}</div>`;
-      btn.disabled = false; btn.textContent = 'Upload portfolio';
-    }
+    if (!file) return toast('Select a file first', 'warn');
+    const base64 = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result).substring(String(r.result).indexOf(',') + 1));
+      r.onerror = rej; r.readAsDataURL(file);
+    });
+    const r = await apiCall('submitPortfolio', { moduleId: $('#pfModule').value, fileName: file.name, fileType: file.type || 'application/octet-stream', fileSizeBytes: file.size, fileBase64: base64 });
+    if (!r.ok) return toast(r.error || 'Upload failed', 'bad');
+    toast('Uploaded', 'ok'); renderPortfolio(app);
   });
 }
 
 /* =====================================================================
-   ADMIN PANEL — Users, Grades & Grade Sheet Editing, Course/Modules/Lessons/Quizzes/OSCE CRUD
+   ADMINISTRATION — Users, Grade Sheets, Clear 10-Domain OSCE, Content, Module Quizzes & 30/40-MCQ Exams
    ===================================================================== */
 async function renderAdmin(app, tab) {
   if (!isInstructorOrAdmin()) { app.innerHTML = `<div class="msg bad">Admin or instructor access required.</div>`; return; }
@@ -890,47 +942,43 @@ async function renderAdmin(app, tab) {
     <h1>Administration</h1>
     <div class="tabs">
       ${isAdmin() ? `<button class="tab ${tab === 'users' ? 'active' : ''}" data-admin-tab="users">Users</button>` : ''}
-      <button class="tab ${tab === 'grades' ? 'active' : ''}" data-admin-tab="grades">Grade sheets &amp; OSCE</button>
+      <button class="tab ${tab === 'grades' ? 'active' : ''}" data-admin-tab="grades">Grade sheets &amp; 10-Domain OSCE</button>
       <button class="tab ${tab === 'content' ? 'active' : ''}" data-admin-tab="content">Modules &amp; lessons</button>
-      <button class="tab ${tab === 'quizzes' ? 'active' : ''}" data-admin-tab="quizzes">Quizzes &amp; assessments</button>
+      <button class="tab ${tab === 'quizzes' ? 'active' : ''}" data-admin-tab="quizzes">Module quizzes</button>
+      <button class="tab ${tab === 'exams' ? 'active' : ''}" data-admin-tab="exams">Midterm (30) &amp; Final (40) Bank</button>
     </div>
     <div id="adminBody"><div class="card"><p class="small">Loading…</p></div></div>
   `;
 
   $$('[data-admin-tab]').forEach(b => b.addEventListener('click', () => {
-    state.params.tab = b.dataset.adminTab;
-    renderAdmin(app, b.dataset.adminTab);
+    state.params.tab = b.dataset.adminTab; renderAdmin(app, b.dataset.adminTab);
   }));
 
   const bodyEl = $('#adminBody');
 
-  /* --- TAB 1: USERS (Admin) --- */
   if (tab === 'users') {
-    if (!isAdmin()) { bodyEl.innerHTML = `<div class="msg bad">Admin role required.</div>`; return; }
+    if (!isAdmin()) return;
     const res = await apiCall('listUsers', {});
     if (!res.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(res.error)}</div>`; return; }
     const users = res.data.users || [];
-
     bodyEl.innerHTML = `
       <div class="card space-between">
-        <div><strong>User Management</strong> <span class="small">(${users.length} accounts)</span></div>
+        <div><strong>Users</strong> (${users.length})</div>
         <button class="btn primary btn-sm" id="addUserBtn">+ Add user</button>
       </div>
       <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last login</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody>${users.map(u => `
           <tr>
-            <td>${esc(u.Name)}</td>
-            <td>${esc(u.Email)}</td>
+            <td>${esc(u.Name)}</td><td>${esc(u.Email)}</td>
             <td>
-              <select data-role-email="${esc(u.Email)}" style="display:inline-block;width:auto;margin:0;padding:.25rem .45rem;font-size:.85rem">
+              <select data-role-email="${esc(u.Email)}" style="display:inline-block;width:auto;margin:0;padding:.25rem .45rem">
                 <option value="learner" ${u.Role === 'learner' ? 'selected' : ''}>learner</option>
                 <option value="instructor" ${u.Role === 'instructor' ? 'selected' : ''}>instructor</option>
                 <option value="admin" ${u.Role === 'admin' ? 'selected' : ''}>admin</option>
               </select>
             </td>
             <td><span class="badge ${u.Status === 'active' ? 'ok' : u.Status === 'pending' ? 'warn' : 'bad'}">${esc(u.Status)}</span></td>
-            <td>${u.LastLogin ? esc(String(u.LastLogin).substring(0, 16).replace('T', ' ')) : '—'}</td>
             <td class="flex-row">
               ${u.Status !== 'active' ? `<button class="btn btn-sm primary" data-user-status="active" data-email="${esc(u.Email)}">Activate</button>` : ''}
               ${u.Status === 'active' && u.Role !== 'admin' ? `<button class="btn btn-sm" data-user-status="suspended" data-email="${esc(u.Email)}">Suspend</button>` : ''}
@@ -939,58 +987,29 @@ async function renderAdmin(app, tab) {
           </tr>`).join('')}</tbody>
       </table></div>
     `;
-
     $('#addUserBtn')?.addEventListener('click', () => {
-      openModal(`
-        <h3>Create User Account</h3>
-        <form id="createUserForm">
-          <label>Full Name<input name="name" required></label>
-          <label>Email<input type="email" name="email" required></label>
-          <label>Password (min 8 chars)<input type="password" name="password" minlength="8" required></label>
-          <label>Role<select name="role"><option value="learner">learner</option><option value="instructor">instructor</option><option value="admin">admin</option></select></label>
-          <label>Status<select name="status"><option value="active">active</option><option value="pending">pending</option></select></label>
-          <div class="flex-row" style="justify-content:flex-end;margin-top:1rem">
-            <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Create</button>
-          </div>
-        </form>
-      `);
-      $('#createUserForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const r = await apiCall('adminCreateUser', { name: f.name.value, email: f.email.value, password: f.password.value, role: f.role.value, status: f.status.value });
+      openModal(`<h3>Create User</h3><form id="cuForm"><label>Name<input name="name" required></label><label>Email<input type="email" name="email" required></label><label>Password<input type="password" name="password" minlength="8" required></label><label>Role<select name="role"><option value="learner">learner</option><option value="instructor">instructor</option><option value="admin">admin</option></select></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Create</button></div></form>`);
+      $('#cuForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); const f = e.target;
+        const r = await apiCall('adminCreateUser', { name: f.name.value, email: f.email.value, password: f.password.value, role: f.role.value, status: 'active' });
         if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('User created', 'ok'); closeModal(); renderAdmin(app, 'users');
+        toast('Created', 'ok'); closeModal(); renderAdmin(app, 'users');
       });
     });
-
     bodyEl.addEventListener('change', async (e) => {
       const sel = e.target.closest('select[data-role-email]');
       if (!sel) return;
       const r = await apiCall('updateUser', { email: sel.dataset.roleEmail, role: sel.value });
-      if (!r.ok) toast(r.error || 'Role update failed', 'bad');
-      else { toast('Role updated', 'ok'); renderAdmin(app, 'users'); }
+      if (!r.ok) toast(r.error || 'Failed', 'bad'); else toast('Role updated', 'ok');
     });
-
     bodyEl.addEventListener('click', async (e) => {
-      const stBtn = e.target.closest('button[data-user-status]');
-      if (stBtn) {
-        const r = await apiCall('updateUser', { email: stBtn.dataset.email, status: stBtn.dataset.userStatus });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Status updated', 'ok'); renderAdmin(app, 'users');
-        return;
-      }
-      const delBtn = e.target.closest('button[data-del-user]');
-      if (delBtn) {
-        if (!confirm('Delete user ' + delBtn.dataset.delUser + '?')) return;
-        const r = await apiCall('deleteUser', { email: delBtn.dataset.delUser });
-        if (!r.ok) return toast(r.error || 'Delete failed', 'bad');
-        toast('User deleted', 'ok'); renderAdmin(app, 'users');
-      }
+      const st = e.target.closest('button[data-user-status]');
+      if (st) { const r = await apiCall('updateUser', { email: st.dataset.email, status: st.dataset.userStatus }); if (r.ok) { toast('Updated', 'ok'); renderAdmin(app, 'users'); } return; }
+      const dl = e.target.closest('button[data-del-user]');
+      if (dl && confirm('Delete ' + dl.dataset.delUser + '?')) { const r = await apiCall('deleteUser', { email: dl.dataset.delUser }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'users'); } }
     });
   }
 
-  /* --- TAB 2: GRADE SHEETS & OSCE ASSESSMENTS --- */
   else if (tab === 'grades') {
     const [gradesRes, contentRes] = await Promise.all([apiCall('listAllGrades', {}), ensureContent()]);
     if (!gradesRes.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(gradesRes.error)}</div>`; return; }
@@ -999,68 +1018,79 @@ async function renderAdmin(app, tab) {
 
     bodyEl.innerHTML = `
       <div class="card space-between">
-        <div><strong>Learner Grade Sheets</strong> <span class="small">(${grades.length} learners)</span></div>
-        <div class="flex-row">
-          <button class="btn ghost btn-sm" id="exportGradesCsvBtn">Export CSV</button>
-          <button class="btn primary btn-sm" id="openOsceModalBtn">+ Record OSCE assessment</button>
-        </div>
+        <div><strong>Learner Grade Sheets</strong> (${grades.length})</div>
+        <button class="btn primary btn-sm" id="openOsceModalBtn">+ Unbiased 10-Domain OSCE Assessment</button>
       </div>
       <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Learner</th><th>Modules</th><th>Quiz avg</th><th>OSCE</th><th>Final</th><th>Portfolio</th><th>Grade sheet</th></tr></thead>
+        <thead><tr><th>Learner</th><th>Quizzes</th><th>Midterm</th><th>Final</th><th>OSCE</th><th>Total</th><th>Sheet</th></tr></thead>
         <tbody>${grades.map((g, gi) => `
           <tr>
             <td><strong>${esc(g.learnerName)}</strong><br><span class="small">${esc(g.learnerEmail)}</span></td>
-            <td>${g.modulesAttempted}/${g.modulesTotal}</td>
             <td>${g.quizAverage}%</td>
-            <td>${g.osce ? `${g.osce.percentage}% (${g.osce.outcome})` : '—'}</td>
+            <td>${g.midterm ? g.midterm.percentage + '%' : '—'}</td>
+            <td>${g.finalExam ? g.finalExam.percentage + '%' : '—'}</td>
+            <td>${g.osce ? g.osce.percentage + '%' : '—'}</td>
             <td><strong>${g.finalPercentage}%</strong></td>
-            <td>${g.portfolio.submitted ? `${g.portfolio.count} (${esc(g.portfolio.latestStatus || '')})` : '—'}</td>
-            <td class="flex-row">
-              <button class="btn btn-sm ghost" data-view-sheet="${gi}">View / Edit</button>
-            </td>
+            <td><button class="btn btn-sm ghost" data-view-sheet="${gi}">View / Edit</button></td>
           </tr>`).join('')}</tbody>
       </table></div>
     `;
 
-    $('#exportGradesCsvBtn')?.addEventListener('click', () => {
-      const headers = ['Learner Name','Email','Modules Attempted','Modules Total','Quiz Average %','OSCE %','Final %','Portfolio Count'];
-      const rows = grades.map(g => [
-        g.learnerName, g.learnerEmail, g.modulesAttempted, g.modulesTotal,
-        g.quizAverage, g.osce ? g.osce.percentage : '', g.finalPercentage, g.portfolio.count
-      ]);
-      const csv = [headers, ...rows].map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'lms-grade-sheet.csv'; a.click();
-      URL.revokeObjectURL(url);
-    });
-
     $('#openOsceModalBtn')?.addEventListener('click', () => {
       openModal(`
-        <h3>Record OSCE Assessment (20 Points)</h3>
+        <h3>10-Domain OSCE Assessment (Max 20 Pts · Pass ≥ ${PASS_THRESHOLD}%)</h3>
+        <p class="small">Each domain provides explicit anchors for 0, 1, and 2 points to support consistent, unbiased scoring across assessors.</p>
         <form id="osceForm">
-          <label>Learner Email
+          <label>Learner
             <select name="learnerEmail" required>
               ${grades.map(g => `<option value="${esc(g.learnerEmail)}">${esc(g.learnerName)} (${esc(g.learnerEmail)})</option>`).join('')}
             </select>
           </label>
-          <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.5rem">
-            ${Array.from({length:10}, (_,i) => `<label style="margin:0">D${i+1} (0–2)<input type="number" min="0" max="2" step="1" name="d${i+1}" value="2" required></label>`).join('')}
+          ${OSCE_DOMAINS.map(d => `
+            <div class="osce-domain-card">
+              <div class="space-between">
+                <div>
+                  <strong>Domain ${d.num}: ${esc(d.title)}</strong>
+                  <div class="small">${esc(d.objective)}</div>
+                </div>
+                <label style="margin:0;min-width:95px">
+                  Score (0–2)
+                  <select name="d${d.num}" data-osce-d style="margin-top:.2rem;padding:.35rem">
+                    <option value="0">0 — ${esc(d.s0.slice(0,22))}…</option>
+                    <option value="1">1 — ${esc(d.s1.slice(0,22))}…</option>
+                    <option value="2" selected>2 — Full standard</option>
+                  </select>
+                </label>
+              </div>
+              <div class="osce-rubric-grid">
+                <div class="rubric-box"><strong>0 pt (Unsafe / Omitted)</strong>${esc(d.s0)}</div>
+                <div class="rubric-box"><strong>1 pt (Partial / Needs Prompt)</strong>${esc(d.s1)}</div>
+                <div class="rubric-box"><strong>2 pts (Complete &amp; Timely)</strong>${esc(d.s2)}</div>
+              </div>
+            </div>
+          `).join('')}
+          <div class="space-between" style="margin:.75rem 0">
+            <strong>Live OSCE Total: <span id="osceLiveScore">20 / 20 (100%)</span></strong>
           </div>
-          <label style="margin-top:.75rem">Notes<input name="notes" placeholder="Optional assessor notes"></label>
-          <div class="flex-row" style="justify-content:flex-end;margin-top:1rem">
+          <label>Objective Assessor Notes<textarea name="notes" placeholder="Document observed strengths and specific corrective feedback…"></textarea></label>
+          <div class="flex-row" style="justify-content:flex-end">
             <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Save OSCE</button>
+            <button type="submit" class="btn primary">Submit OSCE</button>
           </div>
         </form>
       `);
+      const recalc = () => {
+        const sum = $$('[data-osce-d]').reduce((acc, s) => acc + Number(s.value || 0), 0);
+        const pct = Math.round((sum / 20) * 1000) / 10;
+        $('#osceLiveScore').textContent = `${sum} / 20 (${pct}%)`;
+      };
+      $$('[data-osce-d]').forEach(s => s.addEventListener('change', recalc));
       $('#osceForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = e.target;
+        e.preventDefault(); const f = e.target;
         const payload = { learnerEmail: f.learnerEmail.value, notes: f.notes.value };
         for (let i = 1; i <= 10; i++) payload['d' + i] = Number(f['d' + i].value);
         const r = await apiCall('submitOsce', payload);
-        if (!r.ok) return toast(r.error || 'OSCE save failed', 'bad');
+        if (!r.ok) return toast(r.error || 'Failed', 'bad');
         toast(`OSCE recorded: ${r.data.percentage}% (${r.data.pass ? 'PASS' : 'FAIL'})`, 'ok');
         closeModal(); renderAdmin(app, 'grades');
       });
@@ -1073,54 +1103,38 @@ async function renderAdmin(app, tab) {
       if (!g) return;
       openModal(`
         <h3>Grade Sheet: ${esc(g.learnerName)}</h3>
-        <p class="small">${esc(g.learnerEmail)} · Final Weighted Score: <strong>${g.finalPercentage}%</strong></p>
+        <p class="small">${esc(g.learnerEmail)} · Final: <strong>${g.finalPercentage}%</strong></p>
         <div class="tbl-wrap" style="margin-bottom:1rem"><table class="data">
           <thead><tr><th>Module</th><th>Score</th><th>%</th><th>Attempts</th></tr></thead>
-          <tbody>${(g.modules || []).map(m => `
-            <tr><td>${esc(m.moduleTitle)}</td><td>${m.score}/${m.total}</td><td>${m.percentage}%</td><td>${m.attemptCount}</td></tr>
-          `).join('')}</tbody>
+          <tbody>${(g.modules || []).map(m => `<tr><td>${esc(m.moduleTitle)}</td><td>${m.score}/${m.total}</td><td>${m.percentage}%</td><td>${m.attemptCount}</td></tr>`).join('')}</tbody>
         </table></div>
         ${isAdmin() ? `
           <form id="overrideGradeForm">
-            <h4>Override / Set Module Quiz Score</h4>
-            <label>Module
-              <select name="moduleId" required>
-                ${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}
-              </select>
-            </label>
+            <h4>Edit Module Quiz Grade</h4>
+            <label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>
             <div class="flex-row">
-              <label style="flex:1">Score<input type="number" name="score" min="0" step="1" required></label>
-              <label style="flex:1">Total Questions<input type="number" name="total" min="1" step="1" value="5" required></label>
+              <label style="flex:1">Score<input type="number" name="score" min="0" required></label>
+              <label style="flex:1">Total<input type="number" name="total" min="1" value="5" required></label>
             </div>
-            <div class="flex-row" style="justify-content:flex-end">
-              <button type="button" class="btn ghost" onclick="closeModal()">Close</button>
-              <button type="submit" class="btn primary">Update score</button>
-            </div>
+            <div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Close</button><button type="submit" class="btn primary">Save</button></div>
           </form>
         ` : `<button type="button" class="btn ghost" onclick="closeModal()">Close</button>`}
       `);
       $('#overrideGradeForm')?.addEventListener('submit', async (ev) => {
-        ev.preventDefault();
-        const f = ev.target;
-        const r = await apiCall('adminUpdateModuleGrade', {
-          learnerEmail: g.learnerEmail, moduleId: f.moduleId.value,
-          score: Number(f.score.value), total: Number(f.total.value)
-        });
+        ev.preventDefault(); const f = ev.target;
+        const r = await apiCall('adminUpdateModuleGrade', { learnerEmail: g.learnerEmail, moduleId: f.moduleId.value, score: Number(f.score.value), total: Number(f.total.value) });
         if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast(`Updated to ${r.data.percentage}%`, 'ok');
-        closeModal(); renderAdmin(app, 'grades');
+        toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'grades');
       });
     });
   }
 
-  /* --- TAB 3: MODULES & LESSONS (Course Contents) --- */
   else if (tab === 'content') {
     const content = await ensureContent(true);
     const mods = (content && content.modules) || [];
-
     bodyEl.innerHTML = `
       <div class="card space-between">
-        <div><strong>Modules &amp; Lessons</strong> <span class="small">(${mods.length} modules)</span></div>
+        <div><strong>Modules &amp; Lessons</strong> (${mods.length})</div>
         <div class="flex-row">
           <button class="btn ghost btn-sm" id="addLessonBtn">+ Add lesson</button>
           <button class="btn primary btn-sm" id="addModuleBtn">+ Add module</button>
@@ -1129,273 +1143,129 @@ async function renderAdmin(app, tab) {
       ${mods.map(m => `
         <div class="card">
           <div class="space-between">
-            <div>
-              <span class="badge">Order ${esc(m.SortOrder)}</span>
-              <h3 style="display:inline-block;margin-left:.4rem">${esc(m.Title)}</h3>
-              <p class="small" style="margin:.25rem 0 0">${esc(m.Description || '')}</p>
-            </div>
+            <div><span class="badge">Order ${esc(m.SortOrder)}</span> <strong style="font-size:1.05rem">${esc(m.Title)}</strong><div class="small">${esc(m.Description || '')}</div></div>
             <div class="flex-row">
-              <button class="btn btn-sm ghost" data-edit-mod="${esc(m.ModuleID)}">Edit module</button>
+              <button class="btn btn-sm ghost" data-edit-mod="${esc(m.ModuleID)}">Edit</button>
               <button class="btn btn-sm danger" data-del-mod="${esc(m.ModuleID)}">Delete</button>
             </div>
           </div>
           <div class="tbl-wrap" style="margin-top:.75rem"><table class="data">
-            <thead><tr><th>Order</th><th>Lesson title</th><th>Actions</th></tr></thead>
-            <tbody>${(m.Lessons || []).length ? (m.Lessons || []).map(l => `
-              <tr>
-                <td>${esc(l.SortOrder)}</td>
-                <td>${esc(l.Title)}</td>
-                <td class="flex-row">
-                  <button class="btn btn-sm ghost" data-edit-lesson="${esc(l.LessonID)}" data-mod-id="${esc(m.ModuleID)}">Edit</button>
-                  <button class="btn btn-sm danger" data-del-lesson="${esc(l.LessonID)}">Delete</button>
-                </td>
-              </tr>`).join('') : '<tr><td colspan="3" class="small">No lessons in this module.</td></tr>'}</tbody>
+            <thead><tr><th>Order</th><th>Lesson</th><th>Actions</th></tr></thead>
+            <tbody>${(m.Lessons || []).map(l => `
+              <tr><td>${esc(l.SortOrder)}</td><td>${esc(l.Title)}</td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-lesson="${esc(l.LessonID)}" data-mod-id="${esc(m.ModuleID)}">Edit</button><button class="btn btn-sm danger" data-del-lesson="${esc(l.LessonID)}">Delete</button></td></tr>
+            `).join('') || '<tr><td colspan="3" class="small">No lessons</td></tr>'}</tbody>
           </table></div>
         </div>
       `).join('')}
     `;
-
     $('#addModuleBtn')?.addEventListener('click', () => {
-      openModal(`
-        <h3>Add Module</h3>
-        <form id="modForm">
-          <label>Title<input name="title" required></label>
-          <label>Description<textarea name="description"></textarea></label>
-          <label>Sort Order<input type="number" name="sortOrder" value="${mods.length}" required></label>
-          <div class="flex-row" style="justify-content:flex-end">
-            <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Save module</button>
-          </div>
-        </form>
-      `);
-      $('#modForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const r = await apiCall('createModule', { title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Module created', 'ok'); closeModal(); renderAdmin(app, 'content');
-      });
+      openModal(`<h3>Add Module</h3><form id="mForm"><label>Title<input name="title" required></label><label>Description<textarea name="description"></textarea></label><label>Sort Order<input type="number" name="sortOrder" value="${mods.length}" required></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
+      $('#mForm').addEventListener('submit', async (e) => { e.preventDefault(); const f = e.target; const r = await apiCall('createModule', { title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) }); if (r.ok) { toast('Created', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
     });
-
     $('#addLessonBtn')?.addEventListener('click', () => {
-      if (!mods.length) return toast('Create a module first', 'warn');
-      openModal(`
-        <h3>Add Lesson / Course Content</h3>
-        <form id="lessonForm">
-          <label>Module
-            <select name="moduleId" required>${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select>
-          </label>
-          <label>Lesson Title<input name="title" required></label>
-          <label>Sort Order<input type="number" name="sortOrder" value="0" required></label>
-          <label>Content HTML<textarea name="content" style="min-height:160px" placeholder="<p class='lesson-lead'>...</p>"></textarea></label>
-          <div class="flex-row" style="justify-content:flex-end">
-            <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Create lesson</button>
-          </div>
-        </form>
-      `);
-      $('#lessonForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const r = await apiCall('createLesson', { moduleId: f.moduleId.value, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Lesson created', 'ok'); closeModal(); renderAdmin(app, 'content');
-      });
+      openModal(`<h3>Add Lesson</h3><form id="lForm"><label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label><label>Title<input name="title" required></label><label>Sort Order<input type="number" name="sortOrder" value="0" required></label><label>Content HTML<textarea name="content" style="min-height:150px"></textarea></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
+      $('#lForm').addEventListener('submit', async (e) => { e.preventDefault(); const f = e.target; const r = await apiCall('createLesson', { moduleId: f.moduleId.value, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value }); if (r.ok) { toast('Created', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
     });
-
     bodyEl.addEventListener('click', async (e) => {
-      const editMod = e.target.closest('button[data-edit-mod]');
-      if (editMod) {
-        const m = mods.find(x => String(x.ModuleID) === String(editMod.dataset.editMod));
-        if (!m) return;
-        openModal(`
-          <h3>Edit Module</h3>
-          <form id="editModForm">
-            <label>Title<input name="title" value="${esc(m.Title)}" required></label>
-            <label>Description<textarea name="description">${esc(m.Description || '')}</textarea></label>
-            <label>Sort Order<input type="number" name="sortOrder" value="${esc(m.SortOrder)}" required></label>
-            <div class="flex-row" style="justify-content:flex-end">
-              <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-              <button type="submit" class="btn primary">Update</button>
-            </div>
-          </form>
-        `);
-        $('#editModForm').addEventListener('submit', async (ev) => {
-          ev.preventDefault();
-          const f = ev.target;
-          const r = await apiCall('updateModule', { moduleId: m.ModuleID, title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) });
-          if (!r.ok) return toast(r.error || 'Failed', 'bad');
-          toast('Module updated', 'ok'); closeModal(); renderAdmin(app, 'content');
-        });
+      const em = e.target.closest('button[data-edit-mod]');
+      if (em) {
+        const m = mods.find(x => String(x.ModuleID) === String(em.dataset.editMod)); if (!m) return;
+        openModal(`<h3>Edit Module</h3><form id="emForm"><label>Title<input name="title" value="${esc(m.Title)}" required></label><label>Description<textarea name="description">${esc(m.Description || '')}</textarea></label><label>Sort Order<input type="number" name="sortOrder" value="${esc(m.SortOrder)}" required></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Update</button></div></form>`);
+        $('#emForm').addEventListener('submit', async (ev) => { ev.preventDefault(); const f = ev.target; const r = await apiCall('updateModule', { moduleId: m.ModuleID, title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) }); if (r.ok) { toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
         return;
       }
-
-      const delMod = e.target.closest('button[data-del-mod]');
-      if (delMod) {
-        if (!confirm('Delete this module and all its lessons and quizzes?')) return;
-        const r = await apiCall('deleteModule', { moduleId: delMod.dataset.delMod });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Module deleted', 'ok'); renderAdmin(app, 'content');
+      const dm = e.target.closest('button[data-del-mod]');
+      if (dm && confirm('Delete module?')) { const r = await apiCall('deleteModule', { moduleId: dm.dataset.delMod }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'content'); } return; }
+      const el = e.target.closest('button[data-edit-lesson]');
+      if (el) {
+        const m = mods.find(x => String(x.ModuleID) === String(el.dataset.modId));
+        const l = (m?.Lessons || []).find(x => String(x.LessonID) === String(el.dataset.editLesson)); if (!l) return;
+        openModal(`<h3>Edit Lesson</h3><form id="elForm"><label>Title<input name="title" value="${esc(l.Title)}" required></label><label>Sort Order<input type="number" name="sortOrder" value="${esc(l.SortOrder)}" required></label><label>Content HTML<textarea name="content" style="min-height:160px">${esc(l.ContentHTML || '')}</textarea></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Update</button></div></form>`);
+        $('#elForm').addEventListener('submit', async (ev) => { ev.preventDefault(); const f = ev.target; const r = await apiCall('updateLesson', { lessonId: l.LessonID, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value }); if (r.ok) { toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
         return;
       }
-
-      const editLesson = e.target.closest('button[data-edit-lesson]');
-      if (editLesson) {
-        const m = mods.find(x => String(x.ModuleID) === String(editLesson.dataset.modId));
-        const l = (m?.Lessons || []).find(x => String(x.LessonID) === String(editLesson.dataset.editLesson));
-        if (!l) return;
-        openModal(`
-          <h3>Edit Lesson</h3>
-          <form id="editLessonForm">
-            <label>Title<input name="title" value="${esc(l.Title)}" required></label>
-            <label>Sort Order<input type="number" name="sortOrder" value="${esc(l.SortOrder)}" required></label>
-            <label>Content HTML<textarea name="content" style="min-height:180px">${esc(l.ContentHTML || '')}</textarea></label>
-            <div class="flex-row" style="justify-content:flex-end">
-              <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-              <button type="submit" class="btn primary">Save changes</button>
-            </div>
-          </form>
-        `);
-        $('#editLessonForm').addEventListener('submit', async (ev) => {
-          ev.preventDefault();
-          const f = ev.target;
-          const r = await apiCall('updateLesson', { lessonId: l.LessonID, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value });
-          if (!r.ok) return toast(r.error || 'Failed', 'bad');
-          toast('Lesson updated', 'ok'); closeModal(); renderAdmin(app, 'content');
-        });
-        return;
-      }
-
-      const delLesson = e.target.closest('button[data-del-lesson]');
-      if (delLesson) {
-        if (!confirm('Delete this lesson?')) return;
-        const r = await apiCall('deleteLesson', { lessonId: delLesson.dataset.delLesson });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Lesson deleted', 'ok'); renderAdmin(app, 'content');
-      }
+      const dl = e.target.closest('button[data-del-lesson]');
+      if (dl && confirm('Delete lesson?')) { const r = await apiCall('deleteLesson', { lessonId: dl.dataset.delLesson }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'content'); } }
     });
   }
 
-  /* --- TAB 4: QUIZZES & ASSESSMENTS --- */
   else if (tab === 'quizzes') {
     const content = await ensureContent(true);
     const mods = (content && content.modules) || [];
     const allQuizzes = [];
     mods.forEach(m => (m.Quizzes || []).forEach(q => allQuizzes.push(Object.assign({}, q, { ModuleID: m.ModuleID, ModuleTitle: m.Title }))));
-
     bodyEl.innerHTML = `
       <div class="card space-between">
-        <div><strong>Quizzes &amp; Assessments</strong> <span class="small">(${allQuizzes.length} quiz items)</span></div>
+        <div><strong>Module Quizzes</strong> (${allQuizzes.length})</div>
         <button class="btn primary btn-sm" id="addQuizBtn">+ Add quiz question</button>
       </div>
-      <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Module</th><th>Question</th><th>Correct</th><th>Actions</th></tr></thead>
-        <tbody>${allQuizzes.length ? allQuizzes.map(q => `
-          <tr>
-            <td>${esc(q.ModuleTitle)}</td>
-            <td>${esc(q.Question)}</td>
-            <td><strong>${'ABCD'[Number(q.CorrectIndex)] || 'A'}</strong></td>
-            <td class="flex-row">
-              <button class="btn btn-sm ghost" data-edit-quiz="${esc(q.QuizID)}">Edit</button>
-              <button class="btn btn-sm danger" data-del-quiz="${esc(q.QuizID)}">Delete</button>
-            </td>
-          </tr>`).join('') : '<tr><td colspan="4" class="small">No quiz questions yet.</td></tr>'}</tbody>
-      </table></div>
+      <div class="tbl-wrap"><table class="data"><thead><tr><th>Module</th><th>Question</th><th>Correct</th><th>Actions</th></tr></thead><tbody>${allQuizzes.map(q => `
+        <tr><td>${esc(q.ModuleTitle)}</td><td>${esc(q.Question)}</td><td><strong>${'ABCD'[Number(q.CorrectIndex)] || 'A'}</strong></td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-quiz="${esc(q.QuizID)}">Edit</button><button class="btn btn-sm danger" data-del-quiz="${esc(q.QuizID)}">Delete</button></td></tr>
+      `).join('')}</tbody></table></div>
     `;
-
-    const quizFormModal = (existing) => {
-      const q = existing || { ModuleID: mods[0]?.ModuleID || '', Question: '', OptionA: '', OptionB: '', OptionC: '', OptionD: '', CorrectIndex: 0, Explanation: '' };
-      openModal(`
-        <h3>${existing ? 'Edit Quiz Question' : 'Add Quiz Question'}</h3>
-        <form id="quizForm">
-          ${!existing ? `<label>Module<select name="moduleId" required>${mods.map(m => `<option value="${esc(m.ModuleID)}" ${m.ModuleID === q.ModuleID ? 'selected' : ''}>${esc(m.Title)}</option>`).join('')}</select></label>` : ''}
-          <label>Question<textarea name="question" required>${esc(q.Question)}</textarea></label>
-          <label>Option A<input name="OptionA" value="${esc(q.OptionA)}" required></label>
-          <label>Option B<input name="OptionB" value="${esc(q.OptionB)}" required></label>
-          <label>Option C<input name="OptionC" value="${esc(q.OptionC)}" required></label>
-          <label>Option D<input name="OptionD" value="${esc(q.OptionD)}" required></label>
-          <label>Correct Option
-            <select name="correctIndex">
-              <option value="0" ${Number(q.CorrectIndex) === 0 ? 'selected' : ''}>A</option>
-              <option value="1" ${Number(q.CorrectIndex) === 1 ? 'selected' : ''}>B</option>
-              <option value="2" ${Number(q.CorrectIndex) === 2 ? 'selected' : ''}>C</option>
-              <option value="3" ${Number(q.CorrectIndex) === 3 ? 'selected' : ''}>D</option>
-            </select>
-          </label>
-          <label>Explanation<textarea name="explanation">${esc(q.Explanation || '')}</textarea></label>
-          <div class="flex-row" style="justify-content:flex-end">
-            <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Save</button>
-          </div>
-        </form>
-      `);
-      $('#quizForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const payload = {
-          question: f.question.value, OptionA: f.OptionA.value, OptionB: f.OptionB.value,
-          OptionC: f.OptionC.value, OptionD: f.OptionD.value,
-          correctIndex: Number(f.correctIndex.value), explanation: f.explanation.value
-        };
-        if (existing) { payload.quizId = existing.QuizID; }
-        else { payload.moduleId = f.moduleId.value; }
-        const r = await apiCall(existing ? 'updateQuiz' : 'createQuiz', payload);
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast(existing ? 'Quiz updated' : 'Quiz added', 'ok'); closeModal(); renderAdmin(app, 'quizzes');
+    const openQuizModal = (q) => {
+      const item = q || { ModuleID: mods[0]?.ModuleID || '', Question: '', OptionA: '', OptionB: '', OptionC: '', OptionD: '', CorrectIndex: 0, Explanation: '' };
+      openModal(`<h3>${q ? 'Edit Quiz' : 'Add Quiz'}</h3><form id="qForm">${!q ? `<label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>` : ''}<label>Question<textarea name="question" required>${esc(item.Question)}</textarea></label><label>Option A<input name="OptionA" value="${esc(item.OptionA)}" required></label><label>Option B<input name="OptionB" value="${esc(item.OptionB)}" required></label><label>Option C<input name="OptionC" value="${esc(item.OptionC)}" required></label><label>Option D<input name="OptionD" value="${esc(item.OptionD)}" required></label><label>Correct<select name="correctIndex"><option value="0" ${Number(item.CorrectIndex)===0?'selected':''}>A</option><option value="1" ${Number(item.CorrectIndex)===1?'selected':''}>B</option><option value="2" ${Number(item.CorrectIndex)===2?'selected':''}>C</option><option value="3" ${Number(item.CorrectIndex)===3?'selected':''}>D</option></select></label><label>Explanation<input name="explanation" value="${esc(item.Explanation || '')}"></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
+      $('#qForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); const f = e.target;
+        const payload = { question: f.question.value, OptionA: f.OptionA.value, OptionB: f.OptionB.value, OptionC: f.OptionC.value, OptionD: f.OptionD.value, correctIndex: Number(f.correctIndex.value), explanation: f.explanation.value };
+        if (q) payload.quizId = q.QuizID; else payload.moduleId = f.moduleId.value;
+        const r = await apiCall(q ? 'updateQuiz' : 'createQuiz', payload);
+        if (r.ok) { toast('Saved', 'ok'); closeModal(); renderAdmin(app, 'quizzes'); }
       });
     };
-
-    $('#addQuizBtn')?.addEventListener('click', () => {
-      if (!mods.length) return toast('Create a module first', 'warn');
-      quizFormModal(null);
-    });
-
+    $('#addQuizBtn')?.addEventListener('click', () => openQuizModal(null));
     bodyEl.addEventListener('click', async (e) => {
-      const editBtn = e.target.closest('button[data-edit-quiz]');
-      if (editBtn) {
-        const q = allQuizzes.find(x => String(x.QuizID) === String(editBtn.dataset.editQuiz));
-        if (q) quizFormModal(q);
-        return;
-      }
-      const delBtn = e.target.closest('button[data-del-quiz]');
-      if (delBtn) {
-        if (!confirm('Delete this quiz question?')) return;
-        const r = await apiCall('deleteQuiz', { quizId: delBtn.dataset.delQuiz });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Quiz deleted', 'ok'); renderAdmin(app, 'quizzes');
-      }
+      const eb = e.target.closest('button[data-edit-quiz]'); if (eb) { const found = allQuizzes.find(x => String(x.QuizID) === String(eb.dataset.editQuiz)); if (found) openQuizModal(found); return; }
+      const db = e.target.closest('button[data-del-quiz]'); if (db && confirm('Delete quiz?')) { const r = await apiCall('deleteQuiz', { quizId: db.dataset.delQuiz }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'quizzes'); } }
+    });
+  }
+
+  else if (tab === 'exams') {
+    const bankType = state.params.adminExamType === 'final' ? 'final' : 'midterm';
+    const res = await apiCall('listExamQuestionsAdmin', { examType: bankType });
+    const qs = (res.ok && res.data && res.data.questions) || [];
+    bodyEl.innerHTML = `
+      <div class="card space-between">
+        <div class="flex-row">
+          <button class="btn ${bankType === 'midterm' ? 'primary' : 'ghost'} btn-sm" id="bankMidBtn">Midterm (30 MCQs)</button>
+          <button class="btn ${bankType === 'final' ? 'primary' : 'ghost'} btn-sm" id="bankFinBtn">Final (40 MCQs)</button>
+          <span class="small">Loaded: <strong>${qs.length}</strong></span>
+        </div>
+        <button class="btn primary btn-sm" id="addExamQBtn">+ Add exam MCQ</button>
+      </div>
+      <div class="tbl-wrap"><table class="data"><thead><tr><th>#</th><th>Question</th><th>Ans</th><th>Actions</th></tr></thead><tbody>${qs.map((q, idx) => `
+        <tr><td>${idx + 1}</td><td>${esc(q.Question)}</td><td><strong>${'ABCD'[Number(q.CorrectIndex)] || 'A'}</strong></td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-eq="${esc(q.QuestionID)}">Edit</button><button class="btn btn-sm danger" data-del-eq="${esc(q.QuestionID)}">Delete</button></td></tr>
+      `).join('')}</tbody></table></div>
+    `;
+    $('#bankMidBtn')?.addEventListener('click', () => { state.params.adminExamType = 'midterm'; renderAdmin(app, 'exams'); });
+    $('#bankFinBtn')?.addEventListener('click', () => { state.params.adminExamType = 'final'; renderAdmin(app, 'exams'); });
+
+    const openEqModal = (existing) => {
+      const item = existing || { Question: '', OptionA: '', OptionB: '', OptionC: '', OptionD: '', CorrectIndex: 0, Explanation: '' };
+      openModal(`<h3>${existing ? 'Edit Exam MCQ' : 'Add Exam MCQ (' + bankType.toUpperCase() + ')'}</h3><form id="eqForm"><label>Question<textarea name="question" required>${esc(item.Question)}</textarea></label><label>Option A<input name="OptionA" value="${esc(item.OptionA)}" required></label><label>Option B<input name="OptionB" value="${esc(item.OptionB)}" required></label><label>Option C<input name="OptionC" value="${esc(item.OptionC)}" required></label><label>Option D<input name="OptionD" value="${esc(item.OptionD)}" required></label><label>Correct<select name="correctIndex"><option value="0" ${Number(item.CorrectIndex)===0?'selected':''}>A</option><option value="1" ${Number(item.CorrectIndex)===1?'selected':''}>B</option><option value="2" ${Number(item.CorrectIndex)===2?'selected':''}>C</option><option value="3" ${Number(item.CorrectIndex)===3?'selected':''}>D</option></select></label><label>Explanation<input name="explanation" value="${esc(item.Explanation || '')}"></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
+      $('#eqForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); const f = e.target;
+        const payload = { examType: bankType, question: f.question.value, OptionA: f.OptionA.value, OptionB: f.OptionB.value, OptionC: f.OptionC.value, OptionD: f.OptionD.value, correctIndex: Number(f.correctIndex.value), explanation: f.explanation.value };
+        if (existing) payload.questionId = existing.QuestionID;
+        const r = await apiCall(existing ? 'updateExamQuestion' : 'createExamQuestion', payload);
+        if (r.ok) { toast('Saved', 'ok'); closeModal(); renderAdmin(app, 'exams'); }
+      });
+    };
+    $('#addExamQBtn')?.addEventListener('click', () => openEqModal(null));
+    bodyEl.addEventListener('click', async (e) => {
+      const eb = e.target.closest('button[data-edit-eq]'); if (eb) { const found = qs.find(x => String(x.QuestionID) === String(eb.dataset.editEq)); if (found) openEqModal(found); return; }
+      const db = e.target.closest('button[data-del-eq]'); if (db && confirm('Delete exam question?')) { const r = await apiCall('deleteExamQuestion', { questionId: db.dataset.delEq }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'exams'); } }
     });
   }
 }
 
-/* ---------- Global Event Delegation ---------- */
+/* ---------- Global Delegation & Boot ---------- */
 document.addEventListener('click', (e) => {
   const navBtn = e.target.closest('#mainNav button[data-nav]');
-  if (navBtn) {
-    state.view = navBtn.dataset.nav; state.params = {};
-    $$('#mainNav button').forEach(b => b.classList.toggle('active', b === navBtn));
-    render(); return;
-  }
+  if (navBtn) { state.view = navBtn.dataset.nav; state.params = {}; $$('#mainNav button').forEach(b => b.classList.toggle('active', b === navBtn)); render(); return; }
   const backBtn = e.target.closest('[data-nav]');
-  if (backBtn && backBtn.dataset.nav) {
-    state.view = backBtn.dataset.nav; state.params = {};
-    $$('#mainNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === backBtn.dataset.nav));
-    render(); return;
-  }
-  const calcBtn = e.target.closest('[data-calc-check]');
-  if (calcBtn) {
-    const block = calcBtn.closest('.lesson-calc');
-    const input = block.querySelector('input');
-    const fb = block.querySelector('.calc-feedback');
-    const answer = Number(block.dataset.answer);
-    const tol = Number(block.dataset.tol) || 0.01;
-    const val = Number(input.value);
-    if (isNaN(val) || input.value === '') { fb.textContent = 'Enter a number'; fb.className = 'calc-feedback bad'; fb.hidden = false; return; }
-    const ok = Math.abs(val - answer) <= tol;
-    fb.textContent = ok ? '✓ Correct' : '✗ Try again. Solution: ' + (block.dataset.solution || answer);
-    fb.className = 'calc-feedback ' + (ok ? 'ok' : 'bad');
-    fb.hidden = false; return;
-  }
+  if (backBtn && backBtn.dataset.nav) { state.view = backBtn.dataset.nav; state.params = {}; render(); return; }
   const submitQuizBtn = e.target.closest('[data-quiz-submit]');
   if (submitQuizBtn) {
     const moduleId = submitQuizBtn.dataset.quizSubmit;
@@ -1409,8 +1279,11 @@ document.addEventListener('click', (e) => {
     apiCall('submitQuizGroup', { moduleId, answers }).then(res => {
       submitQuizBtn.disabled = false; submitQuizBtn.textContent = orig;
       if (res.ok) {
-        renderQuizResults(res.data);
-        toast(res.queued ? 'Saved offline — will sync when online' : 'Quiz submitted', res.queued ? 'warn' : 'ok');
+        const box = $('#quizResults');
+        const pct = Number(res.data.percentage);
+        box.innerHTML = `<div class="quiz-result ${pct >= PASS_THRESHOLD ? 'ok' : 'bad'}">Score: ${res.data.score}/${res.data.total} — <strong>${pct}%</strong></div>`;
+        box.hidden = false;
+        toast('Quiz submitted', 'ok');
       } else toast(res.error || 'Submit failed', 'bad');
     });
   }
@@ -1424,20 +1297,8 @@ document.addEventListener('input', debounce(async (e) => {
   await kvSet('userData', state.userData);
   const res = await apiCall('saveUserData', { dataType: 'note', dataKey: key, dataValue: ta.value });
   const statusEl = document.querySelector(`[data-note-status="${key}"]`);
-  if (statusEl) {
-    statusEl.textContent = res.queued ? 'Saved locally · will sync' : (res.ok ? 'Saved ✓' : 'Save failed');
-    statusEl.className = 'note-status ' + (res.ok ? 'ok' : 'bad');
-  }
+  if (statusEl) { statusEl.textContent = res.queued ? 'Saved locally · will sync' : (res.ok ? 'Saved ✓' : 'Save failed'); statusEl.className = 'note-status ' + (res.ok ? 'ok' : 'bad'); }
 }, 700));
-
-document.addEventListener('change', async (e) => {
-  const cb = e.target.closest('[data-check-key]');
-  if (!cb) return;
-  const key = cb.dataset.checkKey;
-  state.userData[key] = cb.checked ? '1' : '';
-  await kvSet('userData', state.userData);
-  await apiCall('saveUserData', { dataType: 'check', dataKey: key, dataValue: cb.checked ? '1' : '' });
-});
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   try { await fetchJSON(API_URL, { action: 'logout', token: state.token }); } catch (e) {}
@@ -1447,34 +1308,23 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 async function boot() {
   updateNetBadge();
   await refreshPendingBadge();
-
   if (OFFLINE.ENABLED && OFFLINE.SERVICE_WORKER && 'serviceWorker' in navigator) {
-    try {
-      const reg = await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER);
-      console.log('[LMS] SW registered:', reg.scope);
-    } catch (e) { console.warn('[LMS] SW failed:', e.message); }
+    try { await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER); } catch (e) {}
   }
-
   if (state.token) {
     const me = await apiCall('me', {});
     if (me.ok && me.data && me.data.user) state.user = me.data.user;
     else if (state.online) clearSession();
   }
-
   if (!state.token) state.view = 'login';
   else { state.view = 'dashboard'; await preloadAll(); }
   render();
-
   setInterval(ping, OFFLINE.PING_INTERVAL_MS);
   setInterval(flushQueue, OFFLINE.SYNC_INTERVAL_MS);
   ping();
 }
 
-window.addEventListener('online', async () => {
-  state.online = true; updateNetBadge();
-  await flushQueue();
-  if (state.token) preloadAll().then(render);
-});
+window.addEventListener('online', async () => { state.online = true; updateNetBadge(); await flushQueue(); if (state.token) preloadAll().then(render); });
 window.addEventListener('offline', () => { state.online = false; updateNetBadge(); });
 window.addEventListener('DOMContentLoaded', boot);
 </script>
