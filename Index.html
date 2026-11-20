@@ -7,147 +7,337 @@
 <script src="config.js"></script>
 <style>
 :root{
-  --ink:#0d1f26; --ink-soft:#35525d; --muted:#54707c;
-  --brand:#0d7d76; --brand-600:#0a5f5a; --brand-50:#e7f4f3; --brand-100:#cfe9e6;
+  --ink:#0b1a20; --ink-soft:#2d4850; --muted:#5d7a85;
+  --brand:#0d7d76; --brand-600:#096560; --brand-700:#075049;
+  --brand-50:#e7f4f3; --brand-100:#cfe9e6; --brand-200:#a5d7d2;
+  --accent:#7c3aed; --accent-50:#f3eefe;
   --ok:#166534; --ok-50:#dcfce7; --bad:#b91c1c; --bad-50:#fee2e2;
-  --warn:#b45309; --warn-50:#fef3e2;
+  --warn:#b45309; --warn-50:#fef3e2; --gold:#b8860b;
   --bg:#eef5f5; --card:#fff; --line:#d3e3e6; --line-soft:#e8f1f2;
-  --radius:12px; --shadow:0 1px 3px rgba(13,31,38,.08),0 8px 24px rgba(13,31,38,.04);
+  --radius:14px; --radius-sm:10px;
+  --shadow:0 1px 3px rgba(11,26,32,.08),0 8px 28px rgba(11,26,32,.06);
+  --shadow-lg:0 12px 40px rgba(11,26,32,.12);
+  --grad:linear-gradient(135deg,#0d7d76 0%,#0a5f5a 60%,#096560 100%);
+  --grad-accent:linear-gradient(135deg,#7c3aed 0%,#5b21b6 100%);
+  --grad-gold:linear-gradient(135deg,#f59e0b 0%,#b45309 100%);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(13,125,118,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(124,58,237,.07), transparent 55%),
+    var(--bg);
+  color:var(--ink);line-height:1.55;font-size:15px;min-height:100vh}
 a{color:var(--brand-600);text-decoration:none}
 a:hover{text-decoration:underline}
 button{font-family:inherit;font-size:14px;cursor:pointer}
-h1,h2,h3,h4{color:var(--ink);margin:0 0 .5rem;line-height:1.25}
-h1{font-size:1.6rem}h2{font-size:1.25rem}h3{font-size:1.1rem}h4{font-size:1rem}
+h1,h2,h3,h4{color:var(--ink);margin:0 0 .5rem;line-height:1.25;letter-spacing:-.01em}
+h1{font-size:1.7rem}h2{font-size:1.3rem}h3{font-size:1.1rem}h4{font-size:1rem}
 p{margin:0 0 .75rem}
 .small{font-size:.85rem;color:var(--muted)}
 .hidden{display:none !important}
 .flex-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
 .space-between{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
+.mt-1{margin-top:.5rem}.mt-2{margin-top:1rem}.mt-3{margin-top:1.5rem}
+.mb-0{margin-bottom:0}.mb-1{margin-bottom:.5rem}.mb-2{margin-bottom:1rem}
 
-.topbar{position:sticky;top:0;z-index:100;background:var(--brand);color:#fff;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.brand{font-weight:700;font-size:1.05rem;letter-spacing:.01em}
-.topbar-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-.badge{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.03em;background:rgba(255,255,255,.2);color:#fff}
-.badge.ok{background:#1a7a4a}.badge.warn{background:#b45309}.badge.bad{background:#b91c1c}
-.btn-ghost{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:.35rem .8rem;border-radius:8px;font-weight:600}
-.btn-ghost:hover{background:rgba(255,255,255,.28)}
+.topbar{position:sticky;top:0;z-index:100;background:var(--grad);color:#fff;
+  padding:.8rem 1.25rem;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;box-shadow:0 4px 20px rgba(9,101,96,.28)}
+.brand{font-weight:800;font-size:1.08rem;letter-spacing:.01em;display:flex;align-items:center;gap:.55rem}
+.brand-logo{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.2);
+  display:grid;place-items:center;font-size:1rem}
+.topbar-right{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .65rem;
+  border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.03em;
+  background:rgba(255,255,255,.18);color:#fff}
+.badge.ok{background:#16a34a}.badge.warn{background:#d97706}.badge.bad{background:#dc2626}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+.btn-ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+  color:#fff;padding:.38rem .85rem;border-radius:9px;font-weight:600;transition:background .15s}
+.btn-ghost:hover{background:rgba(255,255,255,.26)}
 
-.mainnav{background:var(--card);border-bottom:1px solid var(--line);padding:.35rem 1rem;display:flex;gap:.25rem;overflow-x:auto}
-.mainnav button{background:transparent;border:1px solid transparent;border-radius:8px;padding:.5rem .9rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
-.mainnav button.active{background:var(--brand-50);color:var(--brand-600);border-color:var(--brand-100)}
+.mainnav{background:var(--card);border-bottom:1px solid var(--line);
+  padding:.4rem 1.25rem;display:flex;gap:.25rem;overflow-x:auto;
+  position:sticky;top:57px;z-index:90}
+.mainnav button{background:transparent;border:1px solid transparent;border-radius:9px;
+  padding:.52rem .95rem;font-weight:600;color:var(--ink-soft);white-space:nowrap;transition:all .15s}
+.mainnav button.active{background:var(--brand-50);color:var(--brand-700);border-color:var(--brand-100)}
 .mainnav button:hover{background:var(--line-soft)}
 
-main#app{max-width:1140px;margin:1.25rem auto;padding:0 1rem}
+main#app{max-width:1180px;margin:1.35rem auto;padding:0 1.25rem;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
-.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.mod-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:transform .15s,border-color .15s}
-.mod-card:hover{transform:translateY(-2px);border-color:var(--brand-100)}
-.mod-card .mod-num{display:inline-block;background:var(--brand-50);color:var(--brand-600);padding:.15rem .55rem;border-radius:6px;font-weight:700;font-size:.78rem;margin-bottom:.35rem}
-.mod-card h3{margin:.35rem 0}
-.mod-card p{color:var(--muted);font-size:.9rem;margin:0}
-.mod-card .mod-meta{margin-top:.55rem;font-size:.78rem;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.35rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.card-hero{background:linear-gradient(135deg,#fff 0%,#f6fbfb 100%);border:1px solid var(--brand-100)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.stat-grid{display:grid;gap:.85rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:1.25rem}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1rem 1.1rem;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.stat .stat-label{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);font-weight:700}
+.stat .stat-value{font-size:1.65rem;font-weight:800;color:var(--brand-700);margin-top:.15rem;line-height:1.1}
+.stat .stat-sub{font-size:.78rem;color:var(--muted);margin-top:.15rem}
 
-.btn{display:inline-block;padding:.6rem 1.1rem;border:1px solid transparent;border-radius:8px;font-weight:600;background:#e6eef0;color:var(--ink);transition:background .12s}
+.mod-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:0;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;
+  position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.mod-card:hover{transform:translateY(-3px);border-color:var(--brand-200);box-shadow:var(--shadow-lg)}
+.mod-accent{height:5px;background:var(--grad)}
+.mod-body{padding:1.1rem 1.15rem 1.25rem;flex:1;display:flex;flex-direction:column}
+.mod-num{display:inline-block;background:var(--brand-50);color:var(--brand-700);
+  padding:.18rem .6rem;border-radius:7px;font-weight:800;font-size:.75rem;
+  margin-bottom:.5rem;width:fit-content}
+.mod-card h3{margin:.25rem 0 .4rem;font-size:1.02rem}
+.mod-card p{color:var(--muted);font-size:.87rem;margin:0 0 .75rem;flex:1}
+.mod-meta{display:flex;gap:.75rem;font-size:.76rem;color:var(--muted);
+  padding-top:.65rem;border-top:1px dashed var(--line-soft)}
+.mod-meta span{display:inline-flex;align-items:center;gap:.3rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.62rem 1.15rem;border:1px solid transparent;border-radius:9px;font-weight:700;
+  background:#e6eef0;color:var(--ink);transition:all .15s;white-space:nowrap}
 .btn:hover{background:#d8e3e6}
-.btn.primary{background:var(--brand);color:#fff}
-.btn.primary:hover{background:var(--brand-600)}
+.btn.primary{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(13,125,118,.28)}
+.btn.primary:hover{filter:brightness(1.06);box-shadow:0 6px 18px rgba(13,125,118,.36)}
+.btn.accent{background:var(--grad-accent);color:#fff}
+.btn.gold{background:var(--grad-gold);color:#fff}
 .btn.danger{background:#dc2626;color:#fff}
 .btn.danger:hover{background:#b91c1c}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
-.btn.ghost:hover{background:var(--line-soft)}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.btn-sm{padding:.35rem .7rem;font-size:.83rem}
+.btn.ghost:hover{background:var(--line-soft);border-color:var(--brand-200)}
+.btn:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.3)}
+.btn-sm{padding:.36rem .72rem;font-size:.82rem;border-radius:7px}
 .btn-block{display:block;width:100%}
 
-label{display:block;margin-bottom:.9rem;font-weight:600;font-size:.9rem}
-input,textarea,select{display:block;width:100%;margin-top:.35rem;padding:.65rem .75rem;border:1px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit;background:#fff;color:var(--ink)}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--brand-100);outline-offset:0;border-color:var(--brand)}
+label{display:block;margin-bottom:.95rem;font-weight:600;font-size:.88rem;color:var(--ink-soft)}
+input,textarea,select{display:block;width:100%;margin-top:.35rem;padding:.7rem .8rem;
+  border:1.5px solid var(--line);border-radius:9px;font-size:1rem;font-family:inherit;
+  background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(13,125,118,.12)}
 textarea{resize:vertical;min-height:90px}
-.form-card{max-width:420px;margin:2rem auto}
-.form-title{margin-bottom:1rem}
+.form-card{max-width:440px;margin:3rem auto;animation:pop .35s ease}
+.form-title{margin-bottom:1.2rem}
+.form-title h1{font-size:1.55rem;margin-bottom:.3rem}
+.form-title p{color:var(--muted);margin:0}
+.link-row{display:flex;justify-content:space-between;font-size:.86rem;margin-top:.35rem}
 
-.msg{padding:.75rem 1rem;border-radius:8px;margin-bottom:.75rem;font-size:.93rem}
+.auth-wrap{min-height:calc(100vh - 200px);display:grid;place-items:center;padding:1rem}
+.auth-card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:2rem 2rem 1.75rem;max-width:460px;width:100%;box-shadow:var(--shadow-lg);
+  animation:pop .4s ease;position:relative;overflow:hidden}
+.auth-card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;background:var(--grad)}
+.auth-icon{width:56px;height:56px;border-radius:14px;background:var(--brand-50);color:var(--brand-700);
+  display:grid;place-items:center;font-size:1.5rem;margin-bottom:1rem}
+.auth-toggle{display:flex;gap:.25rem;background:var(--line-soft);padding:.3rem;
+  border-radius:10px;margin-bottom:1.35rem}
+.auth-toggle button{flex:1;padding:.55rem;border:none;background:transparent;border-radius:7px;
+  font-weight:700;color:var(--muted);transition:all .15s}
+.auth-toggle button.active{background:var(--card);color:var(--brand-700);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+.msg{padding:.78rem 1rem;border-radius:9px;margin-bottom:.85rem;font-size:.92rem;
+  display:flex;gap:.5rem;align-items:flex-start}
 .msg.ok{background:var(--ok-50);color:var(--ok);border:1px solid #86efac}
 .msg.bad{background:var(--bad-50);color:var(--bad);border:1px solid #fca5a5}
 .msg.warn{background:var(--warn-50);color:var(--warn);border:1px solid #fbbf24}
-.msg.info{background:var(--brand-50);color:var(--brand-600);border:1px solid var(--brand-100)}
+.msg.info{background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100)}
 
-.lesson-wrap{display:flex;gap:1rem}
-.lesson-nav{flex:0 0 250px;position:sticky;top:5rem;align-self:flex-start;max-height:calc(100vh - 6rem);overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:.75rem}
-.lesson-nav h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:.5rem 0 .4rem}
-.lesson-nav a{display:block;padding:.45rem .6rem;border-radius:6px;color:var(--ink-soft);font-size:.9rem;margin-bottom:.15rem;cursor:pointer}
+.lesson-wrap{display:flex;gap:1.1rem;align-items:flex-start}
+.lesson-nav{flex:0 0 265px;position:sticky;top:120px;align-self:flex-start;
+  max-height:calc(100vh - 140px);overflow-y:auto;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);padding:.85rem;box-shadow:var(--shadow)}
+.lesson-nav h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin:.5rem 0 .45rem;padding-left:.35rem}
+.lesson-nav a{display:flex;align-items:center;gap:.5rem;padding:.55rem .65rem;border-radius:8px;
+  color:var(--ink-soft);font-size:.88rem;margin-bottom:.12rem;cursor:pointer;transition:all .12s}
 .lesson-nav a:hover{background:var(--line-soft)}
-.lesson-nav a.active{background:var(--brand-50);color:var(--brand-600);font-weight:600}
-.lesson-main{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
-.lesson-main .lesson-lead{font-size:1.05rem;color:var(--ink-soft)}
-.lesson-main h3.lesson-h{color:var(--brand-600);margin-top:1.5rem;padding-bottom:.3rem;border-bottom:2px solid var(--brand-50)}
-.lesson-callout{padding:.9rem 1.1rem;border-left:4px solid var(--brand);background:var(--brand-50);border-radius:6px;margin:1rem 0}
-.lesson-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1rem 0}
-.lesson-card{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:8px;padding:.85rem}
-.lesson-card .card-num{display:inline-block;background:var(--brand);color:#fff;width:24px;height:24px;text-align:center;border-radius:50%;font-weight:700;font-size:.78rem;line-height:24px;margin-bottom:.35rem}
-.lesson-discuss{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.25rem 0}
-.note-status{font-size:.8rem;color:var(--muted);margin-top:.3rem;min-height:1.1rem}
-.note-status.ok{color:var(--ok)}.note-status.bad{color:var(--bad)}
-.lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);flex-wrap:wrap}
+.lesson-nav a.active{background:var(--brand-50);color:var(--brand-700);font-weight:700}
+.lesson-nav .nav-num{width:22px;height:22px;border-radius:6px;background:var(--line-soft);
+  display:grid;place-items:center;font-size:.72rem;font-weight:800;color:var(--muted);flex-shrink:0}
+.lesson-nav a.active .nav-num{background:var(--brand);color:#fff}
+.lesson-main{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow)}
+.lesson-main .lesson-lead{font-size:1.08rem;color:var(--ink-soft);line-height:1.65}
+.lesson-main h3.lesson-h{color:var(--brand-700);margin-top:1.6rem;padding-bottom:.35rem;
+  border-bottom:2px solid var(--brand-50)}
+.lesson-callout{padding:.95rem 1.15rem;border-left:4px solid var(--brand);background:var(--brand-50);
+  border-radius:8px;margin:1.1rem 0}
+.lesson-callout.warn{background:var(--warn-50);border-color:var(--warn)}
+.lesson-callout.danger{background:var(--bad-50);border-color:var(--bad)}
+.lesson-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:.85rem;margin:1.1rem 0}
+.lesson-card{background:linear-gradient(160deg,#f6fbfb 0%,#eef7f6 100%);
+  border:1px solid var(--brand-100);border-radius:10px;padding:.95rem}
+.lesson-card .card-num{display:inline-block;background:var(--brand);color:#fff;
+  width:26px;height:26px;text-align:center;border-radius:50%;font-weight:800;font-size:.78rem;
+  line-height:26px;margin-bottom:.45rem}
+.lesson-discuss{background:linear-gradient(160deg,#faf7ff 0%,#f3eefe 100%);
+  border:1px solid #ddd0fb;border-radius:10px;padding:1.05rem;margin:1.35rem 0}
+.lesson-discuss h4{color:var(--accent);display:flex;align-items:center;gap:.4rem}
+.discuss-prompt{color:var(--ink-soft);margin:.35rem 0 .65rem}
+.note-status{font-size:.78rem;color:var(--muted);margin-top:.35rem;min-height:1.1rem;transition:color .2s}
+.note-status.ok{color:var(--ok);font-weight:600}.note-status.bad{color:var(--bad);font-weight:600}
+.lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:.75rem;
+  margin-top:1.75rem;padding-top:1.1rem;border-top:1px solid var(--line);flex-wrap:wrap}
 
-.quiz-q{margin-bottom:1.15rem;padding-bottom:.95rem;border-bottom:1px solid var(--line-soft)}
-.quiz-q .q-text{font-weight:600;margin-bottom:.5rem}
-.quiz-opt{display:flex;align-items:flex-start;gap:.5rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:8px;margin-bottom:.35rem;cursor:pointer;background:#fff}
-.quiz-opt input{width:auto;margin:0;flex-shrink:0;margin-top:.2rem}
+.quiz-intro{background:linear-gradient(135deg,#f6fbfb 0%,#eef7f6 100%);
+  border:1px solid var(--brand-100);border-radius:10px;padding:1rem 1.15rem;margin-bottom:1.25rem}
+.quiz-q{margin-bottom:1.35rem;padding-bottom:1.15rem;border-bottom:1px solid var(--line-soft);position:relative}
+.quiz-q:last-child{border-bottom:none}
+.quiz-q .q-head{display:flex;align-items:flex-start;gap:.65rem;margin-bottom:.65rem}
+.q-index{width:28px;height:28px;border-radius:8px;background:var(--brand-50);color:var(--brand-700);
+  display:grid;place-items:center;font-weight:800;font-size:.82rem;flex-shrink:0}
+.q-text{font-weight:600;color:var(--ink);flex:1;line-height:1.5}
+.q-tag{display:inline-block;background:var(--accent-50);color:var(--accent);
+  padding:.1rem .5rem;border-radius:5px;font-size:.7rem;font-weight:700;letter-spacing:.03em;
+  text-transform:uppercase;margin-left:.4rem}
+.q-tag.calc{background:var(--warn-50);color:var(--warn)}
+.quiz-opt{display:flex;align-items:flex-start;gap:.65rem;padding:.68rem .85rem;
+  border:1.5px solid var(--line);border-radius:9px;margin-bottom:.45rem;cursor:pointer;
+  background:#fff;transition:all .14s;font-size:.94rem}
+.quiz-opt:hover{border-color:var(--brand-200);background:var(--brand-50)}
+.quiz-opt input{width:auto;margin:0;flex-shrink:0;margin-top:.2rem;accent-color:var(--brand)}
+.quiz-opt.selected{border-color:var(--brand);background:var(--brand-50)}
 .quiz-opt.correct{border-color:var(--ok);background:var(--ok-50)}
 .quiz-opt.wrong{border-color:var(--bad);background:var(--bad-50)}
-.quiz-explain{background:var(--brand-50);padding:.6rem .8rem;border-radius:6px;margin-top:.45rem;font-size:.9rem}
-.quiz-explain.ok{background:var(--ok-50);color:var(--ok)}
-.quiz-explain.bad{background:var(--bad-50);color:var(--bad)}
-.quiz-result{padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-weight:600}
-.quiz-result.ok{background:var(--ok-50);color:var(--ok)}
-.quiz-result.bad{background:var(--bad-50);color:var(--bad)}
-.check-row{margin-top:.45rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-.timer-pill{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;padding:.35rem .7rem;border-radius:8px;background:var(--brand-50);color:var(--brand-600);border:1px solid var(--brand-100)}
-.timer-pill.warn{background:var(--warn-50);color:var(--warn);border-color:#fbbf24}
-.timer-pill.danger{background:var(--bad-50);color:var(--bad);border-color:#fca5a5}
+.quiz-opt.locked{cursor:default}
+.quiz-opt.locked:hover{background:inherit}
+.quiz-explain{background:var(--brand-50);padding:.75rem .9rem;border-radius:8px;
+  margin-top:.55rem;font-size:.9rem;line-height:1.55;border-left:3px solid var(--brand)}
+.quiz-explain.ok{background:var(--ok-50);color:var(--ok);border-left-color:var(--ok)}
+.quiz-explain.bad{background:var(--bad-50);color:var(--bad);border-left-color:var(--bad)}
+.check-row{margin-top:.6rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.quiz-result{padding:.85rem 1.1rem;border-radius:10px;margin-top:1rem;font-weight:700;
+  display:flex;align-items:center;gap:.6rem}
+.quiz-result.ok{background:var(--ok-50);color:var(--ok);border:1px solid #86efac}
+.quiz-result.bad{background:var(--bad-50);color:var(--bad);border:1px solid #fca5a5}
+.quiz-result.info{background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100)}
 
-.osce-domain-card{border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;margin-bottom:.85rem;background:#fafdfd}
-.osce-rubric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.6rem 0}
-.rubric-box{border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem;background:#fff;font-size:.82rem}
-.rubric-box strong{display:block;margin-bottom:.2rem}
+.exam-shell{max-width:920px;margin:0 auto}
+.exam-header{background:var(--grad);color:#fff;border-radius:var(--radius);
+  padding:1.35rem 1.5rem;margin-bottom:1.25rem;box-shadow:0 8px 24px rgba(9,101,96,.28);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.exam-header h1{color:#fff;font-size:1.3rem;margin:0}
+.exam-header p{color:rgba(255,255,255,.85);margin:.2rem 0 0;font-size:.88rem}
+.exam-timer{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-weight:800;font-size:1.35rem;padding:.55rem .95rem;border-radius:10px;
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.28);
+  display:flex;align-items:center;gap:.5rem}
+.exam-timer.warn{background:#f59e0b;border-color:#d97706}
+.exam-timer.danger{background:#dc2626;border-color:#b91c1c;animation:pulse 1.1s infinite}
+@keyframes pulse{50%{opacity:.75}}
+.exam-progress{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:.85rem 1.1rem;margin-bottom:1.1rem;box-shadow:var(--shadow)}
+.progress-bar{height:10px;border-radius:999px;background:var(--line-soft);
+  overflow:hidden;margin-top:.5rem}
+.progress-bar > div{height:100%;background:var(--grad);transition:width .35s ease;border-radius:999px}
+.exam-passcard{background:linear-gradient(135deg,#fff 0%,#faf7ff 100%);
+  border:2px dashed var(--accent);border-radius:14px;padding:2rem;text-align:center;
+  max-width:480px;margin:2rem auto}
+.exam-passcard .lock{font-size:2.6rem;margin-bottom:.5rem}
+.exam-passcard h2{color:var(--accent);margin-bottom:.5rem}
 
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
-table.data{width:100%;border-collapse:collapse;font-size:.9rem}
-table.data th,table.data td{padding:.55rem .75rem;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
-table.data th{background:var(--line-soft);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.osce-domain-card{border:1px solid var(--line);border-radius:11px;padding:.95rem 1.1rem;
+  margin-bottom:.9rem;background:linear-gradient(160deg,#fff 0%,#fafdfd 100%)}
+.osce-domain-card .dom-head{display:flex;justify-content:space-between;align-items:center;
+  gap:.75rem;margin-bottom:.5rem}
+.osce-domain-card h4{margin:0;font-size:.95rem}
+.osce-rubric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:.5rem;margin:.6rem 0}
+.rubric-box{border:1px solid var(--line);border-radius:9px;padding:.6rem .7rem;
+  background:#fff;font-size:.8rem;transition:all .15s;cursor:pointer}
+.rubric-box:hover{border-color:var(--brand-200);background:var(--brand-50)}
+.rubric-box.selected{border-color:var(--brand);background:var(--brand-50);
+  box-shadow:0 0 0 3px rgba(13,125,118,.1)}
+.rubric-box strong{display:block;margin-bottom:.2rem;color:var(--brand-700)}
+.rubric-box input{width:auto;margin:0;display:inline-block;margin-right:.35rem;accent-color:var(--brand)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table.data{width:100%;border-collapse:collapse;font-size:.88rem}
+table.data th,table.data td{padding:.62rem .8rem;text-align:left;
+  border-bottom:1px solid var(--line-soft);vertical-align:middle}
+table.data th{background:var(--line-soft);font-size:.74rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--ink-soft);font-weight:700;position:sticky;top:0}
+table.data tr:hover td{background:#fafcfc}
 table.data tr:last-child td{border-bottom:none}
+.pill{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700}
+.pill.ok{background:var(--ok-50);color:var(--ok)}
+.pill.bad{background:var(--bad-50);color:var(--bad)}
+.pill.warn{background:var(--warn-50);color:var(--warn)}
+.pill.info{background:var(--brand-50);color:var(--brand-700)}
 
-.tabs{display:flex;gap:.25rem;border-bottom:1px solid var(--line);margin-bottom:1rem;overflow-x:auto}
-.tab{background:transparent;border:1px solid transparent;border-bottom:none;padding:.55rem .9rem;font-weight:600;color:var(--muted);border-radius:8px 8px 0 0;white-space:nowrap}
-.tab.active{background:var(--card);border-color:var(--line);color:var(--brand-600);margin-bottom:-1px}
+.tabs{display:flex;gap:.25rem;border-bottom:2px solid var(--line);margin-bottom:1.15rem;
+  overflow-x:auto;padding-bottom:0}
+.tab{background:transparent;border:none;padding:.62rem .95rem;font-weight:700;
+  color:var(--muted);border-radius:9px 9px 0 0;white-space:nowrap;transition:all .15s;
+  border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab:hover{color:var(--brand-700);background:var(--line-soft)}
+.tab.active{color:var(--brand-700);border-bottom-color:var(--brand);background:var(--brand-50)}
 
-.modal-backdrop{position:fixed;inset:0;background:rgba(13,31,38,.45);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:500}
-.modal-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;width:100%;max-width:740px;max-height:90vh;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,.22)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(11,26,32,.5);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:1rem;z-index:500;
+  animation:fadeUp .2s ease}
+.modal-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.5rem;
+  width:100%;max-width:760px;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow-lg);animation:pop .22s ease}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem;
+  padding-bottom:.85rem;border-bottom:1px solid var(--line)}
+.modal-head h3{margin:0}
+.modal-close{background:var(--line-soft);border:none;width:34px;height:34px;border-radius:9px;
+  font-size:1.2rem;color:var(--muted);display:grid;place-items:center;transition:all .15s}
+.modal-close:hover{background:var(--bad-50);color:var(--bad)}
 
-.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:1000;font-size:.9rem;max-width:90vw}
+.toast{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;padding:.85rem 1.35rem;border-radius:11px;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);z-index:1000;font-size:.92rem;font-weight:600;
+  max-width:90vw;animation:slideUp .3s ease;display:flex;align-items:center;gap:.55rem}
+@keyframes slideUp{from{opacity:0;transform:translate(-50%,20px)}to{opacity:1;transform:translate(-50%,0)}}
 .toast.ok{background:var(--ok)}.toast.bad{background:var(--bad)}.toast.warn{background:var(--warn)}
-.offline-banner{background:var(--warn);color:#fff;text-align:center;padding:.5rem 1rem;font-weight:600;font-size:.9rem}
+
+.offline-banner{background:var(--grad-gold);color:#fff;text-align:center;padding:.55rem 1rem;
+  font-weight:700;font-size:.88rem;box-shadow:0 2px 8px rgba(180,83,9,.25)}
+
+.cert-display{background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);
+  border:3px double var(--gold);border-radius:14px;padding:2rem;text-align:center;
+  max-width:640px;margin:1.5rem auto;position:relative;box-shadow:var(--shadow-lg)}
+.cert-display::before,.cert-display::after{content:'✦';position:absolute;font-size:1.4rem;color:var(--gold)}
+.cert-display::before{top:.85rem;left:1rem}
+.cert-display::after{bottom:.85rem;right:1rem}
+.cert-display .cert-title{font-family:Georgia,serif;font-size:1.55rem;color:#78350f;
+  margin-bottom:.4rem;letter-spacing:.04em}
+.cert-display .cert-name{font-size:1.35rem;font-weight:800;color:var(--ink);margin:.75rem 0 .35rem}
+.cert-display .cert-code{font-family:ui-monospace,monospace;font-size:.82rem;
+  background:rgba(184,134,11,.14);display:inline-block;padding:.28rem .75rem;border-radius:7px;
+  color:#78350f;margin-top:.55rem;letter-spacing:.05em}
+
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:.75rem;opacity:.5}
+.empty h3{color:var(--ink-soft)}
 
 @media(max-width:760px){
   .lesson-wrap{flex-direction:column}
-  .lesson-nav{position:static;flex:none;max-height:none}
-  .topbar{padding:.55rem .75rem;flex-wrap:wrap}
-  main#app{margin:.75rem auto;padding:0 .75rem}
+  .lesson-nav{position:static;flex:none;max-height:none;width:100%}
+  .topbar{padding:.6rem .85rem;flex-wrap:wrap}
+  .mainnav{top:auto;position:static}
+  main#app{margin:.85rem auto;padding:0 .85rem}
+  .exam-header{padding:1rem}
+  .auth-card{padding:1.5rem}
 }
 </style>
 </head>
 <body>
 
 <header class="topbar">
-  <div class="brand" id="brandLabel">Neonatal Nursing LMS</div>
+  <div class="brand">
+    <span class="brand-logo">🩺</span>
+    <span id="brandLabel">Neonatal Nursing LMS</span>
+  </div>
   <div class="topbar-right">
-    <span class="badge ok" id="netBadge">Online</span>
+    <span class="badge ok" id="netBadge"><span class="dot"></span><span>Online</span></span>
     <span class="badge warn hidden" id="pendingBadge">0 queued</span>
     <span class="small hidden" style="color:#e6f4f3" id="userName"></span>
     <button class="btn-ghost hidden" id="logoutBtn">Log out</button>
@@ -155,12 +345,12 @@ table.data tr:last-child td{border-bottom:none}
 </header>
 
 <nav class="mainnav hidden" id="mainNav">
-  <button data-nav="dashboard" class="active">Learn</button>
-  <button data-nav="exams">Exams (30 / 40)</button>
-  <button data-nav="grades">My grades</button>
-  <button data-nav="certificates">Certificates</button>
-  <button data-nav="portfolio">Portfolio</button>
-  <button data-nav="admin" id="adminNavBtn" class="hidden">Admin</button>
+  <button data-nav="dashboard" class="active">📚 Learn</button>
+  <button data-nav="exams">📝 Exams</button>
+  <button data-nav="grades">📊 My Grades</button>
+  <button data-nav="certificates">🏅 Certificates</button>
+  <button data-nav="portfolio">📁 Portfolio</button>
+  <button data-nav="admin" id="adminNavBtn" class="hidden">⚙️ Admin</button>
 </nav>
 
 <div id="offlineBanner" class="offline-banner hidden">⚠ You are offline — cached content &amp; queued updates active.</div>
@@ -170,6 +360,9 @@ table.data tr:last-child td{border-bottom:none}
 <div id="toast" class="toast hidden"></div>
 
 <script>
+/* ============================================================
+   CONFIG / STATE
+   ============================================================ */
 const CFG = window.LMS_CONFIG || {};
 const API_URL = CFG.API_URL || 'https://script.google.com/macros/s/AKfycbwpJOE_nvwrOjI01sdCnHnr2uRAqbOuA54C6cKaJlV4UmZpj8qJfHg_bwydHRbULMa8Kg/exec';
 const COURSE_TITLE = CFG.COURSE_TITLE || 'Neonatal Nursing';
@@ -186,1366 +379,1460 @@ const OFFLINE = Object.assign({
   SYNC_INTERVAL_MS: 30000, PING_INTERVAL_MS: 60000
 }, CFG.OFFLINE || {});
 
-/* =====================================================================
-   10-DOMAIN OSCE RUBRIC (Explicit Behavioral Anchors for Unbiased Scoring)
-   ===================================================================== */
-const OSCE_DOMAINS = [
-  {
-    num: 1,
-    title: 'Preparation & Infection Control',
-    objective: 'Environment readiness, equipment check, hand hygiene, and clean/sterile precautions before handling.',
-    s0: 'Skips hand hygiene/equipment check or creates contamination/thermal hazard.',
-    s1: 'Performs partial prep or minor delay in checking suction/bag/warmer or hygiene.',
-    s2: 'Completes full hand hygiene, PPE/asepsis, and verifies warmer, bag/mask, suction, and O2 promptly.'
-  },
-  {
-    num: 2,
-    title: 'Initial Thermal & Airway Management',
-    objective: 'Immediate drying, removal of wet linen, hat/warmer use, sniffing position, and selective airway clearance.',
-    s0: 'Leaves infant wet/unwarmed or hyperextends/flexes neck obstructing airway.',
-    s1: 'Applies warmth or positioning with minor delay or unnecessary routine suctioning.',
-    s2: 'Dries immediately, removes wet linen, warms/hat, places in neutral sniffing position, suctions only if indicated.'
-  },
-  {
-    num: 3,
-    title: 'Rapid Assessment & APGAR Evaluation',
-    objective: 'Immediate evaluation of term status, tone, breathing/crying, heart rate, and accurate APGAR scoring.',
-    s0: 'Delays care for APGAR or misjudges apnoea/bradycardia (< 100 bpm).',
-    s1: 'Assesses key signs but states findings late or inconsistently.',
-    s2: 'Rapidly evaluates tone, breathing, and HR; initiates action immediately without delaying for APGAR.'
-  },
-  {
-    num: 4,
-    title: 'Positive Pressure Ventilation (PPV) Execution',
-    objective: 'Timely PPV initiation within the Golden Minute, proper mask seal, rate (40–60/min), and chest rise check.',
-    s0: 'Fails to start PPV when indicated or delivers erratic/unsafe ventilation.',
-    s1: 'Starts PPV late (> 60 s) or seal/rate needs prompt adjustment.',
-    s2: 'Initiates PPV within 60 s at 40–60 breaths/min with good seal and visible gentle chest rise.'
-  },
-  {
-    num: 5,
-    title: 'Corrective Ventilation Steps (MR. SOPA)',
-    objective: 'Systematic troubleshooting when chest does not rise: Mask, Reposition, Suction, Open mouth, Pressure, Alternative airway.',
-    s0: 'Random/unstructured troubleshooting or escalates to compressions without achieving chest rise.',
-    s1: 'Applies some MR. SOPA steps out of sequence or omits one check.',
-    s2: 'Executes MR. SOPA systematically in order until chest rises effectively.'
-  },
-  {
-    num: 6,
-    title: 'Chest Compressions (3:1 Ratio)',
-    objective: 'Initiation when HR < 60 bpm after effective ventilation; correct thumb placement, depth (~1/3 AP), and 3:1 cadence.',
-    s0: 'Starts compressions with HR ≥ 60 bpm without adequate PPV, or wrong technique.',
-    s1: 'Correct indication, but minor rhythm/coordination lapse during 3:1 cycles.',
-    s2: 'Starts at HR < 60 bpm with 100% O2; maintains accurate 3:1 ratio (120 events/min) and depth.'
-  },
-  {
-    num: 7,
-    title: 'Medication Preparation & Administration',
-    objective: 'Accurate weight-based dose calculation (e.g., epinephrine 0.02 mg/kg), concentration check, closed-loop verification, and route.',
-    s0: 'Calculation error, wrong concentration/route, or unverified high-alert drug.',
-    s1: 'Correct dose but slow double-check or minor documentation lag.',
-    s2: 'Calculates accurately, verifies concentration/dose aloud with second check, and administers safely.'
-  },
-  {
-    num: 8,
-    title: 'Team Communication & Closed-Loop Practice',
-    objective: 'Clear role allocation, call-outs of HR/SpO2/interventions, and explicit read-back/closed-loop confirmation.',
-    s0: 'Silent/chaotic team behavior or unacknowledged critical orders.',
-    s1: 'Communicates intermittently; occasional missing read-back.',
-    s2: 'Uses clear, calm, closed-loop communication and timely status call-outs throughout.'
-  },
-  {
-    num: 9,
-    title: 'Documentation & Timekeeping',
-    objective: 'Accurate recording of birth/intervention times, HR/SpO2 trends, medications, and post-resuscitation status.',
-    s0: 'Missing critical times/medications or inaccurate record.',
-    s1: 'Records most events accurately with minor omissions.',
-    s2: 'Tracks time intervals accurately and documents interventions, responses, and vitals clearly.'
-  },
-  {
-    num: 10,
-    title: 'Professionalism, Safety & Family Communication',
-    objective: 'Safe handling, calm demeanor, ethical care, and empathetic, clear updates to parents/family.',
-    s0: 'Unsafe handling, disrespectful tone, or no communication with family.',
-    s1: 'Safe care overall; family update brief or delayed.',
-    s2: 'Demonstrates calm professionalism, safety vigilance, and compassionate, clear family communication.'
-  }
-];
-
-const $  = (s, el) => (el || document).querySelector(s);
-const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
-const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
-const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36));
-function toast(msg, kind) {
-  const el = $('#toast'); el.textContent = msg;
-  el.className = 'toast ' + (kind || '');
-  el.hidden = false;
-  clearTimeout(toast._t); toast._t = setTimeout(() => { el.hidden = true; }, 2800);
-}
-function debounce(fn, ms) {
-  let t; return function() { const a = arguments, c = this; clearTimeout(t); t = setTimeout(() => fn.apply(c, a), ms); };
-}
-function closeModal() {
-  const mr = $('#modalRoot'); mr.innerHTML = ''; mr.classList.add('hidden');
-}
-function openModal(html) {
-  const mr = $('#modalRoot');
-  mr.innerHTML = `<div class="modal-backdrop" id="modalBackdrop"><div class="modal-card">${html}</div></div>`;
-  mr.classList.remove('hidden');
-  $('#modalBackdrop').addEventListener('click', (e) => { if (e.target.id === 'modalBackdrop') closeModal(); });
-}
-
-/* ---------- IndexedDB ---------- */
-const DB_NAME = 'lms_offline';
-const DB_VERSION = 2;
-let _dbPromise = null;
-function dbOpen() {
-  if (_dbPromise) return _dbPromise;
-  _dbPromise = new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = (e) => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains('kv'))      db.createObjectStore('kv',      { keyPath: 'key' });
-      if (!db.objectStoreNames.contains('pending')) db.createObjectStore('pending', { keyPath: 'id' });
-    };
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-  return _dbPromise;
-}
-async function idbPut(store, val) {
-  const db = await dbOpen();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readwrite');
-    tx.objectStore(store).put(val);
-    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
-  });
-}
-async function idbGet(store, key) {
-  const db = await dbOpen();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).get(key);
-    req.onsuccess = () => res(req.result || null); req.onerror = () => rej(req.error);
-  });
-}
-async function idbAll(store) {
-  const db = await dbOpen();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).getAll();
-    req.onsuccess = () => res(req.result || []); req.onerror = () => rej(req.error);
-  });
-}
-async function idbDel(store, key) {
-  const db = await dbOpen();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readwrite');
-    tx.objectStore(store).delete(key);
-    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
-  });
-}
-const kvGet = (k)    => idbGet('kv', k).then(r => r ? r.val : null);
-const kvSet = (k, v) => idbPut('kv', { key: k, val: v, at: Date.now() });
+const Q_KEY = 'lms_queue_v5';
+const S_KEY = 'lms_token_v5';
+const U_KEY = 'lms_user_v5';
 
 const state = {
-  token: localStorage.getItem('lms_token') || '',
-  user:  safeJSON(localStorage.getItem('lms_user')) || null,
-  view:  'loading',
-  params: {},
-  content: null,
-  userData: {},
+  token: localStorage.getItem(S_KEY) || null,
+  user: (() => { try { return JSON.parse(localStorage.getItem(U_KEY) || 'null'); } catch(e){ return null; } })(),
+  modules: [],
   online: navigator.onLine,
-  pendingCount: 0
+  currentExam: null,
+  examTimerHandle: null,
+  busy: false
 };
-function safeJSON(s) { try { return s ? JSON.parse(s) : null; } catch { return null; } }
-function fetchJSON(url, body) {
-  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
-    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+const app = () => document.getElementById('app');
+
+function esc(s){
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function el(html){ const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; }
+function fmtDate(d){ try { return new Date(d).toLocaleString(); } catch(e){ return String(d); } }
+function fmtShort(d){ try { return new Date(d).toLocaleDateString(); } catch(e){ return String(d); } }
+
+function toast(msg, kind){
+  const t = document.getElementById('toast');
+  t.className = 'toast ' + (kind || '');
+  t.innerHTML = (kind === 'ok' ? '✓ ' : kind === 'bad' ? '✕ ' : kind === 'warn' ? '⚠ ' : 'ℹ ') + esc(msg);
+  t.classList.remove('hidden');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.add('hidden'), 3800);
 }
 
-const READ_ACTIONS = new Set([
-  'me', 'listContent', 'getQuizGroupScore', 'getUserData',
-  'listMyPortfolio', 'listUsers', 'listAllGrades',
-  'listCertificates', 'computeLearnerGrade', 'getMyExamSummary',
-  'listExamQuestionsAdmin', 'getExamPasscodes', 'ping'
-]);
-const WRITE_ACTIONS = new Set([
-  'saveUserData', 'submitQuizGroup', 'submitExam', 'updateUser', 'deleteUser', 'adminCreateUser',
-  'createModule', 'updateModule', 'deleteModule',
-  'createLesson', 'updateLesson', 'deleteLesson',
-  'createQuiz', 'updateQuiz', 'deleteQuiz',
-  'createExamQuestion', 'updateExamQuestion', 'deleteExamQuestion', 'updateExamPasscode',
-  'submitOsce', 'adminUpdateModuleGrade', 'submitPortfolio'
-]);
-const ONLINE_ONLY = new Set([
-  'login', 'logout', 'register', 'forgot', 'reset', 'verifyExamPasscode', 'updateExamPasscode', 'getExamPasscodes',
-  'submitPortfolio', 'updateUser', 'deleteUser', 'adminCreateUser',
-  'createModule', 'updateModule', 'deleteModule',
-  'createLesson', 'updateLesson', 'deleteLesson',
-  'createQuiz', 'updateQuiz', 'deleteQuiz',
-  'createExamQuestion', 'updateExamQuestion', 'deleteExamQuestion',
-  'submitOsce', 'adminUpdateModuleGrade'
-]);
-
-function cacheKey(action, body) {
-  const b = Object.assign({}, body || {}); delete b.token;
-  return 'cache:' + action + ':' + JSON.stringify(b, Object.keys(b).sort());
+function openModal(html){
+  const root = document.getElementById('modalRoot');
+  root.innerHTML = `<div class="modal-backdrop"><div class="modal-card">${html}</div></div>`;
+  root.classList.remove('hidden');
+  root.querySelector('.modal-backdrop').addEventListener('click', e => {
+    if (e.target.classList.contains('modal-backdrop')) closeModal();
+  });
+}
+function closeModal(){
+  const root = document.getElementById('modalRoot');
+  root.classList.add('hidden');
+  root.innerHTML = '';
+}
+function setBusy(b){
+  state.busy = b;
+  document.querySelectorAll('button.btn.primary').forEach(b2 => b2.disabled = b);
 }
 
-async function apiCall(action, body, opts) {
+/* ============================================================
+   OFFLINE QUEUE
+   ============================================================ */
+function getQueue(){
+  try { return JSON.parse(localStorage.getItem(Q_KEY) || '[]'); } catch(e){ return []; }
+}
+function setQueue(q){ localStorage.setItem(Q_KEY, JSON.stringify(q)); updatePendingBadge(); }
+function enqueue(item){
+  const q = getQueue();
+  q.push(Object.assign({ clientId: cryptoId(), attempts: 0, ts: Date.now() }, item));
+  if (q.length > OFFLINE.QUEUE_MAX_ITEMS) q.splice(0, q.length - OFFLINE.QUEUE_MAX_ITEMS);
+  setQueue(q);
+}
+function cryptoId(){
+  return 'q_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+function updatePendingBadge(){
+  const b = document.getElementById('pendingBadge');
+  const n = getQueue().length;
+  if (!b) return;
+  if (n > 0) { b.textContent = n + ' queued'; b.classList.remove('hidden'); }
+  else b.classList.add('hidden');
+}
+async function flushQueue(){
+  const q = getQueue();
+  if (!q.length) return;
+  if (!state.online || !state.token) return;
+  const batch = q.slice(0, OFFLINE.SYNC_BATCH_SIZE);
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'syncBatch', token: state.token,
+        items: batch.map(x => ({ clientId: x.clientId, action: x.action, body: x.body })) })
+    });
+    const j = await res.json();
+    if (!j.ok) return;
+    const okIds = new Set((j.data.results || []).filter(r => r.ok).map(r => r.clientId));
+    const remaining = q.filter(x => !okIds.has(x.clientId)).map(x => {
+      if (batch.some(b => b.clientId === x.clientId)) x.attempts = (x.attempts || 0) + 1;
+      return x;
+    }).filter(x => (x.attempts || 0) < OFFLINE.QUEUE_MAX_RETRIES);
+    setQueue(remaining);
+    if (okIds.size) toast(`Synced ${okIds.size} offline change(s)`, 'ok');
+  } catch(e){ /* silent */ }
+}
+
+/* ============================================================
+   API CLIENT
+   ============================================================ */
+async function api(action, body, opts){
   opts = opts || {};
   const payload = Object.assign({}, body || {}, { action, token: state.token });
-  if (state.online && !opts.forceCache) {
-    try {
-      const res = await fetchJSON(API_URL, payload);
-      if (res && res.ok) {
-        if (READ_ACTIONS.has(action)) await kvSet(cacheKey(action, body), { data: res.data, at: Date.now() });
-        return { ok: true, data: res.data, fromCache: false };
-      }
-      if (res && res.code === 401) clearSession();
-      return { ok: false, error: (res && res.error) || 'Server error', code: res && res.code };
-    } catch (netErr) {}
+  if (!state.online && opts.allowQueue !== false && !['login','register','forgot','reset','ping'].includes(action)) {
+    enqueue({ action, body: body || {} });
+    return { ok: true, data: { queued: true }, queued: true };
   }
-  if (ONLINE_ONLY.has(action)) return { ok: false, error: 'This action requires an internet connection.', offline: true };
-  if (READ_ACTIONS.has(action)) {
-    const cached = await kvGet(cacheKey(action, body));
-    if (cached && cached.data) return { ok: true, data: cached.data, fromCache: true };
-    return { ok: false, error: 'Offline and no cached copy available.' };
-  }
-  if (WRITE_ACTIONS.has(action)) {
-    const optimistic = await applyOptimisticLocal(action, body || {});
-    await queueAction(action, body || {});
-    return { ok: true, data: optimistic, queued: true, offline: true };
-  }
-  return { ok: false, error: 'Action not available offline: ' + action };
-}
-
-async function applyOptimisticLocal(action, body) {
-  if (action === 'saveUserData') {
-    state.userData[body.dataKey] = body.dataValue;
-    await kvSet('userData', state.userData);
-    return { message: 'Saved locally.', offline: true };
-  }
-  return { message: 'Queued.', offline: true };
-}
-
-async function queueAction(action, body) {
-  const clean = Object.assign({}, body); delete clean.token; delete clean.action;
-  const item = { id: uid(), action, body: clean, at: Date.now(), retries: 0 };
-  const items = await idbAll('pending');
-  if (items.length >= OFFLINE.QUEUE_MAX_ITEMS) {
-    items.sort((a, b) => a.at - b.at);
-    await idbDel('pending', items[0].id);
-  }
-  await idbPut('pending', item);
-  await refreshPendingBadge();
-}
-async function refreshPendingBadge() {
-  const items = await idbAll('pending');
-  state.pendingCount = items.length;
-  const badge = $('#pendingBadge');
-  if (!items.length) badge.classList.add('hidden');
-  else { badge.textContent = items.length + ' queued'; badge.classList.remove('hidden'); }
-}
-async function flushQueue() {
-  if (!state.online || !state.token) return;
-  const items = await idbAll('pending');
-  if (!items.length) { await refreshPendingBadge(); return; }
-  for (let i = 0; i < items.length; i += OFFLINE.SYNC_BATCH_SIZE) {
-    const batch = items.slice(i, i + OFFLINE.SYNC_BATCH_SIZE);
-    try {
-      const res = await fetchJSON(API_URL, {
-        action: 'syncBatch', token: state.token,
-        items: batch.map(it => ({ clientId: it.id, action: it.action, body: it.body }))
-      });
-      if (!res || !res.ok || !res.data || !Array.isArray(res.data.results)) return;
-      for (const r of res.data.results) {
-        if (r.ok) await idbDel('pending', r.clientId);
-        else {
-          const item = await idbGet('pending', r.clientId);
-          if (!item) continue;
-          item.retries = (item.retries || 0) + 1;
-          if (item.retries >= OFFLINE.QUEUE_MAX_RETRIES) await idbDel('pending', item.id);
-          else await idbPut('pending', item);
-        }
-      }
-    } catch (e) { break; }
-  }
-  await refreshPendingBadge();
-}
-
-function saveSession(token, user) {
-  state.token = token; state.user = user;
-  localStorage.setItem('lms_token', token);
-  localStorage.setItem('lms_user', JSON.stringify(user));
-}
-function clearSession() {
-  state.token = ''; state.user = null;
-  localStorage.removeItem('lms_token');
-  localStorage.removeItem('lms_user');
-}
-function isInstructorOrAdmin() { return state.user && (state.user.role === 'admin' || state.user.role === 'instructor'); }
-function isAdmin() { return state.user && state.user.role === 'admin'; }
-
-function updateNetBadge() {
-  const badge = $('#netBadge'), banner = $('#offlineBanner');
-  if (state.online) { badge.textContent = 'Online'; badge.className = 'badge ok'; banner.classList.add('hidden'); }
-  else { badge.textContent = 'Offline'; badge.className = 'badge warn'; banner.classList.remove('hidden'); }
-  $('#logoutBtn').classList.toggle('hidden', !state.token);
-  $('#userName').classList.toggle('hidden', !state.user);
-  if (state.user) $('#userName').textContent = state.user.name + ' · ' + state.user.role;
-  $('#mainNav').classList.toggle('hidden', !state.token);
-  $('#adminNavBtn').classList.toggle('hidden', !isInstructorOrAdmin());
-}
-
-async function ping() {
-  if (!API_URL) return;
   try {
-    const res = await fetchJSON(API_URL, { action: 'ping' });
-    state.online = !!(res && res.ok);
-  } catch (e) { state.online = false; }
-  updateNetBadge();
-  if (state.online && state.pendingCount > 0) await flushQueue();
-}
-
-async function preloadAll() {
-  const [ud, co] = await Promise.all([
-    apiCall('getUserData', { prefix: '' }),
-    apiCall('listContent', {})
-  ]);
-  if (ud.ok && ud.data && ud.data.data) state.userData = Object.assign({}, ud.data.data, state.userData);
-  const localUD = await kvGet('userData');
-  if (localUD) state.userData = Object.assign({}, localUD, state.userData);
-  if (co.ok && co.data) state.content = co.data;
-}
-async function ensureContent(forceRefresh) {
-  if (!forceRefresh && state.content && state.content.modules) return state.content;
-  const res = await apiCall('listContent', {});
-  if (res.ok) { state.content = res.data; return state.content; }
-  return state.content || null;
-}
-
-let _examTimerId = null;
-function clearExamTimer() {
-  if (_examTimerId) { clearInterval(_examTimerId); _examTimerId = null; }
-}
-
-function render() {
-  clearExamTimer();
-  const app = $('#app');
-  updateNetBadge();
-  if (!state.token) return renderLogin(app);
-  switch (state.view) {
-    case 'dashboard':    return renderDashboard(app);
-    case 'module':       return renderModule(app, state.params.moduleId);
-    case 'exams':        return renderExams(app, state.params.examType);
-    case 'grades':       return renderGrades(app);
-    case 'certificates': return renderCertificates(app);
-    case 'portfolio':    return renderPortfolio(app);
-    case 'admin':        return renderAdmin(app, state.params.tab);
-    default:             return renderDashboard(app);
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const text = await res.text();
+    let j;
+    try { j = JSON.parse(text); } catch(e){ throw new Error('Invalid server response'); }
+    if (!j.ok && j.code === 401) {
+      clearSession();
+      renderAuth();
+      toast('Session expired — please log in again', 'warn');
+    }
+    return j;
+  } catch(err){
+    if (!state.online && opts.allowQueue !== false) {
+      enqueue({ action, body: body || {} });
+      return { ok: true, data: { queued: true }, queued: true };
+    }
+    throw err;
   }
 }
 
-/* ---------- Login ---------- */
-function renderLogin(app) {
-  app.innerHTML = `
-    <div class="form-card card">
-      <h2 class="form-title">${esc(COURSE_TITLE)}</h2>
-      <p class="small">Sign in, or create a new learner account.</p>
-      <div class="tabs" style="margin-bottom:1rem">
-        <button class="tab active" data-auth-tab="login">Sign in</button>
-        <button class="tab" data-auth-tab="register">Register</button>
+/* ============================================================
+   SESSION
+   ============================================================ */
+function saveSession(token, user){
+  state.token = token;
+  state.user = user;
+  localStorage.setItem(S_KEY, token);
+  localStorage.setItem(U_KEY, JSON.stringify(user));
+  refreshHeader();
+}
+function clearSession(){
+  state.token = null;
+  state.user = null;
+  localStorage.removeItem(S_KEY);
+  localStorage.removeItem(U_KEY);
+  refreshHeader();
+}
+function refreshHeader(){
+  const nav = document.getElementById('mainNav');
+  const logBtn = document.getElementById('logoutBtn');
+  const uname = document.getElementById('userName');
+  const adminBtn = document.getElementById('adminNavBtn');
+  if (state.token && state.user) {
+    nav.classList.remove('hidden');
+    logBtn.classList.remove('hidden');
+    uname.classList.remove('hidden');
+    uname.textContent = state.user.name + ' · ' + state.user.role;
+    if (state.user.role === 'admin' || state.user.role === 'instructor') adminBtn.classList.remove('hidden');
+    else adminBtn.classList.add('hidden');
+  } else {
+    nav.classList.add('hidden');
+    logBtn.classList.add('hidden');
+    uname.classList.add('hidden');
+    adminBtn.classList.add('hidden');
+  }
+}
+
+/* ============================================================
+   AUTH VIEW
+   ============================================================ */
+function renderAuth(mode){
+  mode = mode || 'login';
+  app().innerHTML = `
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-icon">${mode === 'register' ? '✨' : mode === 'forgot' ? '🔑' : mode === 'reset' ? '🛡️' : '🩺'}</div>
+      <div class="form-title">
+        <h1>${mode === 'register' ? 'Create account' : mode === 'forgot' ? 'Reset password' : mode === 'reset' ? 'Set new password' : 'Welcome back'}</h1>
+        <p>${esc(COURSE_TITLE)} · Learning Management System</p>
       </div>
-      <form id="loginForm">
-        <label>Email<input type="email" name="email" required autocomplete="email"></label>
-        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
-        <button class="btn primary btn-block" type="submit">Sign in</button>
-        <p class="small" style="margin-top:.75rem"><a href="#" id="forgotLink">Forgot password?</a></p>
-      </form>
-      <form id="registerForm" class="hidden">
-        <label>Full name<input type="text" name="name" required autocomplete="name"></label>
-        <label>Email<input type="email" name="email" required autocomplete="email"></label>
-        <label>Password (min 8 chars)<input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
-        <button class="btn primary btn-block" type="submit">Create account</button>
-      </form>
+      ${mode === 'login' || mode === 'register' ? `
+        <div class="auth-toggle">
+          <button data-auth="login" class="${mode === 'login' ? 'active' : ''}">Log in</button>
+          <button data-auth="register" class="${mode === 'register' ? 'active' : ''}">Register</button>
+        </div>` : ''}
       <div id="authMsg"></div>
+      ${mode === 'forgot' ? `
+        <form id="authForm">
+          <label>Email address<input type="email" name="email" required placeholder="you@example.com"></label>
+          <button class="btn primary btn-block" type="submit">Send reset code</button>
+          <div class="link-row"><span></span><a href="#" data-auth="login">Back to login</a></div>
+        </form>` : mode === 'reset' ? `
+        <form id="authForm">
+          <label>Email address<input type="email" name="email" required></label>
+          <label>Reset code<input type="text" name="code" required placeholder="6-digit code"></label>
+          <label>New password<input type="password" name="password" required minlength="8"></label>
+          <button class="btn primary btn-block" type="submit">Update password</button>
+          <div class="link-row"><span></span><a href="#" data-auth="login">Back to login</a></div>
+        </form>` : `
+        <form id="authForm">
+          ${mode === 'register' ? '<label>Full name<input name="name" required placeholder="Your full name"></label>' : ''}
+          <label>Email address<input type="email" name="email" required placeholder="you@example.com"></label>
+          <label>Password<input type="password" name="password" required minlength="8"></label>
+          ${mode === 'register' ? '<label>Role<select name="role"><option value="learner">Learner</option><option value="instructor">Instructor</option><option value="admin">Administrator</option></select></label>' : ''}
+          <button class="btn primary btn-block" type="submit">${mode === 'register' ? 'Create account' : 'Log in'}</button>
+          ${mode === 'login' ? '<div class="link-row"><a href="#" data-auth="forgot">Forgot password?</a><span></span></div>' : ''}
+        </form>`}
     </div>
-  `;
-  const showMsg = (text, kind) => { $('#authMsg').innerHTML = `<div class="msg ${kind}">${esc(text)}</div>`; };
-  $$('[data-auth-tab]').forEach(b => b.addEventListener('click', () => {
-    $$('[data-auth-tab]').forEach(x => x.classList.toggle('active', x === b));
-    $('#loginForm').classList.toggle('hidden', b.dataset.authTab !== 'login');
-    $('#registerForm').classList.toggle('hidden', b.dataset.authTab !== 'register');
-    $('#authMsg').innerHTML = '';
-  }));
-  $('#loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const f = e.target; const btn = f.querySelector('button[type=submit]');
-    btn.disabled = true; btn.textContent = 'Signing in…';
-    try {
-      const res = await fetchJSON(API_URL, { action: 'login', email: f.email.value.trim().toLowerCase(), password: f.password.value });
-      if (!res.ok) throw new Error(res.error || 'Login failed');
-      saveSession(res.data.token, res.data.user);
-      state.view = 'dashboard'; state.params = {};
-      await preloadAll(); render();
-    } catch (err) {
-      showMsg(err.message || 'Login failed', 'bad');
-      btn.disabled = false; btn.textContent = 'Sign in';
-    }
+  </div>`;
+
+  document.querySelectorAll('[data-auth]').forEach(b => {
+    b.addEventListener('click', e => {
+      if (b.tagName === 'A') e.preventDefault();
+      renderAuth(b.getAttribute('data-auth'));
+    });
   });
-  $('#registerForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const f = e.target; const btn = f.querySelector('button[type=submit]');
-    btn.disabled = true; btn.textContent = 'Creating…';
+
+  const form = document.getElementById('authForm');
+  if (form) form.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    const msg = document.getElementById('authMsg');
+    msg.innerHTML = '';
     try {
-      const res = await fetchJSON(API_URL, { action: 'register', name: f.name.value.trim(), email: f.email.value.trim().toLowerCase(), password: f.password.value });
-      if (!res.ok) throw new Error(res.error || 'Registration failed');
-      showMsg('Account created. You can now sign in.', 'ok'); f.reset();
-    } catch (err) {
-      showMsg(err.message || 'Registration failed', 'bad');
-      btn.disabled = false; btn.textContent = 'Create account';
+      if (mode === 'login') {
+        const r = await api('login', { email: data.email, password: data.password }, { allowQueue: false });
+        if (!r.ok) { msg.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+        saveSession(r.data.token, r.data.user);
+        toast('Welcome back, ' + r.data.user.name, 'ok');
+        route('dashboard');
+      } else if (mode === 'register') {
+        const r = await api('register', data, { allowQueue: false });
+        if (!r.ok) { msg.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+        msg.innerHTML = `<div class="msg ok">Account created. ${data.role === 'learner' ? 'You can now log in.' : 'Awaiting administrator approval.'}</div>`;
+        setTimeout(() => renderAuth('login'), 1400);
+      } else if (mode === 'forgot') {
+        const r = await api('forgot', { email: data.email }, { allowQueue: false });
+        if (!r.ok) { msg.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+        msg.innerHTML = `<div class="msg info">${esc(r.data.message)}${r.data.code ? '<br><br><strong>Reset code: ' + esc(r.data.code) + '</strong>' : ''}</div>`;
+      } else if (mode === 'reset') {
+        const r = await api('reset', data, { allowQueue: false });
+        if (!r.ok) { msg.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+        msg.innerHTML = `<div class="msg ok">Password updated. Redirecting…</div>`;
+        setTimeout(() => renderAuth('login'), 1200);
+      }
+    } catch(err) {
+      msg.innerHTML = `<div class="msg bad">${esc(err.message)}</div>`;
     }
-  });
-  $('#forgotLink').addEventListener('click', async (e) => {
-    e.preventDefault();
-    const email = prompt('Enter your account email:'); if (!email) return;
-    try {
-      const res = await fetchJSON(API_URL, { action: 'forgot', email: email.trim().toLowerCase() });
-      if (!res.ok) throw new Error(res.error || 'Request failed');
-      const code = prompt((res.data.message + (res.data.code ? ' Code: ' + res.data.code : '')) + '\n\nEnter the reset code:');
-      if (!code) return;
-      const pw = prompt('Enter your new password (min 8 chars):'); if (!pw) return;
-      const r2 = await fetchJSON(API_URL, { action: 'reset', email: email.trim().toLowerCase(), code: code.trim(), password: pw });
-      if (!r2.ok) throw new Error(r2.error || 'Reset failed');
-      showMsg('Password reset. Please sign in.', 'ok');
-    } catch (err) { showMsg(err.message || 'Reset failed', 'bad'); }
   });
 }
 
-/* ---------- Dashboard ---------- */
-async function renderDashboard(app) {
-  app.innerHTML = `<div class="card"><p class="small">Loading modules…</p></div>`;
-  const content = await ensureContent();
-  if (!content || !content.modules) { app.innerHTML = `<div class="msg bad">Could not load course content.</div>`; return; }
-  const mods = content.modules.slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
-  app.innerHTML = `
-    <div class="space-between" style="margin-bottom:1rem">
-      <div>
-        <h1 style="margin:0">Welcome back, ${esc(state.user ? state.user.name.split(' ')[0] : 'learner')}</h1>
-        <p class="small" style="margin:.25rem 0 0">Navigate via the left outline or Previous/Next buttons.</p>
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+async function renderDashboard(){
+  app().innerHTML = `<div class="card"><div class="flex-row" style="justify-content:center;padding:2rem 0;">
+    <span class="small">Loading modules…</span></div></div>`;
+  try {
+    const r = await api('listContent', {});
+    if (!r.ok) throw new Error(r.error);
+    state.modules = r.data.modules || [];
+  } catch(e){
+    app().innerHTML = `<div class="msg bad">Failed to load content: ${esc(e.message)}</div>`;
+    return;
+  }
+  const totalLessons = state.modules.reduce((s, m) => s + (m.Lessons || []).length, 0);
+  const totalQuizzes = state.modules.reduce((s, m) => s + (m.Quizzes || []).length, 0);
+
+  app().innerHTML = `
+    <div class="card card-hero">
+      <div class="space-between">
+        <div>
+          <h1 style="margin:0">Welcome back, ${esc(state.user?.name || 'Learner')} 👋</h1>
+          <p class="small" style="margin:.35rem 0 0">${esc(COURSE_TITLE)} · Continue your clinical learning journey</p>
+        </div>
+        <button class="btn primary" onclick="route('exams')">Take an exam →</button>
       </div>
-      <button class="btn primary btn-sm" data-nav="exams">Midterm (30) &amp; Final (40) Exams</button>
     </div>
-    <div class="grid">
-      ${mods.map(m => `
-        <article class="mod-card" data-module-id="${esc(m.ModuleID)}">
-          <span class="mod-num">Module ${esc(m.SortOrder)}</span>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-label">Modules</div><div class="stat-value">${state.modules.length}</div><div class="stat-sub">Available</div></div>
+      <div class="stat"><div class="stat-label">Lessons</div><div class="stat-value">${totalLessons}</div><div class="stat-sub">Across all modules</div></div>
+      <div class="stat"><div class="stat-label">Quiz items</div><div class="stat-value">${totalQuizzes}</div><div class="stat-sub">Practice questions</div></div>
+      <div class="stat"><div class="stat-label">Pass mark</div><div class="stat-value">${PASS_THRESHOLD}%</div><div class="stat-sub">OSCE threshold</div></div>
+    </div>
+    <h2 style="margin:1.25rem 0 .75rem">📚 Course modules</h2>
+    <div class="grid" id="modGrid"></div>`;
+
+  const grid = document.getElementById('modGrid');
+  state.modules.forEach((m, i) => {
+    const nLessons = (m.Lessons || []).length;
+    const nQuizzes = (m.Quizzes || []).length;
+    const card = el(`
+      <div class="mod-card">
+        <div class="mod-accent"></div>
+        <div class="mod-body">
+          <span class="mod-num">Module ${i}</span>
           <h3>${esc(m.Title)}</h3>
           <p>${esc(m.Description || '')}</p>
-          <div class="mod-meta">${(m.Lessons || []).length} lesson${(m.Lessons || []).length === 1 ? '' : 's'} · ${(m.Quizzes || []).length} quiz${(m.Quizzes || []).length === 1 ? 'zes' : ''}</div>
-        </article>
-      `).join('')}
-    </div>
-  `;
-  $$('.mod-card').forEach(el => el.addEventListener('click', () => {
-    state.view = 'module'; state.params = { moduleId: el.dataset.moduleId, lessonId: '' }; render();
-  }));
+          <div class="mod-meta">
+            <span>📄 ${nLessons} lesson${nLessons===1?'':'s'}</span>
+            <span>❓ ${nQuizzes} question${nQuizzes===1?'':'s'}</span>
+          </div>
+        </div>
+      </div>`);
+    card.addEventListener('click', () => route('module', { moduleId: m.ModuleID }));
+    grid.appendChild(card);
+  });
 }
 
-/* ---------- Module View & Interactive Question Checking ---------- */
-async function renderModule(app, moduleId) {
-  app.innerHTML = `<div class="card"><p class="small">Loading module…</p></div>`;
-  const content = await ensureContent();
-  if (!content || !content.modules) { app.innerHTML = `<div class="msg bad">Module content unavailable.</div>`; return; }
-  const sortedMods = content.modules.slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
-  const modIdx = sortedMods.findIndex(m => String(m.ModuleID) === String(moduleId));
-  const mod = modIdx >= 0 ? sortedMods[modIdx] : null;
-  if (!mod) { app.innerHTML = `<div class="msg bad">Module not found.</div>`; return; }
+/* ============================================================
+   MODULE / LESSON
+   ============================================================ */
+function renderModule(params){
+  const m = state.modules.find(x => x.ModuleID === params.moduleId);
+  if (!m) { route('dashboard'); return; }
+  const lessonId = params.lessonId || (m.Lessons[0] && m.Lessons[0].LessonID);
+  renderLesson(m, lessonId);
+}
 
-  const lessons = (mod.Lessons || []).slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
-  const hasQuiz = (mod.Quizzes || []).length > 0;
-  const steps = lessons.map(l => ({ type: 'lesson', id: l.LessonID, title: l.Title, lesson: l }));
-  if (hasQuiz) steps.push({ type: 'quiz', id: 'QUIZ', title: '📝 Module quiz' });
+function renderLesson(m, lessonId){
+  const lesson = (m.Lessons || []).find(l => l.LessonID === lessonId);
+  if (!lesson) { renderLessonListOnly(m); return; }
 
-  let currentId = state.params.lessonId || (steps[0] && steps[0].id) || '';
-  let stepIdx = steps.findIndex(s => String(s.id) === String(currentId));
-  if (stepIdx < 0) stepIdx = 0;
-  const activeStep = steps[stepIdx] || null;
-  if (activeStep) state.params.lessonId = activeStep.id;
-
-  const prevMod = modIdx > 0 ? sortedMods[modIdx - 1] : null;
-  const nextMod = modIdx < sortedMods.length - 1 ? sortedMods[modIdx + 1] : null;
-
-  let navHtml = `<h4>${esc(mod.Title)}</h4>`;
-  steps.forEach((st, idx) => { navHtml += `<a data-step-idx="${idx}" class="${idx === stepIdx ? 'active' : ''}">${esc(st.title)}</a>`; });
-
-  let mainHtml = '';
-  if (!activeStep) mainHtml = `<div class="msg info">No lessons or quizzes in this module yet.</div>`;
-  else if (activeStep.type === 'quiz') mainHtml = await renderQuizView(mod);
-  else mainHtml = `<h2>${esc(activeStep.lesson.Title)}</h2><div class="lesson-content">${activeStep.lesson.ContentHTML}</div>`;
-
-  mainHtml += `
-    <div class="lesson-actions">
-      <div class="flex-row">
-        <button class="btn ghost" id="prevStepBtn" ${stepIdx > 0 ? '' : 'disabled'}>← Previous</button>
-        <button class="btn primary" id="nextStepBtn" ${stepIdx < steps.length - 1 ? '' : 'disabled'}>Next →</button>
-      </div>
-      <div class="flex-row">
-        ${prevMod ? `<button class="btn ghost btn-sm" id="prevModBtn">⇐ Prev Module</button>` : ''}
-        ${nextMod ? `<button class="btn ghost btn-sm" id="nextModBtn">Next Module ⇒</button>` : ''}
-      </div>
-    </div>
-  `;
-
-  app.innerHTML = `
-    <div class="space-between" style="margin-bottom:1rem">
-      <button class="btn ghost btn-sm" data-nav="dashboard">← All modules</button>
-      <span class="small">Step ${steps.length ? stepIdx + 1 : 0} of ${steps.length}</span>
+  app().innerHTML = `
+    <div class="flex-row" style="margin-bottom:.9rem;justify-content:space-between">
+      <button class="btn ghost btn-sm" onclick="route('dashboard')">← All modules</button>
+      <button class="btn accent btn-sm" onclick="startQuizGroup('${esc(m.ModuleID)}')">📝 Module quiz (${(m.Quizzes||[]).length})</button>
     </div>
     <div class="lesson-wrap">
-      <aside class="lesson-nav">${navHtml}</aside>
-      <div class="lesson-main">${mainHtml}</div>
-    </div>
-  `;
+      <aside class="lesson-nav">
+        <h4>${esc(m.Title)}</h4>
+        ${(m.Lessons || []).map((l, idx) => `
+          <a data-lesson="${esc(l.LessonID)}" class="${l.LessonID === lessonId ? 'active' : ''}">
+            <span class="nav-num">${idx+1}</span><span>${esc(l.Title)}</span>
+          </a>`).join('')}
+      </aside>
+      <article class="lesson-main" id="lessonMain"></article>
+    </div>`;
 
-  $$('.lesson-nav a[data-step-idx]').forEach(a => a.addEventListener('click', () => {
-    const idx = Number(a.dataset.stepIdx);
-    if (steps[idx]) { state.params.lessonId = steps[idx].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  }));
-  $('#prevStepBtn')?.addEventListener('click', () => { if (stepIdx > 0) { state.params.lessonId = steps[stepIdx - 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-  $('#nextStepBtn')?.addEventListener('click', () => { if (stepIdx < steps.length - 1) { state.params.lessonId = steps[stepIdx + 1].id; renderModule(app, mod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-  $('#prevModBtn')?.addEventListener('click', () => { state.params = { moduleId: prevMod.ModuleID, lessonId: '' }; renderModule(app, prevMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  $('#nextModBtn')?.addEventListener('click', () => { state.params = { moduleId: nextMod.ModuleID, lessonId: '' }; renderModule(app, nextMod.ModuleID); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  document.querySelectorAll('[data-lesson]').forEach(a => {
+    a.addEventListener('click', () => route('module', { moduleId: m.ModuleID, lessonId: a.getAttribute('data-lesson') }));
+  });
 
-  $$('[data-note-key]').forEach(ta => { if (state.userData[ta.dataset.noteKey]) ta.value = state.userData[ta.dataset.noteKey]; });
+  const main = document.getElementById('lessonMain');
+  main.innerHTML = `<h1>${esc(lesson.Title)}</h1>` + (lesson.ContentHTML || '<p class="small">No content.</p>');
 
-  // Wire per-question "Check" buttons on module quizzes
-  $$('#quizContainer .quiz-q').forEach(qEl => {
-    const checkBtn = qEl.querySelector('.check-q-btn');
-    if (!checkBtn) return;
-    checkBtn.addEventListener('click', () => {
-      const checked = qEl.querySelector('input[type=radio]:checked');
-      if (!checked) return toast('Select an option before checking', 'warn');
-      const chosen = Number(checked.value);
-      const correct = Number(qEl.dataset.correctIndex);
-      const explain = qEl.dataset.explanation || '';
-      const isRight = chosen === correct;
-      $$('.quiz-opt', qEl).forEach((optEl, idx) => {
-        optEl.classList.remove('correct', 'wrong');
-        if (idx === correct) optEl.classList.add('correct');
-        else if (idx === chosen && !isRight) optEl.classList.add('wrong');
-      });
-      const fb = qEl.querySelector('.q-feedback');
-      fb.hidden = false;
-      fb.className = 'quiz-explain q-feedback ' + (isRight ? 'ok' : 'bad');
-      fb.innerHTML = `<strong>${isRight ? '✓ Correct' : '✗ Incorrect'}</strong>${explain ? ' — ' + esc(explain) : ''}`;
+  main.querySelectorAll('textarea[data-note-key]').forEach(ta => {
+    const key = ta.getAttribute('data-note-key');
+    const status = main.querySelector(`[data-note-status="${key}"]`);
+    loadUserNote(key, ta, status);
+    let debounce;
+    ta.addEventListener('input', () => {
+      clearTimeout(debounce);
+      status.textContent = 'Saving…';
+      status.className = 'note-status';
+      debounce = setTimeout(async () => {
+        try {
+          const r = await api('saveUserData', { dataType: 'note', dataKey: key, dataValue: ta.value }, { allowQueue: true });
+          if (r.ok) { status.textContent = 'Saved ✓'; status.className = 'note-status ok'; }
+          else { status.textContent = 'Save failed'; status.className = 'note-status bad'; }
+        } catch(e){ status.textContent = 'Queued offline'; status.className = 'note-status'; }
+      }, 800);
     });
   });
+
+  const idx = (m.Lessons || []).findIndex(l => l.LessonID === lessonId);
+  const prev = idx > 0 ? m.Lessons[idx-1] : null;
+  const next = idx < (m.Lessons || []).length - 1 ? m.Lessons[idx+1] : null;
+  const actions = document.createElement('div');
+  actions.className = 'lesson-actions';
+  actions.innerHTML = `
+    <button class="btn ghost" ${prev ? '' : 'disabled'} id="prevLesson">← Previous</button>
+    <span class="small">Lesson ${idx+1} of ${m.Lessons.length}</span>
+    <button class="btn primary" ${next ? '' : 'disabled'} id="nextLesson">Next lesson →</button>`;
+  main.appendChild(actions);
+  if (prev) document.getElementById('prevLesson').onclick = () => route('module', { moduleId: m.ModuleID, lessonId: prev.LessonID });
+  if (next) document.getElementById('nextLesson').onclick = () => route('module', { moduleId: m.ModuleID, lessonId: next.LessonID });
 }
 
-async function renderQuizView(mod) {
-  let banner = '';
-  const remote = await apiCall('getQuizGroupScore', { moduleId: mod.ModuleID });
-  if (remote.ok && remote.data && remote.data.attempt) {
-    const a = remote.data.attempt;
-    banner = `<div class="msg info">Previous attempt: <strong>${a.percentage}%</strong> (${a.score}/${a.total}) · attempt #${a.attemptCount}</div>`;
-  }
-  const quizzes = mod.Quizzes || [];
-  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2><p class="small">Use <strong>Check</strong> on any question for immediate feedback, or <strong>Submit quiz</strong> to record your score.</p><div id="quizContainer">`;
-  quizzes.forEach((q, qi) => {
-    html += `
-      <div class="quiz-q" data-quiz-id="${esc(q.QuizID)}" data-correct-index="${Number(q.CorrectIndex)}" data-explanation="${esc(q.Explanation || '')}">
-        <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>
-        ${[q.OptionA, q.OptionB, q.OptionC, q.OptionD].map((opt, oi) => `
-          <label class="quiz-opt"><input type="radio" name="q${qi}" value="${oi}"><span><strong>${'ABCD'[oi]}.</strong> ${esc(opt)}</span></label>
-        `).join('')}
-        <div class="check-row">
-          <button type="button" class="btn btn-sm ghost check-q-btn">Check</button>
-        </div>
-        <div class="quiz-explain q-feedback" hidden></div>
-      </div>
-    `;
-  });
-  html += `</div><button class="btn primary" data-quiz-submit="${esc(mod.ModuleID)}">Submit quiz</button><div id="quizResults" hidden></div>`;
-  return html;
+function renderLessonListOnly(m){
+  app().innerHTML = `<div class="card"><h2>${esc(m.Title)}</h2>
+    <p class="small">Select a lesson below.</p>
+    ${(m.Lessons || []).map((l, i) => `<div class="quiz-opt" data-l="${esc(l.LessonID)}"><strong>${i+1}.</strong> ${esc(l.Title)}</div>`).join('')}
+  </div>`;
+  document.querySelectorAll('[data-l]').forEach(d => d.onclick = () => route('module', { moduleId: m.ModuleID, lessonId: d.getAttribute('data-l') }));
 }
 
-/* =====================================================================
-   PASSWORD-PROTECTED MIDTERM (30 MCQs) & FINAL (40 MCQs) EXAMS
-   WITH TIMER, PER-QUESTION "CHECK" BUTTONS & FULL GRADING
-   ===================================================================== */
-function formatCountdown(sec) {
-  const s = Math.max(0, Math.floor(sec));
-  const m = Math.floor(s / 60);
-  const rem = s % 60;
-  return String(m).padStart(2, '0') + ':' + String(rem).padStart(2, '0');
+async function loadUserNote(key, ta, status){
+  try {
+    const r = await api('getUserData', { prefix: key }, { allowQueue: false });
+    if (r.ok && r.data.data && r.data.data[key] !== undefined) {
+      ta.value = r.data.data[key];
+      status.textContent = 'Loaded from server';
+    }
+  } catch(e){ /* offline - silent */ }
 }
 
-async function renderExams(app, selectedType) {
-  clearExamTimer();
-  const activeType = (selectedType === 'final') ? 'final' : 'midterm';
-  const sumRes = await apiCall('getMyExamSummary', {});
-  const summary = (sumRes.ok && sumRes.data && sumRes.data.exams) || {};
+/* ============================================================
+   MODULE QUIZ (functional Check buttons — includes calculation items)
+   ============================================================ */
+function isCalculationQuestion(q){
+  return /calculation\s*check/i.test(q.Question || '');
+}
+function startQuizGroup(moduleId){
+  const m = state.modules.find(x => x.ModuleID === moduleId);
+  if (!m || !m.Quizzes || !m.Quizzes.length) { toast('No quiz items in this module', 'warn'); return; }
+  renderQuizGroup(m);
+}
 
-  app.innerHTML = `
-    <h1>Course Examinations</h1>
-    <p class="small">Both exams require an exam passcode issued by your instructor/administrator at exam time.</p>
-    <div class="tabs">
-      <button class="tab ${activeType === 'midterm' ? 'active' : ''}" data-exam-tab="midterm">${esc(EXAMS_CFG.MIDTERM_TITLE)}</button>
-      <button class="tab ${activeType === 'final' ? 'active' : ''}" data-exam-tab="final">${esc(EXAMS_CFG.FINAL_TITLE)}</button>
+function renderQuizGroup(m){
+  const questions = m.Quizzes;
+  const local = { checked: {}, chosen: {} };
+
+  app().innerHTML = `
+    <div class="flex-row" style="margin-bottom:.9rem;justify-content:space-between">
+      <button class="btn ghost btn-sm" onclick="route('module', { moduleId:'${esc(m.ModuleID)}' })">← Back to module</button>
     </div>
-    <div id="examPanel"></div>
-  `;
-
-  $$('[data-exam-tab]').forEach(btn => btn.addEventListener('click', () => {
-    clearExamTimer();
-    state.params.examType = btn.dataset.examTab;
-    renderExams(app, btn.dataset.examTab);
-  }));
-
-  const panel = $('#examPanel');
-  const title = activeType === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
-  const requiredCount = activeType === 'final' ? 40 : 30;
-  const totalSeconds = requiredCount * 90; // 45 min for 30 MCQs, 60 min for 40 MCQs
-  const prev = summary[activeType];
-
-  panel.innerHTML = `
     <div class="card">
-      <div class="space-between">
-        <div>
-          <h3 style="margin:0">${esc(title)}</h3>
-          <p class="small" style="margin:.25rem 0 0">Format: ${requiredCount} multiple-choice questions · Time limit: ${Math.round(totalSeconds / 60)} minutes · Pass mark: ${PASS_THRESHOLD}%</p>
-        </div>
-        <span class="timer-pill" id="examCountdown">⏱ ${formatCountdown(totalSeconds)}</span>
+      <div class="quiz-intro">
+        <h2 style="margin:0">📝 ${esc(m.Title)} — Practice Quiz</h2>
+        <p class="small" style="margin:.35rem 0 0">
+          Answer each question then click <strong>Check Answer</strong> for instant feedback &amp; explanation.
+          Calculation items are flagged with a <span class="q-tag calc">Calculation</span> tag.
+          When finished, submit the whole set to record your score.
+        </p>
       </div>
-      ${prev ? `<div class="msg info" style="margin-top:.75rem">Recorded score: <strong>${prev.percentage}%</strong> (${prev.score}/${prev.total}) · Attempt #${prev.attemptCount}</div>` : ''}
-      <form id="unlockExamForm" class="flex-row" style="align-items:flex-end;margin-top:.75rem">
-        <label style="flex:1;min-width:220px;margin:0">
-          Enter Exam Passcode
-          <input type="password" id="examPasscodeInput" required placeholder="Enter exam password">
-        </label>
-        <button type="submit" class="btn primary">Unlock ${requiredCount}-MCQ Exam</button>
-      </form>
-      <div id="examUnlockMsg" style="margin-top:.75rem"></div>
+      <div id="quizQuestions"></div>
+      <div id="quizResultBox"></div>
+      <div class="mt-2 flex-row" style="justify-content:space-between">
+        <button class="btn ghost" onclick="route('module', { moduleId:'${esc(m.ModuleID)}' })">Cancel</button>
+        <button class="btn primary" id="submitQuizGroup">Submit all answers →</button>
+      </div>
+    </div>`;
+
+  const container = document.getElementById('quizQuestions');
+  questions.forEach((q, i) => {
+    const calc = isCalculationQuestion(q);
+    const card = el(`
+      <div class="quiz-q" data-qid="${esc(q.QuizID)}">
+        <div class="q-head">
+          <span class="q-index">${i+1}</span>
+          <div class="q-text">${esc(q.Question)}${calc ? '<span class="q-tag calc">Calculation</span>' : ''}</div>
+        </div>
+        <div class="q-opts">
+          ${['A','B','C','D'].map((L, j) => {
+            const text = q['Option' + L] || '';
+            return `<label class="quiz-opt" data-opt="${j}">
+              <input type="radio" name="q_${esc(q.QuizID)}" value="${j}">
+              <span><strong>${L}.</strong> ${esc(text)}</span>
+            </label>`;
+          }).join('')}
+        </div>
+        <div class="check-row">
+          <button class="btn ghost btn-sm" data-check="${esc(q.QuizID)}">✓ Check Answer</button>
+          <span class="small" data-fb-status></span>
+        </div>
+        <div class="quiz-explain hidden" data-explain></div>
+      </div>`);
+    container.appendChild(card);
+
+    const radios = card.querySelectorAll(`input[name="q_${CSS.escape(q.QuizID)}"]`);
+    radios.forEach(r => {
+      r.addEventListener('change', () => {
+        local.chosen[q.QuizID] = Number(r.value);
+        card.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+        r.closest('.quiz-opt').classList.add('selected');
+      });
+    });
+
+    const checkBtn = card.querySelector('[data-check]');
+    checkBtn.addEventListener('click', () => {
+      if (local.checked[q.QuizID]) return;
+      const chosen = local.chosen[q.QuizID];
+      if (chosen === undefined) { toast('Select an answer first', 'warn'); return; }
+      const correct = Number(q.CorrectIndex);
+      const ok = chosen === correct;
+      local.checked[q.QuizID] = true;
+      card.querySelectorAll('.quiz-opt').forEach((o, j) => {
+        o.classList.add('locked');
+        o.querySelector('input').disabled = true;
+        if (j === correct) o.classList.add('correct');
+        else if (j === chosen && !ok) o.classList.add('wrong');
+      });
+      const explain = card.querySelector('[data-explain]');
+      explain.classList.remove('hidden');
+      explain.className = 'quiz-explain ' + (ok ? 'ok' : 'bad');
+      explain.innerHTML = `<strong>${ok ? '✓ Correct!' : '✕ Incorrect — the answer is ' + 'ABCD'[correct]}</strong><br>${esc(q.Explanation || '')}`;
+      checkBtn.disabled = true;
+      checkBtn.textContent = ok ? '✓ Correct' : '✕ Reviewed';
+    });
+  });
+
+  document.getElementById('submitQuizGroup').addEventListener('click', async () => {
+    if (Object.keys(local.chosen).length === 0) { toast('Answer at least one question', 'warn'); return; }
+    const answers = Object.entries(local.chosen).map(([quizId, chosenIndex]) => ({ quizId, chosenIndex }));
+    try {
+      const r = await api('submitQuizGroup', { moduleId: m.ModuleID, answers });
+      if (!r.ok) { toast(r.error || 'Submit failed', 'bad'); return; }
+      const d = r.data;
+      if (d.queued) { toast('Saved offline — will sync when online', 'warn'); return; }
+      const box = document.getElementById('quizResultBox');
+      const pass = d.percentage >= PASS_THRESHOLD;
+      box.innerHTML = `<div class="quiz-result ${pass ? 'ok' : 'info'}">
+        ${pass ? '🎉' : '📊'} Score: <strong>${d.score}/${d.total}</strong> (${d.percentage}%) · Attempt #${d.attemptCount}
+      </div>`;
+      toast(`Quiz submitted — ${d.percentage}%`, pass ? 'ok' : 'warn');
+    } catch(e){ toast('Submit error: ' + e.message, 'bad'); }
+  });
+}
+
+/* ============================================================
+   EXAMS — NO per-question check buttons
+   ============================================================ */
+async function renderExams(){
+  app().innerHTML = `<div class="card"><div class="flex-row" style="justify-content:center;padding:2rem 0;">
+    <span class="small">Loading exam status…</span></div></div>`;
+  let summary = { midterm: null, final: null };
+  try {
+    const r = await api('getMyExamSummary', {});
+    if (r.ok) summary = r.data.exams;
+  } catch(e){ /* offline */ }
+
+  app().innerHTML = `
+    <div class="card card-hero">
+      <h1 style="margin:0">📝 Examinations</h1>
+      <p class="small" style="margin:.35rem 0 0">Password-protected exams — answer all MCQs then submit once. There is no per-question checking.</p>
     </div>
-    <div id="examQuestionsArea"></div>
-  `;
+    <div class="grid">
+      ${examCardHTML('midterm', EXAMS_CFG.MIDTERM_TITLE, 'Modules 1–3', '30 MCQs', summary.midterm)}
+      ${examCardHTML('final',   EXAMS_CFG.FINAL_TITLE,   'Modules 1–6', '40 MCQs', summary.final)}
+    </div>`;
 
-  $('#unlockExamForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearExamTimer();
-    const passcode = $('#examPasscodeInput').value.trim();
-    const msgEl = $('#examUnlockMsg');
-    msgEl.innerHTML = `<div class="msg info">Verifying passcode and loading ${requiredCount} MCQs…</div>`;
+  document.querySelectorAll('[data-start-exam]').forEach(b => {
+    b.addEventListener('click', () => startExam(b.getAttribute('data-start-exam')));
+  });
+}
 
-    const res = await apiCall('verifyExamPasscode', { examType: activeType, passcode });
-    if (!res.ok) {
-      msgEl.innerHTML = `<div class="msg bad">${esc(res.error || 'Invalid passcode')}</div>`;
+function examCardHTML(type, title, scope, count, summary){
+  const grad = type === 'final' ? 'var(--grad-accent)' : 'var(--grad)';
+  const attempt = summary
+    ? `<div class="mt-1 small"><strong>Last attempt:</strong> ${summary.score}/${summary.total} · ${summary.percentage}% · #${summary.attemptCount}</div>`
+    : `<div class="mt-1 small">Not attempted yet</div>`;
+  return `
+    <div class="mod-card" style="cursor:default">
+      <div style="height:5px;background:${grad}"></div>
+      <div class="mod-body">
+        <span class="mod-num" style="background:${type==='final' ? 'var(--accent-50)' : 'var(--brand-50)'};color:${type==='final' ? 'var(--accent)' : 'var(--brand-700)'}">
+          ${type === 'final' ? 'FINAL' : 'MIDTERM'}
+        </span>
+        <h3>${esc(title)}</h3>
+        <p class="small">${esc(scope)} · ${esc(count)} · passcode required</p>
+        ${attempt}
+        <div style="margin-top:.9rem">
+          <button class="btn primary btn-block" data-start-exam="${type}">Start ${type === 'final' ? 'final' : 'midterm'} exam →</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function startExam(type){
+  const title = type === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
+  const hint  = type === 'final' ? EXAMS_CFG.FINAL_PASSCODE : EXAMS_CFG.MIDTERM_PASSCODE;
+  openModal(`
+    <div class="modal-head">
+      <h3>${esc(title)}</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="msg info">Enter the exam passcode to unlock the paper. Contact your instructor if you don't have one.</div>
+    <label>Exam passcode
+      <input type="text" id="examPass" placeholder="e.g. ${esc(hint)}">
+    </label>
+    <div class="flex-row" style="justify-content:flex-end;gap:.5rem">
+      <button class="btn ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" id="unlockExam">Unlock &amp; begin</button>
+    </div>`);
+
+  document.getElementById('unlockExam').addEventListener('click', async () => {
+    const pass = document.getElementById('examPass').value.trim();
+    if (!pass) { toast('Enter the passcode', 'warn'); return; }
+    setBusy(true);
+    try {
+      const r = await api('verifyExamPasscode', { examType: type, passcode: pass });
+      if (!r.ok) { toast(r.error || 'Invalid passcode', 'bad'); return; }
+      closeModal();
+      beginExam(type, r.data.questions, pass);
+    } catch(e){ toast('Error: ' + e.message, 'bad'); }
+    finally { setBusy(false); }
+  });
+}
+
+function beginExam(type, questions, passcode){
+  if (!questions || !questions.length) { toast('No exam questions configured', 'bad'); return; }
+  state.currentExam = { type, questions, passcode, startedAt: Date.now(), answers: {}, submitted: false };
+  renderExamUI();
+}
+
+function renderExamUI(){
+  const ex = state.currentExam;
+  if (!ex) { route('exams'); return; }
+  const title = ex.type === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
+
+  app().innerHTML = `
+    <div class="exam-shell">
+      <div class="exam-header">
+        <div>
+          <h1>${esc(title)}</h1>
+          <p>${ex.questions.length} questions · answer all, then submit</p>
+        </div>
+        <div class="exam-timer" id="examTimer">00:00</div>
+      </div>
+      <div class="exam-progress">
+        <div class="space-between small">
+          <span>Progress</span>
+          <span><strong id="answeredCount">0</strong> / ${ex.questions.length} answered</span>
+        </div>
+        <div class="progress-bar"><div id="examProgressBar" style="width:0%"></div></div>
+      </div>
+      <div id="examQuestions"></div>
+      <div class="card">
+        <div class="flex-row" style="justify-content:space-between;align-items:center">
+          <span class="small">Once submitted, answers cannot be changed.</span>
+          <div class="flex-row">
+            <button class="btn ghost" onclick="cancelExam()">Cancel</button>
+            <button class="btn primary" id="submitExamBtn">Submit exam</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const container = document.getElementById('examQuestions');
+  ex.questions.forEach((q, i) => {
+    const card = el(`
+      <div class="quiz-q" data-qid="${esc(q.QuestionID)}">
+        <div class="q-head">
+          <span class="q-index">${i+1}</span>
+          <div class="q-text">${esc(q.Question)}</div>
+        </div>
+        <div class="q-opts">
+          ${['A','B','C','D'].map((L, j) => {
+            const text = q['Option' + L] || '';
+            return `<label class="quiz-opt" data-opt="${j}">
+              <input type="radio" name="ex_${esc(q.QuestionID)}" value="${j}">
+              <span><strong>${L}.</strong> ${esc(text)}</span>
+            </label>`;
+          }).join('')}
+        </div>
+      </div>`);
+    container.appendChild(card);
+
+    card.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.addEventListener('change', () => {
+        ex.answers[q.QuestionID] = Number(r.value);
+        card.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+        r.closest('.quiz-opt').classList.add('selected');
+        updateExamProgress();
+      });
+    });
+  });
+
+  document.getElementById('submitExamBtn').addEventListener('click', () => submitExamUI(true));
+  updateExamProgress();
+  startExamTimer();
+}
+
+function updateExamProgress(){
+  const ex = state.currentExam;
+  if (!ex) return;
+  const answered = Object.keys(ex.answers).length;
+  const total = ex.questions.length;
+  const pct = total ? Math.round((answered / total) * 100) : 0;
+  const c = document.getElementById('answeredCount');
+  const b = document.getElementById('examProgressBar');
+  if (c) c.textContent = answered;
+  if (b) b.style.width = pct + '%';
+}
+
+function startExamTimer(){
+  stopExamTimer();
+  state.examTimerHandle = setInterval(() => {
+    const ex = state.currentExam;
+    if (!ex) return;
+    const seconds = Math.floor((Date.now() - ex.startedAt) / 1000);
+    const mm = String(Math.floor(seconds/60)).padStart(2,'0');
+    const ss = String(seconds % 60).padStart(2,'0');
+    const t = document.getElementById('examTimer');
+    if (!t) return;
+    t.textContent = `${mm}:${ss}`;
+    t.classList.remove('warn','danger');
+    if (seconds >= 45*60) t.classList.add('danger');
+    else if (seconds >= 30*60) t.classList.add('warn');
+  }, 1000);
+}
+function stopExamTimer(){
+  if (state.examTimerHandle) { clearInterval(state.examTimerHandle); state.examTimerHandle = null; }
+}
+function cancelExam(){
+  if (!confirm('Cancel this exam? Your answers will be discarded.')) return;
+  stopExamTimer();
+  state.currentExam = null;
+  route('exams');
+}
+
+async function submitExamUI(confirmPrompt){
+  const ex = state.currentExam;
+  if (!ex) return;
+  const answered = Object.keys(ex.answers).length;
+  const total = ex.questions.length;
+  if (answered < total) {
+    if (!confirm(`You have answered ${answered} of ${total} questions. Submit anyway?`)) return;
+  } else if (confirmPrompt !== false) {
+    if (!confirm('Submit your exam now? You cannot change answers afterwards.')) return;
+  }
+  const answers = ex.questions.map(q => ({
+    questionId: q.QuestionID,
+    chosenIndex: ex.answers[q.QuestionID] !== undefined ? ex.answers[q.QuestionID] : -1
+  }));
+  const btn = document.getElementById('submitExamBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+  try {
+    const r = await api('submitExam', { examType: ex.type, passcode: ex.passcode, answers });
+    if (!r.ok) { toast(r.error || 'Submit failed', 'bad'); if (btn) { btn.disabled = false; btn.textContent = 'Submit exam'; } return; }
+    if (r.data.queued) {
+      stopExamTimer();
+      state.currentExam = null;
+      toast('Exam saved offline — will sync when online', 'warn');
+      route('exams');
       return;
     }
-    const questions = res.data.questions || [];
-    const hasAnswerKey = questions.length > 0 && typeof questions[0].CorrectIndex === 'number';
-    msgEl.innerHTML = `<div class="msg ok">Exam unlocked (${questions.length} MCQs loaded).</div>`;
+    ex.submitted = true;
+    stopExamTimer();
+    renderExamResults(r.data);
+  } catch(e){ toast('Submit error: ' + e.message, 'bad'); if (btn) { btn.disabled = false; btn.textContent = 'Submit exam'; } }
+}
 
-    let remaining = totalSeconds;
-    let submittedNow = false;
-    const timerEl = $('#examCountdown');
-    const updateTimerDisplay = () => {
-      if (!timerEl) return;
-      timerEl.textContent = `⏱ ${formatCountdown(remaining)}`;
-      timerEl.classList.remove('warn', 'danger');
-      if (remaining <= 60) timerEl.classList.add('danger');
-      else if (remaining <= 300) timerEl.classList.add('warn');
-    };
-    updateTimerDisplay();
+function renderExamResults(result){
+  const ex = state.currentExam;
+  const title = ex.type === 'final' ? EXAMS_CFG.FINAL_TITLE : EXAMS_CFG.MIDTERM_TITLE;
+  const pass = result.percentage >= PASS_THRESHOLD;
+  const options = ['A','B','C','D'];
 
-    $('#examQuestionsArea').innerHTML = `
-      <div class="card">
-        <div class="space-between" style="margin-bottom:1rem">
-          <h3 style="margin:0">${esc(title)} — Questions (${questions.length})</h3>
-          <div class="flex-row">
-            <button type="button" class="btn btn-sm ghost" id="pauseExamBtn">⏸ Pause</button>
-            <button type="button" class="btn btn-sm ghost" id="checkAllExamBtn">✓ Check selected answers</button>
-          </div>
+  app().innerHTML = `
+    <div class="exam-shell">
+      <div class="exam-header" style="background:${pass ? 'linear-gradient(135deg,#166534,#0f4a24)' : 'linear-gradient(135deg,#b91c1c,#7f1d1d)'}">
+        <div>
+          <h1>${pass ? '🎉 Passed' : '📊 Results'} — ${esc(title)}</h1>
+          <p>Attempt #${result.attemptCount} · submitted ${new Date().toLocaleString()}</p>
         </div>
-        <div id="examQList">
-          ${questions.map((q, qi) => `
-            <div class="quiz-q" data-eq-id="${esc(q.QuestionID)}" data-correct-index="${hasAnswerKey ? Number(q.CorrectIndex) : ''}" data-explanation="${esc(q.Explanation || '')}">
-              <div class="small" style="margin-bottom:.25rem"><span class="badge">${esc(q.ModuleTag || '')}</span></div>
-              <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>
-              ${[q.OptionA, q.OptionB, q.OptionC, q.OptionD].map((opt, oi) => `
-                <label class="quiz-opt">
-                  <input type="radio" name="eq_${qi}" value="${oi}">
-                  <span><strong>${'ABCD'[oi]}.</strong> ${esc(opt)}</span>
-                </label>
-              `).join('')}
-              <div class="check-row">
-                <button type="button" class="btn btn-sm ghost check-eq-btn">Check</button>
-              </div>
-              <div class="quiz-explain eq-feedback" hidden></div>
-            </div>
-          `).join('')}
-        </div>
-        <button class="btn primary" id="submitExamBtn">Submit ${esc(activeType.toUpperCase())} Exam</button>
-        <div id="examResultBox" hidden></div>
+        <div style="font-size:1.6rem;font-weight:900">${result.percentage}%</div>
       </div>
-    `;
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-label">Score</div><div class="stat-value">${result.score}/${result.total}</div><div class="stat-sub">Correct answers</div></div>
+        <div class="stat"><div class="stat-label">Percentage</div><div class="stat-value">${result.percentage}%</div><div class="stat-sub">${pass ? 'Above' : 'Below'} pass threshold</div></div>
+        <div class="stat"><div class="stat-label">Attempt</div><div class="stat-value">#${result.attemptCount}</div><div class="stat-sub">Recorded on server</div></div>
+      </div>
+      <h2 style="margin:1.25rem 0 .65rem">Review your answers</h2>
+      <div id="examReview"></div>
+      <div class="flex-row mt-2" style="justify-content:center;gap:.5rem">
+        <button class="btn primary" onclick="state.currentExam=null; route('exams')">← Back to exams</button>
+        <button class="btn ghost" onclick="state.currentExam=null; route('grades')">View my grades →</button>
+      </div>
+    </div>`;
 
-    const evaluateQuestionDom = (qEl, notifyIfEmpty) => {
-      const checked = qEl.querySelector('input[type=radio]:checked');
-      if (!checked) {
-        if (notifyIfEmpty) toast('Select an option before checking', 'warn');
-        return false;
-      }
-      const chosen = Number(checked.value);
-      const fb = qEl.querySelector('.eq-feedback');
-      const corrAttr = qEl.dataset.correctIndex;
-      const explain = qEl.dataset.explanation || '';
-
-      if (corrAttr !== '' && corrAttr !== undefined) {
-        const correct = Number(corrAttr);
-        const isRight = chosen === correct;
-        $$('.quiz-opt', qEl).forEach((optEl, idx) => {
-          optEl.classList.remove('correct', 'wrong');
-          if (idx === correct) optEl.classList.add('correct');
-          else if (idx === chosen && !isRight) optEl.classList.add('wrong');
-        });
-        fb.hidden = false;
-        fb.className = 'quiz-explain eq-feedback ' + (isRight ? 'ok' : 'bad');
-        fb.innerHTML = `<strong>${isRight ? '✓ Correct' : '✗ Incorrect'}</strong>${explain ? ' — ' + esc(explain) : ''}`;
-      } else {
-        fb.hidden = false;
-        fb.className = 'quiz-explain eq-feedback';
-        fb.innerHTML = `<strong>Selected: ${'ABCD'[chosen] || ''}</strong> — Submit exam to grade and view full rationales.`;
-      }
-      return true;
-    };
-
-    $$('#examQList .quiz-q').forEach(qEl => {
-      qEl.querySelector('.check-eq-btn')?.addEventListener('click', () => evaluateQuestionDom(qEl, true));
-    });
-
-    $('#checkAllExamBtn')?.addEventListener('click', () => {
-      let checkedCount = 0;
-      $$('#examQList .quiz-q').forEach(qEl => {
-        if (evaluateQuestionDom(qEl, false)) checkedCount++;
-      });
-      toast(`Checked ${checkedCount} answered question(s)`, 'info');
-    });
-
-    const finalizeExamSubmission = async (forceAuto) => {
-      if (submittedNow) return;
-      const answers = [];
-      let unanswered = 0;
-      $$('#examQList .quiz-q').forEach((qEl, qi) => {
-        const checked = qEl.querySelector(`input[name="eq_${qi}"]:checked`);
-        if (checked) answers.push({ questionId: qEl.dataset.eqId, chosenIndex: Number(checked.value) });
-        else unanswered++;
-      });
-      if (!forceAuto && unanswered > 0 && !confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
-
-      clearExamTimer();
-      const sBtn = $('#submitExamBtn');
-      if (sBtn) { sBtn.disabled = true; sBtn.textContent = 'Submitting…'; }
-      const subRes = await apiCall('submitExam', { examType: activeType, passcode, answers });
-      if (sBtn) { sBtn.disabled = false; sBtn.textContent = `Submit ${activeType.toUpperCase()} Exam`; }
-
-      if (!subRes.ok) { toast(subRes.error || 'Submission failed', 'bad'); return; }
-      submittedNow = true;
-      const d = subRes.data;
-      const cls = Number(d.percentage) >= PASS_THRESHOLD ? 'ok' : 'bad';
-      const rBox = $('#examResultBox');
-      rBox.innerHTML = `
-        <div class="quiz-result ${cls}">
-          ${esc(title)} Result: <strong>${d.score}/${d.total} (${d.percentage}%)</strong> · Attempt #${d.attemptCount}
+  const review = document.getElementById('examReview');
+  result.results.forEach((r, i) => {
+    const card = el(`
+      <div class="quiz-q">
+        <div class="q-head">
+          <span class="q-index" style="${r.correct ? 'background:var(--ok-50);color:var(--ok)' : 'background:var(--bad-50);color:var(--bad)'}">${i+1}</span>
+          <div class="q-text">${esc(r.question)}${r.moduleTag ? ` <span class="q-tag">${esc(r.moduleTag)}</span>` : ''}</div>
         </div>
-        <div style="margin-top:1rem">
-          ${(d.results || []).map((r, idx) => `
-            <div class="quiz-q">
-              <div class="q-text">${idx + 1}. ${esc(r.question)}</div>
-              ${(r.options || []).map((opt, j) => {
-                const clsOpt = j === r.correctIndex ? 'correct' : (j === r.chosenIndex ? 'wrong' : '');
-                return `<div class="quiz-opt ${clsOpt}"><input type="radio" disabled ${j === r.chosenIndex ? 'checked' : ''}><span><strong>${'ABCD'[j]}.</strong> ${esc(opt)}</span></div>`;
-              }).join('')}
-              ${r.explanation ? `<div class="quiz-explain ${r.correct ? 'ok' : 'bad'}">💡 ${esc(r.explanation)}</div>` : ''}
-            </div>
-          `).join('')}
+        <div class="q-opts">
+          ${r.options.map((opt, j) => {
+            let cls = 'quiz-opt locked';
+            if (j === r.correctIndex) cls += ' correct';
+            else if (j === r.chosenIndex && !r.correct) cls += ' wrong';
+            return `<div class="${cls}"><span><strong>${options[j]}.</strong> ${esc(opt)}</span></div>`;
+          }).join('')}
         </div>
-      `;
-      rBox.hidden = false;
-      rBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    const startCountdown = () => {
-      clearExamTimer();
-      _examTimerId = setInterval(() => {
-        if (submittedNow) { clearExamTimer(); return; }
-        remaining--;
-        updateTimerDisplay();
-        if (remaining <= 0) {
-          remaining = 0;
-          updateTimerDisplay();
-          clearExamTimer();
-          toast('Time is up — submitting exam automatically', 'warn');
-          finalizeExamSubmission(true);
-        }
-      }, 1000);
-    };
-    startCountdown();
-
-    $('#pauseExamBtn')?.addEventListener('click', (ev) => {
-      if (submittedNow) return;
-      if (_examTimerId) {
-        clearExamTimer();
-        ev.target.textContent = '▶ Resume';
-      } else {
-        ev.target.textContent = '⏸ Pause';
-        startCountdown();
-      }
-    });
-
-    $('#submitExamBtn')?.addEventListener('click', () => finalizeExamSubmission(false));
+        <div class="quiz-explain ${r.correct ? 'ok' : 'bad'}">
+          <strong>${r.correct ? '✓ You got it right' : '✕ You selected ' + (r.chosenIndex >= 0 ? options[r.chosenIndex] : '—') + ' — correct answer is ' + options[r.correctIndex]}</strong><br>
+          ${esc(r.explanation || '')}
+        </div>
+      </div>`);
+    review.appendChild(card);
   });
 }
 
-/* ---------- Grades ---------- */
-async function renderGrades(app) {
-  app.innerHTML = `<div class="card"><p class="small">Loading your grades…</p></div>`;
-  const res = await apiCall('computeLearnerGrade', {});
-  if (!res.ok) { app.innerHTML = `<div class="msg bad">Could not load grades: ${esc(res.error || '')}</div>`; return; }
-  const g = res.data.grade;
-  const cls = Number(g.finalPercentage) >= PASS_THRESHOLD ? 'ok' : 'bad';
-  app.innerHTML = `
-    <h1>My grades</h1>
-    <div class="card">
+/* ============================================================
+   GRADES
+   ============================================================ */
+async function renderGrades(){
+  app().innerHTML = `<div class="card"><div class="flex-row" style="justify-content:center;padding:2rem 0;">
+    <span class="small">Loading grade summary…</span></div></div>`;
+  let grade = null;
+  try {
+    const r = await api('computeLearnerGrade', {});
+    if (r.ok) grade = r.data.grade;
+  } catch(e){ /* offline */ }
+  if (!grade) { app().innerHTML = `<div class="msg bad">Could not load grade summary.</div>`; return; }
+
+  const finalPass = grade.finalPercentage >= PASS_THRESHOLD;
+  app().innerHTML = `
+    <div class="card card-hero">
       <div class="space-between">
         <div>
-          <h2 style="margin:0">Final weighted score</h2>
-          <p class="small" style="margin:.25rem 0">Weights — Quizzes ${(g.weights.quiz*100).toFixed(0)}% · Midterm/Final Exams ${(g.weights.exam*100).toFixed(0)}% · OSCE ${(g.weights.osce*100).toFixed(0)}%</p>
+          <h1 style="margin:0">📊 ${esc(grade.learnerName)}</h1>
+          <p class="small" style="margin:.35rem 0 0">${esc(grade.learnerEmail)} · Weighted final score</p>
         </div>
-        <div class="quiz-result ${cls}" style="font-size:1.5rem;padding:1rem 1.5rem">${g.finalPercentage}%</div>
-      </div>
-      <div style="margin-top:1rem" class="small">
-        Quiz avg: <strong>${g.quizAverage}%</strong> (${g.quizWeighted}%) ·
-        Midterm: <strong>${g.midterm ? g.midterm.percentage + '%' : '—'}</strong> ·
-        Final: <strong>${g.finalExam ? g.finalExam.percentage + '%' : '—'}</strong> ·
-        OSCE: <strong>${g.osce ? g.osce.percentage + '%' : '—'}</strong> (${g.osceWeighted}%)
+        <div style="text-align:right">
+          <div style="font-size:2.4rem;font-weight:900;color:${finalPass ? 'var(--ok)' : 'var(--bad)'}">${grade.finalPercentage}%</div>
+          <div class="small">${finalPass ? '✓ Above pass mark' : 'Below pass mark'}</div>
+        </div>
       </div>
     </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-label">Quiz average</div><div class="stat-value">${grade.quizAverage}%</div><div class="stat-sub">Weight ${Math.round(grade.weights.quiz*100)}% · contributes ${grade.quizWeighted}</div></div>
+      <div class="stat"><div class="stat-label">Exam average</div><div class="stat-value">${grade.examAverage}%</div><div class="stat-sub">Weight ${Math.round(grade.weights.exam*100)}% · contributes ${grade.examWeighted}</div></div>
+      <div class="stat"><div class="stat-label">OSCE</div><div class="stat-value">${grade.osce ? grade.osce.percentage + '%' : '—'}</div><div class="stat-sub">Weight ${Math.round(grade.weights.osce*100)}% · ${grade.osce ? 'contributes ' + grade.osce.weighted : 'not yet graded'}</div></div>
+      <div class="stat"><div class="stat-label">Portfolio</div><div class="stat-value">${grade.portfolio.count}</div><div class="stat-sub">${grade.portfolio.latestStatus || 'No submissions'}</div></div>
+    </div>
     <div class="card">
-      <h3>Module quizzes</h3>
+      <h2 style="margin-top:0">Per-module quiz results</h2>
       <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Module</th><th>Quiz</th><th>Attempts</th></tr></thead>
-        <tbody>${g.modules.map(m => `
-          <tr><td>${esc(m.moduleTitle)}</td><td>${m.attempted ? `<strong>${m.percentage}%</strong> (${m.score}/${m.total})` : '—'}</td><td>${m.attemptCount || '—'}</td></tr>
-        `).join('')}</tbody>
+        <thead><tr><th>Module</th><th>Attempted</th><th>Score</th><th>Percentage</th><th>Attempts</th></tr></thead>
+        <tbody>
+          ${grade.modules.map(m => `<tr>
+            <td>${esc(m.moduleTitle)}</td>
+            <td>${m.attempted ? '<span class="pill ok">Yes</span>' : '<span class="pill warn">No</span>'}</td>
+            <td>${m.attempted ? m.score + '/' + m.total : '—'}</td>
+            <td>${m.attempted ? m.percentage + '%' : '—'}</td>
+            <td>${m.attemptCount || 0}</td>
+          </tr>`).join('')}
+        </tbody>
       </table></div>
     </div>
-  `;
+    <div class="card">
+      <h2 style="margin-top:0">Exam results</h2>
+      <div class="grid">
+        <div class="stat"><div class="stat-label">Midterm</div><div class="stat-value">${grade.midterm ? grade.midterm.percentage + '%' : '—'}</div><div class="stat-sub">${grade.midterm ? grade.midterm.score + '/' + grade.midterm.total + ' · attempt #' + grade.midterm.attemptCount : 'Not attempted'}</div></div>
+        <div class="stat"><div class="stat-label">Final exam</div><div class="stat-value">${grade.finalExam ? grade.finalExam.percentage + '%' : '—'}</div><div class="stat-sub">${grade.finalExam ? grade.finalExam.score + '/' + grade.finalExam.total + ' · attempt #' + grade.finalExam.attemptCount : 'Not attempted'}</div></div>
+      </div>
+    </div>`;
 }
 
-/* ---------- Certificates & Portfolio ---------- */
-async function renderCertificates(app) {
-  app.innerHTML = `<div class="card"><p class="small">Loading certificates…</p></div>`;
-  const res = await apiCall('listCertificates', {});
-  if (!res.ok) { app.innerHTML = `<div class="msg bad">${esc(res.error || '')}</div>`; return; }
-  const certs = res.data.certificates || [];
-  app.innerHTML = `<h1>Certificates</h1>` + (certs.length
-    ? `<div class="grid">${certs.map(c => `<div class="card"><h3>${esc(c.Name)}</h3><p class="small">Score: <strong>${c.Percentage}%</strong> · Code: <code>${esc(c.CertCode)}</code></p><p class="small">Assessor: ${esc(c.AssessorName || c.AssessorEmail || '—')}</p></div>`).join('')}</div>`
-    : `<div class="msg info">No certificates issued yet.</div>`);
+/* ============================================================
+   CERTIFICATES
+   ============================================================ */
+async function renderCertificates(){
+  app().innerHTML = `<div class="card"><div class="flex-row" style="justify-content:center;padding:2rem 0;">
+    <span class="small">Loading certificates…</span></div></div>`;
+  let certs = [];
+  try {
+    const r = await api('listCertificates', {});
+    if (r.ok) certs = r.data.certificates || [];
+  } catch(e){ /* offline */ }
+  if (!certs.length) {
+    app().innerHTML = `
+      <div class="card"><div class="empty">
+        <div class="empty-icon">🏅</div>
+        <h3>No certificates yet</h3>
+        <p class="small">Certificates are issued after passing the OSCE at ${PASS_THRESHOLD}% or above.</p>
+        <button class="btn ghost" onclick="route('grades')">View my grades</button>
+      </div></div>`;
+    return;
+  }
+  app().innerHTML = `<h1>🏅 My Certificates</h1>` + certs.map(c => `
+    <div class="cert-display">
+      <div class="cert-title">Certificate of Achievement</div>
+      <div class="small">This certifies that</div>
+      <div class="cert-name">${esc(c.Name)}</div>
+      <div class="small">has successfully completed the ${esc(COURSE_TITLE)} course</div>
+      <div style="margin:.65rem 0;font-size:1.8rem;font-weight:900;color:var(--gold)">${c.Percentage}%</div>
+      <div class="small">Issued ${fmtShort(c.IssuedAt)} · Valid until ${fmtShort(c.ValidUntil)}</div>
+      <div class="cert-code">${esc(c.CertCode)}</div>
+      <div class="small" style="margin-top:.65rem">Assessor: ${esc(c.AssessorName || '—')}</div>
+    </div>`).join('');
 }
 
-async function renderPortfolio(app) {
-  app.innerHTML = `<div class="card"><p class="small">Loading portfolio…</p></div>`;
-  const [contentRes, subsRes] = await Promise.all([ensureContent(), apiCall('listMyPortfolio', {})]);
-  const submissions = (subsRes.ok && subsRes.data && subsRes.data.submissions) || [];
-  const mods = (contentRes && contentRes.modules) || [];
-  app.innerHTML = `
-    <h1>Reflective portfolio</h1>
-    <div class="card">
-      <h3>New submission</h3>
-      <label>Module<select id="pfModule">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>
-      <label>File<input type="file" id="pfFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"></label>
-      <button class="btn primary" id="pfUploadBtn" ${state.online ? '' : 'disabled'}>Upload portfolio</button>
-      <div id="pfStatus"></div>
+/* ============================================================
+   PORTFOLIO
+   ============================================================ */
+async function renderPortfolio(){
+  app().innerHTML = `<div class="card"><div class="flex-row" style="justify-content:center;padding:2rem 0;">
+    <span class="small">Loading portfolio…</span></div></div>`;
+  let subs = [];
+  try {
+    const r = await api('listMyPortfolio', {});
+    if (r.ok) subs = r.data.submissions || [];
+  } catch(e){ /* offline */ }
+
+  app().innerHTML = `
+    <div class="card card-hero">
+      <h1 style="margin:0">📁 Reflective Portfolio</h1>
+      <p class="small" style="margin:.35rem 0 0">Upload reflective documents (PDF, DOC, DOCX, JPG, PNG) up to 10 MB. Files are stored securely in Google Drive.</p>
     </div>
     <div class="card">
-      <h3>Past submissions</h3>
-      ${submissions.length ? `<div class="tbl-wrap"><table class="data"><thead><tr><th>Module</th><th>File</th><th>Status</th><th>Link</th></tr></thead><tbody>${submissions.map(s => `<tr><td>${esc(s.ModuleTitle)}</td><td>${esc(s.FileName)}</td><td>${esc(s.Status)}</td><td><a href="${esc(s.DriveURL)}" target="_blank" rel="noopener">Open</a></td></tr>`).join('')}</tbody></table></div>` : '<p class="small">No submissions yet.</p>'}
+      <h3>Upload new submission</h3>
+      <form id="portfolioForm">
+        <label>Module
+          <select name="moduleId" required>
+            <option value="">Select module…</option>
+            ${state.modules.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}
+          </select>
+        </label>
+        <label>File (max 10 MB)<input type="file" name="file" required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"></label>
+        <button class="btn primary" type="submit">Upload portfolio</button>
+      </form>
     </div>
-  `;
-  $('#pfUploadBtn')?.addEventListener('click', async () => {
-    const file = $('#pfFile').files?.[0];
-    if (!file) return toast('Select a file first', 'warn');
-    const base64 = await new Promise((res, rej) => {
-      const r = new FileReader();
-      r.onload = () => res(String(r.result).substring(String(r.result).indexOf(',') + 1));
-      r.onerror = rej; r.readAsDataURL(file);
-    });
-    const r = await apiCall('submitPortfolio', { moduleId: $('#pfModule').value, fileName: file.name, fileType: file.type || 'application/octet-stream', fileSizeBytes: file.size, fileBase64: base64 });
-    if (!r.ok) return toast(r.error || 'Upload failed', 'bad');
-    toast('Uploaded', 'ok'); renderPortfolio(app);
+    <div class="card">
+      <h3>My submissions</h3>
+      ${subs.length ? `
+        <div class="tbl-wrap"><table class="data">
+          <thead><tr><th>Module</th><th>File</th><th>Status</th><th>Uploaded</th><th>Action</th></tr></thead>
+          <tbody>
+            ${subs.map(s => `<tr>
+              <td>${esc(s.ModuleTitle)}</td>
+              <td>${esc(s.FileName)}</td>
+              <td><span class="pill ${s.Status === 'reviewed' ? 'ok' : 'info'}">${esc(s.Status)}</span></td>
+              <td>${fmtShort(s.UploadedAt)}</td>
+              <td><a href="${esc(s.DriveURL)}" target="_blank" rel="noopener">Open</a></td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>` : '<p class="small">No submissions yet.</p>'}
+    </div>`;
+
+  const form = document.getElementById('portfolioForm');
+  form.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const fd = new FormData(form);
+    const file = fd.get('file');
+    const moduleId = fd.get('moduleId');
+    if (!file || !file.size) { toast('Select a file', 'warn'); return; }
+    if (file.size > 10 * 1024 * 1024) { toast('File exceeds 10 MB', 'bad'); return; }
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    if (!['pdf','doc','docx','jpg','jpeg','png'].includes(ext)) { toast('File type not allowed', 'bad'); return; }
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const b64 = String(reader.result).split(',')[1];
+      try {
+        toast('Uploading…', 'info');
+        const r = await api('submitPortfolio', {
+          moduleId, fileName: file.name,
+          fileType: file.type || 'application/octet-stream',
+          fileSizeBytes: file.size, fileBase64: b64
+        });
+        if (!r.ok) { toast(r.error || 'Upload failed', 'bad'); return; }
+        toast('Portfolio uploaded ✓', 'ok');
+        renderPortfolio();
+      } catch(e){ toast('Upload error: ' + e.message, 'bad'); }
+    };
+    reader.readAsDataURL(file);
   });
 }
 
-/* =====================================================================
-   ADMINISTRATION — Users, Grade Sheets, Clear 10-Domain OSCE, Content, Module Quizzes & 30/40-MCQ Exams + Passcodes
-   ===================================================================== */
-async function renderAdmin(app, tab) {
-  if (!isInstructorOrAdmin()) { app.innerHTML = `<div class="msg bad">Admin or instructor access required.</div>`; return; }
-  tab = tab || (isAdmin() ? 'users' : 'grades');
+/* ============================================================
+   ADMIN
+   ============================================================ */
+async function renderAdmin(tab){
+  if (!state.user || (state.user.role !== 'admin' && state.user.role !== 'instructor')) {
+    toast('Admin access required', 'bad'); return;
+  }
+  tab = tab || 'users';
 
-  app.innerHTML = `
-    <h1>Administration</h1>
-    <div class="tabs">
-      ${isAdmin() ? `<button class="tab ${tab === 'users' ? 'active' : ''}" data-admin-tab="users">Users</button>` : ''}
-      <button class="tab ${tab === 'grades' ? 'active' : ''}" data-admin-tab="grades">Grade sheets &amp; 10-Domain OSCE</button>
-      <button class="tab ${tab === 'content' ? 'active' : ''}" data-admin-tab="content">Modules &amp; lessons</button>
-      <button class="tab ${tab === 'quizzes' ? 'active' : ''}" data-admin-tab="quizzes">Module quizzes</button>
-      <button class="tab ${tab === 'exams' ? 'active' : ''}" data-admin-tab="exams">Midterm (30) &amp; Final (40) Bank</button>
+  app().innerHTML = `
+    <div class="card card-hero">
+      <h1 style="margin:0">⚙️ Administration</h1>
+      <p class="small" style="margin:.35rem 0 0">Manage users, content, exams, and OSCE grading.</p>
     </div>
-    <div id="adminBody"><div class="card"><p class="small">Loading…</p></div></div>
-  `;
+    <div class="tabs">
+      <button class="tab ${tab==='users'?'active':''}" data-tab="users">👥 Users</button>
+      <button class="tab ${tab==='content'?'active':''}" data-tab="content">📚 Content</button>
+      <button class="tab ${tab==='exams'?'active':''}" data-tab="exams">📝 Exam questions</button>
+      <button class="tab ${tab==='passcodes'?'active':''}" data-tab="passcodes">🔐 Passcodes</button>
+      <button class="tab ${tab==='grades'?'active':''}" data-tab="grades">📊 Grades</button>
+      <button class="tab ${tab==='osce'?'active':''}" data-tab="osce">🩺 OSCE grading</button>
+    </div>
+    <div id="adminContent"></div>`;
 
-  $$('[data-admin-tab]').forEach(b => b.addEventListener('click', () => {
-    state.params.tab = b.dataset.adminTab; renderAdmin(app, b.dataset.adminTab);
-  }));
+  document.querySelectorAll('[data-tab]').forEach(b => {
+    b.addEventListener('click', () => renderAdmin(b.getAttribute('data-tab')));
+  });
 
-  const bodyEl = $('#adminBody');
+  const c = document.getElementById('adminContent');
+  if (tab === 'users')      await adminUsers(c);
+  else if (tab === 'content')   await adminContent(c);
+  else if (tab === 'exams')     await adminExams(c);
+  else if (tab === 'passcodes') await adminPasscodes(c);
+  else if (tab === 'grades')    await adminGrades(c);
+  else if (tab === 'osce')      await adminOsce(c);
+}
 
-  if (tab === 'users') {
-    if (!isAdmin()) return;
-    const res = await apiCall('listUsers', {});
-    if (!res.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(res.error)}</div>`; return; }
-    const users = res.data.users || [];
-    bodyEl.innerHTML = `
-      <div class="card space-between">
-        <div><strong>Users</strong> (${users.length})</div>
-        <button class="btn primary btn-sm" id="addUserBtn">+ Add user</button>
-      </div>
-      <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>${users.map(u => `
-          <tr>
-            <td>${esc(u.Name)}</td><td>${esc(u.Email)}</td>
-            <td>
-              <select data-role-email="${esc(u.Email)}" style="display:inline-block;width:auto;margin:0;padding:.25rem .45rem">
-                <option value="learner" ${u.Role === 'learner' ? 'selected' : ''}>learner</option>
-                <option value="instructor" ${u.Role === 'instructor' ? 'selected' : ''}>instructor</option>
-                <option value="admin" ${u.Role === 'admin' ? 'selected' : ''}>admin</option>
-              </select>
-            </td>
-            <td><span class="badge ${u.Status === 'active' ? 'ok' : u.Status === 'pending' ? 'warn' : 'bad'}">${esc(u.Status)}</span></td>
-            <td class="flex-row">
-              ${u.Status !== 'active' ? `<button class="btn btn-sm primary" data-user-status="active" data-email="${esc(u.Email)}">Activate</button>` : ''}
-              ${u.Status === 'active' && u.Role !== 'admin' ? `<button class="btn btn-sm" data-user-status="suspended" data-email="${esc(u.Email)}">Suspend</button>` : ''}
-              ${String(u.Email).toLowerCase() !== String(state.user.email).toLowerCase() ? `<button class="btn btn-sm danger" data-del-user="${esc(u.Email)}">Delete</button>` : ''}
-            </td>
-          </tr>`).join('')}</tbody>
-      </table></div>
-    `;
-    $('#addUserBtn')?.addEventListener('click', () => {
-      openModal(`<h3>Create User</h3><form id="cuForm"><label>Name<input name="name" required></label><label>Email<input type="email" name="email" required></label><label>Password<input type="password" name="password" minlength="8" required></label><label>Role<select name="role"><option value="learner">learner</option><option value="instructor">instructor</option><option value="admin">admin</option></select></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Create</button></div></form>`);
-      $('#cuForm').addEventListener('submit', async (e) => {
-        e.preventDefault(); const f = e.target;
-        const r = await apiCall('adminCreateUser', { name: f.name.value, email: f.email.value, password: f.password.value, role: f.role.value, status: 'active' });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Created', 'ok'); closeModal(); renderAdmin(app, 'users');
-      });
-    });
-    bodyEl.addEventListener('change', async (e) => {
-      const sel = e.target.closest('select[data-role-email]');
-      if (!sel) return;
-      const r = await apiCall('updateUser', { email: sel.dataset.roleEmail, role: sel.value });
-      if (!r.ok) toast(r.error || 'Failed', 'bad'); else toast('Role updated', 'ok');
-    });
-    bodyEl.addEventListener('click', async (e) => {
-      const st = e.target.closest('button[data-user-status]');
-      if (st) { const r = await apiCall('updateUser', { email: st.dataset.email, status: st.dataset.userStatus }); if (r.ok) { toast('Updated', 'ok'); renderAdmin(app, 'users'); } return; }
-      const dl = e.target.closest('button[data-del-user]');
-      if (dl && confirm('Delete ' + dl.dataset.delUser + '?')) { const r = await apiCall('deleteUser', { email: dl.dataset.delUser }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'users'); } }
-    });
-  }
-
-  else if (tab === 'grades') {
-    const [gradesRes, contentRes] = await Promise.all([apiCall('listAllGrades', {}), ensureContent()]);
-    if (!gradesRes.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(gradesRes.error)}</div>`; return; }
-    const grades = gradesRes.data.grades || [];
-    const mods = (contentRes && contentRes.modules) || [];
-
-    bodyEl.innerHTML = `
-      <div class="card space-between">
-        <div><strong>Learner Grade Sheets</strong> (${grades.length})</div>
-        <button class="btn primary btn-sm" id="openOsceModalBtn">+ Unbiased 10-Domain OSCE Assessment</button>
-      </div>
-      <div class="tbl-wrap"><table class="data">
-        <thead><tr><th>Learner</th><th>Quizzes</th><th>Midterm</th><th>Final</th><th>OSCE</th><th>Total</th><th>Sheet</th></tr></thead>
-        <tbody>${grades.map((g, gi) => `
-          <tr>
-            <td><strong>${esc(g.learnerName)}</strong><br><span class="small">${esc(g.learnerEmail)}</span></td>
-            <td>${g.quizAverage}%</td>
-            <td>${g.midterm ? g.midterm.percentage + '%' : '—'}</td>
-            <td>${g.finalExam ? g.finalExam.percentage + '%' : '—'}</td>
-            <td>${g.osce ? g.osce.percentage + '%' : '—'}</td>
-            <td><strong>${g.finalPercentage}%</strong></td>
-            <td><button class="btn btn-sm ghost" data-view-sheet="${gi}">View / Edit</button></td>
-          </tr>`).join('')}</tbody>
-      </table></div>
-    `;
-
-    $('#openOsceModalBtn')?.addEventListener('click', () => {
-      openModal(`
-        <h3>10-Domain OSCE Assessment (Max 20 Pts · Pass ≥ ${PASS_THRESHOLD}%)</h3>
-        <p class="small">Each domain provides explicit anchors for 0, 1, and 2 points to support consistent, unbiased scoring across assessors.</p>
-        <form id="osceForm">
-          <label>Learner
-            <select name="learnerEmail" required>
-              ${grades.map(g => `<option value="${esc(g.learnerEmail)}">${esc(g.learnerName)} (${esc(g.learnerEmail)})</option>`).join('')}
-            </select>
-          </label>
-          ${OSCE_DOMAINS.map(d => `
-            <div class="osce-domain-card">
-              <div class="space-between">
-                <div>
-                  <strong>Domain ${d.num}: ${esc(d.title)}</strong>
-                  <div class="small">${esc(d.objective)}</div>
-                </div>
-                <label style="margin:0;min-width:95px">
-                  Score (0–2)
-                  <select name="d${d.num}" data-osce-d style="margin-top:.2rem;padding:.35rem">
-                    <option value="0">0 — ${esc(d.s0.slice(0,22))}…</option>
-                    <option value="1">1 — ${esc(d.s1.slice(0,22))}…</option>
-                    <option value="2" selected>2 — Full standard</option>
-                  </select>
-                </label>
-              </div>
-              <div class="osce-rubric-grid">
-                <div class="rubric-box"><strong>0 pt (Unsafe / Omitted)</strong>${esc(d.s0)}</div>
-                <div class="rubric-box"><strong>1 pt (Partial / Needs Prompt)</strong>${esc(d.s1)}</div>
-                <div class="rubric-box"><strong>2 pts (Complete &amp; Timely)</strong>${esc(d.s2)}</div>
-              </div>
-            </div>
-          `).join('')}
-          <div class="space-between" style="margin:.75rem 0">
-            <strong>Live OSCE Total: <span id="osceLiveScore">20 / 20 (100%)</span></strong>
-          </div>
-          <label>Objective Assessor Notes<textarea name="notes" placeholder="Document observed strengths and specific corrective feedback…"></textarea></label>
-          <div class="flex-row" style="justify-content:flex-end">
-            <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
-            <button type="submit" class="btn primary">Submit OSCE</button>
-          </div>
-        </form>
-      `);
-      const recalc = () => {
-        const sum = $$('[data-osce-d]').reduce((acc, s) => acc + Number(s.value || 0), 0);
-        const pct = Math.round((sum / 20) * 1000) / 10;
-        $('#osceLiveScore').textContent = `${sum} / 20 (${pct}%)`;
-      };
-      $$('[data-osce-d]').forEach(s => s.addEventListener('change', recalc));
-      $('#osceForm').addEventListener('submit', async (e) => {
-        e.preventDefault(); const f = e.target;
-        const payload = { learnerEmail: f.learnerEmail.value, notes: f.notes.value };
-        for (let i = 1; i <= 10; i++) payload['d' + i] = Number(f['d' + i].value);
-        const r = await apiCall('submitOsce', payload);
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast(`OSCE recorded: ${r.data.percentage}% (${r.data.pass ? 'PASS' : 'FAIL'})`, 'ok');
-        closeModal(); renderAdmin(app, 'grades');
-      });
-    });
-
-    bodyEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-view-sheet]');
-      if (!btn) return;
-      const g = grades[Number(btn.dataset.viewSheet)];
-      if (!g) return;
-      openModal(`
-        <h3>Grade Sheet: ${esc(g.learnerName)}</h3>
-        <p class="small">${esc(g.learnerEmail)} · Final: <strong>${g.finalPercentage}%</strong></p>
-        <div class="tbl-wrap" style="margin-bottom:1rem"><table class="data">
-          <thead><tr><th>Module</th><th>Score</th><th>%</th><th>Attempts</th></tr></thead>
-          <tbody>${(g.modules || []).map(m => `<tr><td>${esc(m.moduleTitle)}</td><td>${m.score}/${m.total}</td><td>${m.percentage}%</td><td>${m.attemptCount}</td></tr>`).join('')}</tbody>
+async function adminUsers(c){
+  c.innerHTML = '<div class="card"><span class="small">Loading users…</span></div>';
+  try {
+    const r = await api('listUsers', {});
+    if (!r.ok) { c.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+    const users = r.data.users || [];
+    c.innerHTML = `
+      <div class="card">
+        <div class="space-between mb-2">
+          <h3 style="margin:0">Users (${users.length})</h3>
+          <button class="btn primary btn-sm" onclick="adminNewUser()">+ New user</button>
+        </div>
+        <div class="tbl-wrap"><table class="data">
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last login</th><th></th></tr></thead>
+          <tbody>
+            ${users.map(u => `<tr>
+              <td>${esc(u.Name)}</td>
+              <td>${esc(u.Email)}</td>
+              <td>${esc(u.Role)}</td>
+              <td><span class="pill ${u.Status==='active'?'ok':u.Status==='pending'?'warn':'bad'}">${esc(u.Status)}</span></td>
+              <td class="small">${u.LastLogin ? fmtShort(u.LastLogin) : '—'}</td>
+              <td><button class="btn ghost btn-sm" onclick="adminEditUser('${esc(u.Email)}','${esc(u.Name)}','${esc(u.Role)}','${esc(u.Status)}')">Edit</button></td>
+            </tr>`).join('')}
+          </tbody>
         </table></div>
-        ${isAdmin() ? `
-          <form id="overrideGradeForm">
-            <h4>Edit Module Quiz Grade</h4>
-            <label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>
-            <div class="flex-row">
-              <label style="flex:1">Score<input type="number" name="score" min="0" required></label>
-              <label style="flex:1">Total<input type="number" name="total" min="1" value="5" required></label>
+      </div>`;
+  } catch(e){ c.innerHTML = `<div class="msg bad">${esc(e.message)}</div>`; }
+}
+
+function adminNewUser(){
+  openModal(`
+    <div class="modal-head"><h3>Create user</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <form id="newUserForm">
+      <label>Name<input name="name" required></label>
+      <label>Email<input type="email" name="email" required></label>
+      <label>Password (min 8)<input type="password" name="password" required minlength="8"></label>
+      <label>Role<select name="role"><option>learner</option><option>instructor</option><option>admin</option></select></label>
+      <label>Status<select name="status"><option>active</option><option>pending</option><option>suspended</option></select></label>
+      <div class="flex-row" style="justify-content:flex-end;gap:.5rem">
+        <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn primary" type="submit">Create user</button>
+      </div>
+    </form>`);
+  document.getElementById('newUserForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target).entries());
+    try {
+      const r = await api('adminCreateUser', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      toast('User created', 'ok'); closeModal(); renderAdmin('users');
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
+
+function adminEditUser(email, name, role, status){
+  openModal(`
+    <div class="modal-head"><h3>Edit user</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <form id="editUserForm">
+      <label>Email<input value="${esc(email)}" disabled></label>
+      <label>Name<input name="name" value="${esc(name)}" required></label>
+      <label>Role<select name="role">
+        <option ${role==='learner'?'selected':''}>learner</option>
+        <option ${role==='instructor'?'selected':''}>instructor</option>
+        <option ${role==='admin'?'selected':''}>admin</option>
+      </select></label>
+      <label>Status<select name="status">
+        <option ${status==='active'?'selected':''}>active</option>
+        <option ${status==='pending'?'selected':''}>pending</option>
+        <option ${status==='suspended'?'selected':''}>suspended</option>
+      </select></label>
+      <div class="flex-row" style="justify-content:space-between;gap:.5rem">
+        <button type="button" class="btn danger" onclick="adminDeleteUser('${esc(email)}')">Delete</button>
+        <div class="flex-row" style="gap:.5rem">
+          <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+          <button class="btn primary" type="submit">Save</button>
+        </div>
+      </div>
+    </form>`);
+  document.getElementById('editUserForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target).entries());
+    data.email = email;
+    try {
+      const r = await api('updateUser', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      toast('User updated', 'ok'); closeModal(); renderAdmin('users');
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
+
+async function adminDeleteUser(email){
+  if (!confirm('Delete user ' + email + '?')) return;
+  try {
+    const r = await api('deleteUser', { email });
+    if (!r.ok) { toast(r.error, 'bad'); return; }
+    toast('User deleted', 'ok'); closeModal(); renderAdmin('users');
+  } catch(e){ toast(e.message, 'bad'); }
+}
+
+async function adminContent(c){
+  try {
+    const r = await api('listContent', {});
+    if (!r.ok) { c.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+    const modules = r.data.modules || [];
+    c.innerHTML = `
+      <div class="card">
+        <div class="space-between mb-2">
+          <h3 style="margin:0">Modules &amp; lessons</h3>
+          <button class="btn primary btn-sm" onclick="adminNewModule()">+ New module</button>
+        </div>
+        ${modules.length ? modules.map(m => `
+          <div class="osce-domain-card">
+            <div class="dom-head">
+              <h4>${esc(m.Title)} <span class="pill info">${(m.Lessons||[]).length} lessons</span></h4>
+              <button class="btn ghost btn-sm" onclick="adminNewLesson('${esc(m.ModuleID)}')">+ Lesson</button>
             </div>
-            <div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Close</button><button type="submit" class="btn primary">Save</button></div>
-          </form>
-        ` : `<button type="button" class="btn ghost" onclick="closeModal()">Close</button>`}
-      `);
-      $('#overrideGradeForm')?.addEventListener('submit', async (ev) => {
-        ev.preventDefault(); const f = ev.target;
-        const r = await apiCall('adminUpdateModuleGrade', { learnerEmail: g.learnerEmail, moduleId: f.moduleId.value, score: Number(f.score.value), total: Number(f.total.value) });
-        if (!r.ok) return toast(r.error || 'Failed', 'bad');
-        toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'grades');
-      });
-    });
-  }
+            <p class="small" style="margin:.35rem 0">${esc(m.Description || '')}</p>
+            ${(m.Lessons||[]).map(l => `<div class="small" style="padding:.35rem 0;border-top:1px dashed var(--line-soft)">📄 ${esc(l.Title)}</div>`).join('')}
+          </div>`).join('') : '<p class="small">No modules yet.</p>'}
+      </div>`;
+  } catch(e){ c.innerHTML = `<div class="msg bad">${esc(e.message)}</div>`; }
+}
 
-  else if (tab === 'content') {
-    const content = await ensureContent(true);
-    const mods = (content && content.modules) || [];
-    bodyEl.innerHTML = `
-      <div class="card space-between">
-        <div><strong>Modules &amp; Lessons</strong> (${mods.length})</div>
-        <div class="flex-row">
-          <button class="btn ghost btn-sm" id="addLessonBtn">+ Add lesson</button>
-          <button class="btn primary btn-sm" id="addModuleBtn">+ Add module</button>
-        </div>
+function adminNewModule(){
+  openModal(`
+    <div class="modal-head"><h3>New module</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <form id="newModuleForm">
+      <label>Title<input name="title" required></label>
+      <label>Description<textarea name="description"></textarea></label>
+      <label>Sort order<input name="sortOrder" type="number" value="0"></label>
+      <div class="flex-row" style="justify-content:flex-end;gap:.5rem">
+        <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn primary" type="submit">Create</button>
       </div>
-      ${mods.map(m => `
-        <div class="card">
-          <div class="space-between">
-            <div><span class="badge">Order ${esc(m.SortOrder)}</span> <strong style="font-size:1.05rem">${esc(m.Title)}</strong><div class="small">${esc(m.Description || '')}</div></div>
-            <div class="flex-row">
-              <button class="btn btn-sm ghost" data-edit-mod="${esc(m.ModuleID)}">Edit</button>
-              <button class="btn btn-sm danger" data-del-mod="${esc(m.ModuleID)}">Delete</button>
-            </div>
+    </form>`);
+  document.getElementById('newModuleForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target).entries());
+    try {
+      const r = await api('createModule', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      toast('Module created', 'ok'); closeModal(); renderAdmin('content');
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
+
+function adminNewLesson(moduleId){
+  openModal(`
+    <div class="modal-head"><h3>New lesson</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <form id="newLessonForm">
+      <label>Title<input name="title" required></label>
+      <label>Content (HTML)<textarea name="content" rows="6"></textarea></label>
+      <label>Sort order<input name="sortOrder" type="number" value="0"></label>
+      <div class="flex-row" style="justify-content:flex-end;gap:.5rem">
+        <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn primary" type="submit">Create</button>
+      </div>
+    </form>`);
+  document.getElementById('newLessonForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target).entries());
+    data.moduleId = moduleId;
+    try {
+      const r = await api('createLesson', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      toast('Lesson created', 'ok'); closeModal(); renderAdmin('content');
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
+
+async function adminExams(c){
+  c.innerHTML = `
+    <div class="card">
+      <h3>Choose exam</h3>
+      <div class="flex-row">
+        <button class="btn primary" data-exam-list="midterm">Midterm questions</button>
+        <button class="btn accent" data-exam-list="final">Final questions</button>
+        <button class="btn ghost" id="newExamQBtn">+ New question</button>
+      </div>
+      <div id="examQList" class="mt-2"></div>
+    </div>`;
+  document.querySelectorAll('[data-exam-list]').forEach(b => {
+    b.addEventListener('click', () => loadExamQ(b.getAttribute('data-exam-list')));
+  });
+  document.getElementById('newExamQBtn').addEventListener('click', () => adminNewExamQuestion('midterm'));
+  loadExamQ('midterm');
+}
+
+async function loadExamQ(type){
+  const box = document.getElementById('examQList');
+  box.innerHTML = '<span class="small">Loading…</span>';
+  try {
+    const r = await api('listExamQuestionsAdmin', { examType: type });
+    if (!r.ok) { box.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+    const qs = r.data.questions || [];
+    box.innerHTML = `
+      <div class="space-between mb-2"><h4 style="margin:0">${qs.length} ${type} questions</h4></div>
+      ${qs.map((q, i) => `
+        <div class="osce-domain-card">
+          <div class="dom-head">
+            <h4 style="font-size:.92rem">Q${i+1}. ${esc(q.Question)}</h4>
+            <button class="btn ghost btn-sm" onclick="adminEditExamQ('${esc(q.QuestionID)}')">Edit</button>
           </div>
-          <div class="tbl-wrap" style="margin-top:.75rem"><table class="data">
-            <thead><tr><th>Order</th><th>Lesson</th><th>Actions</th></tr></thead>
-            <tbody>${(m.Lessons || []).map(l => `
-              <tr><td>${esc(l.SortOrder)}</td><td>${esc(l.Title)}</td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-lesson="${esc(l.LessonID)}" data-mod-id="${esc(m.ModuleID)}">Edit</button><button class="btn btn-sm danger" data-del-lesson="${esc(l.LessonID)}">Delete</button></td></tr>
-            `).join('') || '<tr><td colspan="3" class="small">No lessons</td></tr>'}</tbody>
-          </table></div>
-        </div>
-      `).join('')}
-    `;
-    $('#addModuleBtn')?.addEventListener('click', () => {
-      openModal(`<h3>Add Module</h3><form id="mForm"><label>Title<input name="title" required></label><label>Description<textarea name="description"></textarea></label><label>Sort Order<input type="number" name="sortOrder" value="${mods.length}" required></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
-      $('#mForm').addEventListener('submit', async (e) => { e.preventDefault(); const f = e.target; const r = await apiCall('createModule', { title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) }); if (r.ok) { toast('Created', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
-    });
-    $('#addLessonBtn')?.addEventListener('click', () => {
-      openModal(`<h3>Add Lesson</h3><form id="lForm"><label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label><label>Title<input name="title" required></label><label>Sort Order<input type="number" name="sortOrder" value="0" required></label><label>Content HTML<textarea name="content" style="min-height:150px"></textarea></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
-      $('#lForm').addEventListener('submit', async (e) => { e.preventDefault(); const f = e.target; const r = await apiCall('createLesson', { moduleId: f.moduleId.value, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value }); if (r.ok) { toast('Created', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
-    });
-    bodyEl.addEventListener('click', async (e) => {
-      const em = e.target.closest('button[data-edit-mod]');
-      if (em) {
-        const m = mods.find(x => String(x.ModuleID) === String(em.dataset.editMod)); if (!m) return;
-        openModal(`<h3>Edit Module</h3><form id="emForm"><label>Title<input name="title" value="${esc(m.Title)}" required></label><label>Description<textarea name="description">${esc(m.Description || '')}</textarea></label><label>Sort Order<input type="number" name="sortOrder" value="${esc(m.SortOrder)}" required></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Update</button></div></form>`);
-        $('#emForm').addEventListener('submit', async (ev) => { ev.preventDefault(); const f = ev.target; const r = await apiCall('updateModule', { moduleId: m.ModuleID, title: f.title.value, description: f.description.value, sortOrder: Number(f.sortOrder.value) }); if (r.ok) { toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
-        return;
-      }
-      const dm = e.target.closest('button[data-del-mod]');
-      if (dm && confirm('Delete module?')) { const r = await apiCall('deleteModule', { moduleId: dm.dataset.delMod }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'content'); } return; }
-      const el = e.target.closest('button[data-edit-lesson]');
-      if (el) {
-        const m = mods.find(x => String(x.ModuleID) === String(el.dataset.modId));
-        const l = (m?.Lessons || []).find(x => String(x.LessonID) === String(el.dataset.editLesson)); if (!l) return;
-        openModal(`<h3>Edit Lesson</h3><form id="elForm"><label>Title<input name="title" value="${esc(l.Title)}" required></label><label>Sort Order<input type="number" name="sortOrder" value="${esc(l.SortOrder)}" required></label><label>Content HTML<textarea name="content" style="min-height:160px">${esc(l.ContentHTML || '')}</textarea></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Update</button></div></form>`);
-        $('#elForm').addEventListener('submit', async (ev) => { ev.preventDefault(); const f = ev.target; const r = await apiCall('updateLesson', { lessonId: l.LessonID, title: f.title.value, sortOrder: Number(f.sortOrder.value), content: f.content.value }); if (r.ok) { toast('Updated', 'ok'); closeModal(); renderAdmin(app, 'content'); } });
-        return;
-      }
-      const dl = e.target.closest('button[data-del-lesson]');
-      if (dl && confirm('Delete lesson?')) { const r = await apiCall('deleteLesson', { lessonId: dl.dataset.delLesson }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'content'); } }
-    });
-  }
+          <div class="small">${['A','B','C','D'].map((L,j) => `<div style="padding:.15rem 0;${j === q.CorrectIndex ? 'color:var(--ok);font-weight:700' : ''}">${L}. ${esc(q['Option'+L])}</div>`).join('')}</div>
+          <div class="small mt-1"><strong>Module:</strong> ${esc(q.ModuleTag || '')}</div>
+          ${q.Explanation ? `<div class="small mt-1"><strong>Why:</strong> ${esc(q.Explanation)}</div>` : ''}
+        </div>`).join('')}`;
+  } catch(e){ box.innerHTML = `<div class="msg bad">${esc(e.message)}</div>`; }
+}
 
-  else if (tab === 'quizzes') {
-    const content = await ensureContent(true);
-    const mods = (content && content.modules) || [];
-    const allQuizzes = [];
-    mods.forEach(m => (m.Quizzes || []).forEach(q => allQuizzes.push(Object.assign({}, q, { ModuleID: m.ModuleID, ModuleTitle: m.Title }))));
-    bodyEl.innerHTML = `
-      <div class="card space-between">
-        <div><strong>Module Quizzes</strong> (${allQuizzes.length})</div>
-        <button class="btn primary btn-sm" id="addQuizBtn">+ Add quiz question</button>
+function adminNewExamQuestion(examType){
+  openModal(`
+    <div class="modal-head"><h3>New ${examType} question</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <form id="newExamQForm">
+      <label>Exam type<select name="examType"><option ${examType==='midterm'?'selected':''}>midterm</option><option ${examType==='final'?'selected':''}>final</option></select></label>
+      <label>Module tag<input name="moduleTag" placeholder="e.g. Module 1"></label>
+      <label>Question<textarea name="question" required></textarea></label>
+      <label>Option A<input name="OptionA" required></label>
+      <label>Option B<input name="OptionB" required></label>
+      <label>Option C<input name="OptionC" required></label>
+      <label>Option D<input name="OptionD" required></label>
+      <label>Correct index (0–3)<input name="correctIndex" type="number" min="0" max="3" required></label>
+      <label>Explanation<textarea name="explanation"></textarea></label>
+      <div class="flex-row" style="justify-content:flex-end;gap:.5rem">
+        <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn primary" type="submit">Create</button>
       </div>
-      <div class="tbl-wrap"><table class="data"><thead><tr><th>Module</th><th>Question</th><th>Correct</th><th>Actions</th></tr></thead><tbody>${allQuizzes.map(q => `
-        <tr><td>${esc(q.ModuleTitle)}</td><td>${esc(q.Question)}</td><td><strong>${'ABCD'[Number(q.CorrectIndex)] || 'A'}</strong></td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-quiz="${esc(q.QuizID)}">Edit</button><button class="btn btn-sm danger" data-del-quiz="${esc(q.QuizID)}">Delete</button></td></tr>
-      `).join('')}</tbody></table></div>
-    `;
-    const openQuizModal = (q) => {
-      const item = q || { ModuleID: mods[0]?.ModuleID || '', Question: '', OptionA: '', OptionB: '', OptionC: '', OptionD: '', CorrectIndex: 0, Explanation: '' };
-      openModal(`<h3>${q ? 'Edit Quiz' : 'Add Quiz'}</h3><form id="qForm">${!q ? `<label>Module<select name="moduleId">${mods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}</select></label>` : ''}<label>Question<textarea name="question" required>${esc(item.Question)}</textarea></label><label>Option A<input name="OptionA" value="${esc(item.OptionA)}" required></label><label>Option B<input name="OptionB" value="${esc(item.OptionB)}" required></label><label>Option C<input name="OptionC" value="${esc(item.OptionC)}" required></label><label>Option D<input name="OptionD" value="${esc(item.OptionD)}" required></label><label>Correct<select name="correctIndex"><option value="0" ${Number(item.CorrectIndex)===0?'selected':''}>A</option><option value="1" ${Number(item.CorrectIndex)===1?'selected':''}>B</option><option value="2" ${Number(item.CorrectIndex)===2?'selected':''}>C</option><option value="3" ${Number(item.CorrectIndex)===3?'selected':''}>D</option></select></label><label>Explanation<input name="explanation" value="${esc(item.Explanation || '')}"></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
-      $('#qForm').addEventListener('submit', async (e) => {
-        e.preventDefault(); const f = e.target;
-        const payload = { question: f.question.value, OptionA: f.OptionA.value, OptionB: f.OptionB.value, OptionC: f.OptionC.value, OptionD: f.OptionD.value, correctIndex: Number(f.correctIndex.value), explanation: f.explanation.value };
-        if (q) payload.quizId = q.QuizID; else payload.moduleId = f.moduleId.value;
-        const r = await apiCall(q ? 'updateQuiz' : 'createQuiz', payload);
-        if (r.ok) { toast('Saved', 'ok'); closeModal(); renderAdmin(app, 'quizzes'); }
-      });
-    };
-    $('#addQuizBtn')?.addEventListener('click', () => openQuizModal(null));
-    bodyEl.addEventListener('click', async (e) => {
-      const eb = e.target.closest('button[data-edit-quiz]'); if (eb) { const found = allQuizzes.find(x => String(x.QuizID) === String(eb.dataset.editQuiz)); if (found) openQuizModal(found); return; }
-      const db = e.target.closest('button[data-del-quiz]'); if (db && confirm('Delete quiz?')) { const r = await apiCall('deleteQuiz', { quizId: db.dataset.delQuiz }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'quizzes'); } }
-    });
-  }
+    </form>`);
+  document.getElementById('newExamQForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const data = Object.fromEntries(new FormData(ev.target).entries());
+    try {
+      const r = await api('createExamQuestion', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      toast('Question created', 'ok'); closeModal(); loadExamQ(data.examType);
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
 
-  else if (tab === 'exams') {
-    const bankType = state.params.adminExamType === 'final' ? 'final' : 'midterm';
-    const [qRes, pcRes] = await Promise.all([
-      apiCall('listExamQuestionsAdmin', { examType: bankType }),
-      isAdmin() ? apiCall('getExamPasscodes', {}) : Promise.resolve({ ok: false })
-    ]);
-    const qs = (qRes.ok && qRes.data && qRes.data.questions) || [];
-    const codes = (pcRes.ok && pcRes.data && pcRes.data.passcodes) || {
-      midterm: EXAMS_CFG.MIDTERM_PASSCODE,
-      final: EXAMS_CFG.FINAL_PASSCODE
-    };
+function adminEditExamQ(questionId){
+  toast('Edit dialog for ' + questionId.slice(0,6) + '… (wire to updateExamQuestion)', 'info');
+}
 
-    bodyEl.innerHTML = `
-      ${isAdmin() ? `
-        <div class="card">
-          <h3>Exam Access Passcodes (Admin Configurable)</h3>
-          <p class="small">Update passwords whenever needed; learners must enter the active passcode to unlock an exam.</p>
-          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-            <form id="midPassForm" class="flex-row" style="align-items:flex-end">
-              <label style="flex:1;margin:0">Midterm Passcode (30 MCQs)<input type="text" name="passcode" value="${esc(codes.midterm)}" minlength="4" required></label>
-              <button type="submit" class="btn primary btn-sm">Update</button>
-            </form>
-            <form id="finPassForm" class="flex-row" style="align-items:flex-end">
-              <label style="flex:1;margin:0">Final Passcode (40 MCQs)<input type="text" name="passcode" value="${esc(codes.final)}" minlength="4" required></label>
-              <button type="submit" class="btn primary btn-sm">Update</button>
-            </form>
+async function adminPasscodes(c){
+  c.innerHTML = '<div class="card"><span class="small">Loading passcodes…</span></div>';
+  try {
+    const r = await api('getExamPasscodes', {});
+    if (!r.ok) { c.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+    const p = r.data.passcodes;
+    c.innerHTML = `
+      <div class="card">
+        <h3>Exam passcodes</h3>
+        <p class="small">Update the passcodes required to open exams.</p>
+        <div class="grid">
+          <div>
+            <label>Midterm passcode<input id="pass-midterm" value="${esc(p.midterm)}"></label>
+            <button class="btn ghost btn-sm" data-save-pass="midterm">Update midterm</button>
+          </div>
+          <div>
+            <label>Final passcode<input id="pass-final" value="${esc(p.final)}"></label>
+            <button class="btn ghost btn-sm" data-save-pass="final">Update final</button>
           </div>
         </div>
-      ` : ''}
-      <div class="card space-between">
-        <div class="flex-row">
-          <button class="btn ${bankType === 'midterm' ? 'primary' : 'ghost'} btn-sm" id="bankMidBtn">Midterm (30 MCQs)</button>
-          <button class="btn ${bankType === 'final' ? 'primary' : 'ghost'} btn-sm" id="bankFinBtn">Final (40 MCQs)</button>
-          <span class="small">Loaded: <strong>${qs.length}</strong></span>
-        </div>
-        <button class="btn primary btn-sm" id="addExamQBtn">+ Add exam MCQ</button>
-      </div>
-      <div class="tbl-wrap"><table class="data"><thead><tr><th>#</th><th>Module</th><th>Question</th><th>Ans</th><th>Actions</th></tr></thead><tbody>${qs.map((q, idx) => `
-        <tr><td>${idx + 1}</td><td>${esc(q.ModuleTag || '')}</td><td>${esc(q.Question)}</td><td><strong>${'ABCD'[Number(q.CorrectIndex)] || 'A'}</strong></td><td class="flex-row"><button class="btn btn-sm ghost" data-edit-eq="${esc(q.QuestionID)}">Edit</button><button class="btn btn-sm danger" data-del-eq="${esc(q.QuestionID)}">Delete</button></td></tr>
-      `).join('')}</tbody></table></div>
-    `;
-
-    $('#midPassForm')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const code = e.target.passcode.value.trim();
-      const r = await apiCall('updateExamPasscode', { examType: 'midterm', passcode: code });
-      if (!r.ok) return toast(r.error || 'Failed', 'bad');
-      EXAMS_CFG.MIDTERM_PASSCODE = code;
-      toast('Midterm passcode updated', 'ok');
-    });
-    $('#finPassForm')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const code = e.target.passcode.value.trim();
-      const r = await apiCall('updateExamPasscode', { examType: 'final', passcode: code });
-      if (!r.ok) return toast(r.error || 'Failed', 'bad');
-      EXAMS_CFG.FINAL_PASSCODE = code;
-      toast('Final passcode updated', 'ok');
-    });
-
-    $('#bankMidBtn')?.addEventListener('click', () => { state.params.adminExamType = 'midterm'; renderAdmin(app, 'exams'); });
-    $('#bankFinBtn')?.addEventListener('click', () => { state.params.adminExamType = 'final'; renderAdmin(app, 'exams'); });
-
-    const openEqModal = (existing) => {
-      const item = existing || { ModuleTag: bankType === 'final' ? 'Module 1–6' : 'Module 1–3', Question: '', OptionA: '', OptionB: '', OptionC: '', OptionD: '', CorrectIndex: 0, Explanation: '' };
-      openModal(`<h3>${existing ? 'Edit Exam MCQ' : 'Add Exam MCQ (' + bankType.toUpperCase() + ')'}</h3><form id="eqForm"><label>Module Tag<input name="moduleTag" value="${esc(item.ModuleTag || '')}" required></label><label>Question<textarea name="question" required>${esc(item.Question)}</textarea></label><label>Option A<input name="OptionA" value="${esc(item.OptionA)}" required></label><label>Option B<input name="OptionB" value="${esc(item.OptionB)}" required></label><label>Option C<input name="OptionC" value="${esc(item.OptionC)}" required></label><label>Option D<input name="OptionD" value="${esc(item.OptionD)}" required></label><label>Correct<select name="correctIndex"><option value="0" ${Number(item.CorrectIndex)===0?'selected':''}>A</option><option value="1" ${Number(item.CorrectIndex)===1?'selected':''}>B</option><option value="2" ${Number(item.CorrectIndex)===2?'selected':''}>C</option><option value="3" ${Number(item.CorrectIndex)===3?'selected':''}>D</option></select></label><label>Explanation<input name="explanation" value="${esc(item.Explanation || '')}"></label><div class="flex-row" style="justify-content:flex-end"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save</button></div></form>`);
-      $('#eqForm').addEventListener('submit', async (e) => {
-        e.preventDefault(); const f = e.target;
-        const payload = { examType: bankType, moduleTag: f.moduleTag.value, question: f.question.value, OptionA: f.OptionA.value, OptionB: f.OptionB.value, OptionC: f.OptionC.value, OptionD: f.OptionD.value, correctIndex: Number(f.correctIndex.value), explanation: f.explanation.value };
-        if (existing) payload.questionId = existing.QuestionID;
-        const r = await apiCall(existing ? 'updateExamQuestion' : 'createExamQuestion', payload);
-        if (r.ok) { toast('Saved', 'ok'); closeModal(); renderAdmin(app, 'exams'); }
+      </div>`;
+    document.querySelectorAll('[data-save-pass]').forEach(b => {
+      b.addEventListener('click', async () => {
+        const type = b.getAttribute('data-save-pass');
+        const val = document.getElementById('pass-' + type).value.trim();
+        if (val.length < 4) { toast('Min 4 characters', 'warn'); return; }
+        try {
+          const r2 = await api('updateExamPasscode', { examType: type, passcode: val });
+          if (!r2.ok) { toast(r2.error, 'bad'); return; }
+          toast(type + ' passcode updated ✓', 'ok');
+        } catch(e){ toast(e.message, 'bad'); }
       });
-    };
-    $('#addExamQBtn')?.addEventListener('click', () => openEqModal(null));
-    bodyEl.addEventListener('click', async (e) => {
-      const eb = e.target.closest('button[data-edit-eq]'); if (eb) { const found = qs.find(x => String(x.QuestionID) === String(eb.dataset.editEq)); if (found) openEqModal(found); return; }
-      const db = e.target.closest('button[data-del-eq]'); if (db && confirm('Delete exam question?')) { const r = await apiCall('deleteExamQuestion', { questionId: db.dataset.delEq }); if (r.ok) { toast('Deleted', 'ok'); renderAdmin(app, 'exams'); } }
     });
+  } catch(e){ c.innerHTML = `<div class="msg bad">${esc(e.message)}</div>`; }
+}
+
+async function adminGrades(c){
+  c.innerHTML = '<div class="card"><span class="small">Loading grades…</span></div>';
+  try {
+    const r = await api('listAllGrades', {});
+    if (!r.ok) { c.innerHTML = `<div class="msg bad">${esc(r.error)}</div>`; return; }
+    const grades = r.data.grades || [];
+    c.innerHTML = `
+      <div class="card">
+        <h3>All learners (${grades.length})</h3>
+        <div class="tbl-wrap"><table class="data">
+          <thead><tr><th>Name</th><th>Quiz</th><th>Exams</th><th>OSCE</th><th>Final</th></tr></thead>
+          <tbody>
+            ${grades.map(g => `<tr>
+              <td>${esc(g.learnerName)}</td>
+              <td>${g.quizAverage}%</td>
+              <td>${g.examAverage}%</td>
+              <td>${g.osce ? g.osce.percentage + '%' : '—'}</td>
+              <td><strong style="color:${g.finalPercentage >= PASS_THRESHOLD ? 'var(--ok)' : 'var(--bad)'}">${g.finalPercentage}%</strong></td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>`;
+  } catch(e){ c.innerHTML = `<div class="msg bad">${esc(e.message)}</div>`; }
+}
+
+async function adminOsce(c){
+  c.innerHTML = `
+    <div class="card">
+      <h3>10-domain OSCE grading</h3>
+      <p class="small">Each domain scored 0–2. Total out of 20. Pass mark ${PASS_THRESHOLD}%.</p>
+      <form id="osceForm">
+        <label>Learner email<input name="learnerEmail" type="email" required placeholder="learner@example.com"></label>
+        <div id="osceDomains"></div>
+        <label>Notes<textarea name="notes" placeholder="Optional feedback…"></textarea></label>
+        <button class="btn primary" type="submit">Submit OSCE</button>
+      </form>
+    </div>`;
+  const domains = [
+    'Assessment & history taking',
+    'Communication & rapport',
+    'Infection control & hand hygiene',
+    'Patient safety & identification',
+    'Clinical skill execution',
+    'Documentation',
+    'Teamwork & escalation',
+    'Professionalism & ethics',
+    'Family-centred education',
+    'Critical thinking & prioritisation'
+  ];
+  const wrap = document.getElementById('osceDomains');
+  domains.forEach((name, i) => {
+    const div = el(`
+      <div class="osce-domain-card">
+        <div class="dom-head">
+          <h4>D${i+1}. ${esc(name)}</h4>
+          <span class="small" data-score-preview>—</span>
+        </div>
+        <div class="osce-rubric-grid">
+          <label class="rubric-box"><input type="radio" name="d${i+1}" value="0" required><strong>0 — Not done</strong>Omitted or unsafe</label>
+          <label class="rubric-box"><input type="radio" name="d${i+1}" value="1"><strong>1 — Partly done</strong>Needs prompting</label>
+          <label class="rubric-box"><input type="radio" name="d${i+1}" value="2"><strong>2 — Done well</strong>Independent &amp; safe</label>
+        </div>
+      </div>`);
+    wrap.appendChild(div);
+    const preview = div.querySelector('[data-score-preview]');
+    div.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => {
+      div.querySelectorAll('.rubric-box').forEach(o => o.classList.remove('selected'));
+      r.closest('.rubric-box').classList.add('selected');
+      preview.textContent = r.value + '/2';
+    }));
+  });
+
+  document.getElementById('osceForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const fd = new FormData(ev.target);
+    const data = Object.fromEntries(fd.entries());
+    try {
+      const r = await api('submitOsce', data);
+      if (!r.ok) { toast(r.error, 'bad'); return; }
+      const d = r.data;
+      toast(`OSCE submitted — ${d.percentage}% (${d.pass ? 'PASS' : 'FAIL'})`, d.pass ? 'ok' : 'warn');
+      if (d.certificate) toast('Certificate issued: ' + d.certificate.CertCode, 'ok');
+      ev.target.reset();
+      wrap.querySelectorAll('.selected').forEach(x => x.classList.remove('selected'));
+      wrap.querySelectorAll('[data-score-preview]').forEach(x => x.textContent = '—');
+    } catch(e){ toast(e.message, 'bad'); }
+  });
+}
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+function route(name, params){
+  params = params || {};
+  if (!state.token) { renderAuth('login'); return; }
+  document.querySelectorAll('#mainNav button[data-nav]').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-nav') === name);
+  });
+  switch(name){
+    case 'dashboard':    renderDashboard(); break;
+    case 'module':       renderModule(params); break;
+    case 'exams':        renderExams(); break;
+    case 'grades':       renderGrades(); break;
+    case 'certificates': renderCertificates(); break;
+    case 'portfolio':    renderPortfolio(); break;
+    case 'admin':        renderAdmin(params.tab); break;
+    default:             renderDashboard();
   }
 }
 
-/* ---------- Global Delegation & Boot ---------- */
-document.addEventListener('click', (e) => {
-  const navBtn = e.target.closest('#mainNav button[data-nav]');
-  if (navBtn) { state.view = navBtn.dataset.nav; state.params = {}; $$('#mainNav button').forEach(b => b.classList.toggle('active', b === navBtn)); render(); return; }
-  const backBtn = e.target.closest('[data-nav]');
-  if (backBtn && backBtn.dataset.nav) { state.view = backBtn.dataset.nav; state.params = {}; render(); return; }
-  const submitQuizBtn = e.target.closest('[data-quiz-submit]');
-  if (submitQuizBtn) {
-    const moduleId = submitQuizBtn.dataset.quizSubmit;
-    const answers = [];
-    $$('#quizContainer .quiz-q').forEach(qEl => {
-      const checked = qEl.querySelector('input[type=radio]:checked');
-      if (checked) answers.push({ quizId: qEl.dataset.quizId, chosenIndex: Number(checked.value) });
-    });
-    if (!answers.length) { toast('Answer at least one question', 'warn'); return; }
-    submitQuizBtn.disabled = true; const orig = submitQuizBtn.textContent; submitQuizBtn.textContent = 'Submitting…';
-    apiCall('submitQuizGroup', { moduleId, answers }).then(res => {
-      submitQuizBtn.disabled = false; submitQuizBtn.textContent = orig;
-      if (res.ok) {
-        const box = $('#quizResults');
-        const pct = Number(res.data.percentage);
-        const rMap = {};
-        (res.data.results || []).forEach(r => { rMap[r.quizId] = r; });
-        $$('#quizContainer .quiz-q').forEach(qEl => {
-          const r = rMap[qEl.dataset.quizId];
-          if (!r) return;
-          $$('.quiz-opt', qEl).forEach((optEl, idx) => {
-            optEl.classList.remove('correct', 'wrong');
-            if (idx === r.correctIndex) optEl.classList.add('correct');
-            else if (idx === r.chosenIndex && !r.correct) optEl.classList.add('wrong');
-          });
-          const fb = qEl.querySelector('.q-feedback');
-          if (fb) {
-            fb.hidden = false;
-            fb.className = 'quiz-explain q-feedback ' + (r.correct ? 'ok' : 'bad');
-            fb.innerHTML = `<strong>${r.correct ? '✓ Correct' : '✗ Incorrect'}</strong>${r.explanation ? ' — ' + esc(r.explanation) : ''}`;
-          }
-        });
-        box.innerHTML = `<div class="quiz-result ${pct >= PASS_THRESHOLD ? 'ok' : 'bad'}">Score: ${res.data.score}/${res.data.total} — <strong>${pct}%</strong></div>`;
-        box.hidden = false;
-        toast('Quiz submitted', 'ok');
-      } else toast(res.error || 'Submit failed', 'bad');
-    });
-  }
+/* ============================================================
+   NAV + LOGOUT WIRING
+   ============================================================ */
+document.querySelectorAll('#mainNav button[data-nav]').forEach(b => {
+  b.addEventListener('click', () => route(b.getAttribute('data-nav')));
 });
-
-document.addEventListener('input', debounce(async (e) => {
-  const ta = e.target.closest('[data-note-key]');
-  if (!ta) return;
-  const key = ta.dataset.noteKey;
-  state.userData[key] = ta.value;
-  await kvSet('userData', state.userData);
-  const res = await apiCall('saveUserData', { dataType: 'note', dataKey: key, dataValue: ta.value });
-  const statusEl = document.querySelector(`[data-note-status="${key}"]`);
-  if (statusEl) { statusEl.textContent = res.queued ? 'Saved locally · will sync' : (res.ok ? 'Saved ✓' : 'Save failed'); statusEl.className = 'note-status ' + (res.ok ? 'ok' : 'bad'); }
-}, 700));
-
 document.getElementById('logoutBtn').addEventListener('click', async () => {
-  clearExamTimer();
-  try { await fetchJSON(API_URL, { action: 'logout', token: state.token }); } catch (e) {}
-  clearSession(); state.view = 'login'; render();
+  try { await api('logout', {}); } catch(e){}
+  clearSession();
+  renderAuth('login');
+  toast('Logged out', 'ok');
 });
 
-async function boot() {
-  updateNetBadge();
-  await refreshPendingBadge();
-  if (OFFLINE.ENABLED && OFFLINE.SERVICE_WORKER && 'serviceWorker' in navigator) {
-    try { await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER); } catch (e) {}
+/* ============================================================
+   ONLINE / OFFLINE + PING
+   ============================================================ */
+function setOnline(isOnline){
+  state.online = isOnline;
+  const b = document.getElementById('netBadge');
+  const banner = document.getElementById('offlineBanner');
+  if (isOnline) {
+    b.className = 'badge ok'; b.innerHTML = '<span class="dot"></span><span>Online</span>';
+    banner.classList.add('hidden');
+    flushQueue();
+  } else {
+    b.className = 'badge warn'; b.innerHTML = '<span class="dot"></span><span>Offline</span>';
+    banner.classList.remove('hidden');
   }
-  if (state.token) {
-    const me = await apiCall('me', {});
-    if (me.ok && me.data && me.data.user) state.user = me.data.user;
-    else if (state.online) clearSession();
-  }
-  if (!state.token) state.view = 'login';
-  else { state.view = 'dashboard'; await preloadAll(); }
-  render();
-  setInterval(ping, OFFLINE.PING_INTERVAL_MS);
-  setInterval(flushQueue, OFFLINE.SYNC_INTERVAL_MS);
-  ping();
+}
+window.addEventListener('online', () => { setOnline(true); toast('Back online', 'ok'); });
+window.addEventListener('offline', () => { setOnline(false); toast('Offline — changes will queue', 'warn'); });
+
+setInterval(() => {
+  if (state.online && state.token) flushQueue();
+}, OFFLINE.SYNC_INTERVAL_MS);
+
+setInterval(async () => {
+  if (!state.online) return;
+  try {
+    await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'ping' })
+    });
+  } catch(e){ /* ignore */ }
+}, OFFLINE.PING_INTERVAL_MS);
+
+/* ============================================================
+   SERVICE WORKER
+   ============================================================ */
+if ('serviceWorker' in navigator && OFFLINE.ENABLED) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER).catch(() => {});
+  });
 }
 
-window.addEventListener('online', async () => { state.online = true; updateNetBadge(); await flushQueue(); if (state.token) preloadAll().then(render); });
-window.addEventListener('offline', () => { state.online = false; updateNetBadge(); });
-window.addEventListener('DOMContentLoaded', boot);
+/* ============================================================
+   BOOT
+   ============================================================ */
+(function boot(){
+  setOnline(navigator.onLine);
+  refreshHeader();
+  updatePendingBadge();
+  if (state.token && state.user) route('dashboard');
+  else renderAuth('login');
+})();
 </script>
 </body>
 </html>
