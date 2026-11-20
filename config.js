@@ -14,7 +14,7 @@
 
 window.LMS_CONFIG = {
   // Example: 'https://script.google.com/macros/s/AKfycb.../exec'
-  API_URL: 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE',
+  API_URL: 'https://script.google.com/macros/s/AKfycby3GsOpDOZnMFIjNHBMO2CMYrL6J7B1QsgO19rl1CyOeBb7dcNrKywRocWlbT199AqWPw/exec',
 
   COURSE_TITLE: 'Neonatal Nursing',
   PASS_THRESHOLD: 80,
