@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neonatal Nursing LMS</title>
+<script src="config.js"></script>
+<style>
+:root{
+  --ink:#0d1f26; --ink-soft:#35525d; --muted:#54707c;
+  --brand:#0d7d76; --brand-600:#0a5f5a; --brand-50:#e7f4f3; --brand-100:#cfe9e6;
+  --ok:#166534; --ok-50:#dcfce7; --bad:#b91c1c; --bad-50:#fee2e2;
+  --warn:#b45309; --warn-50:#fef3e2;
+  --bg:#eef5f5; --card:#fff; --line:#d3e3e6; --line-soft:#e8f1f2;
+  --radius:12px; --shadow:0 1px 3px rgba(13,31,38,.08),0 8px 24px rgba(13,31,38,.04);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+a{color:var(--brand-600);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;font-size:14px;cursor:pointer}
+h1,h2,h3,h4{color:var(--ink);margin:0 0 .5rem;line-height:1.25}
+h1{font-size:1.6rem}h2{font-size:1.25rem}h3{font-size:1.1rem}h4{font-size:1rem}
+p{margin:0 0 .75rem}
+.small{font-size:.85rem;color:var(--muted)}
+.center{text-align:center}
+.hidden{display:none !important}
+
+.topbar{position:sticky;top:0;z-index:100;background:var(--brand);color:#fff;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:.01em}
+.topbar-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.badge{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.03em;background:rgba(255,255,255,.2);color:#fff}
+.badge.ok{background:#1a7a4a}.badge.warn{background:#b45309}.badge.bad{background:#b91c1c}
+.btn-ghost{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:.35rem .8rem;border-radius:8px;font-weight:600}
+.btn-ghost:hover{background:rgba(255,255,255,.28)}
+
+.mainnav{background:var(--card);border-bottom:1px solid var(--line);padding:.35rem 1rem;display:flex;gap:.25rem;overflow-x:auto}
+.mainnav button{background:transparent;border:1px solid transparent;border-radius:8px;padding:.5rem .9rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.mainnav button.active{background:var(--brand-50);color:var(--brand-600);border-color:var(--brand-100)}
+.mainnav button:hover{background:var(--line-soft)}
+
+main#app{max-width:1080px;margin:1.25rem auto;padding:0 1rem}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.mod-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:transform .15s,border-color .15s}
+.mod-card:hover{transform:translateY(-2px);border-color:var(--brand-100)}
+.mod-card .mod-num{display:inline-block;background:var(--brand-50);color:var(--brand-600);padding:.15rem .55rem;border-radius:6px;font-weight:700;font-size:.78rem;margin-bottom:.35rem}
+.mod-card h3{margin:.35rem 0}
+.mod-card p{color:var(--muted);font-size:.9rem;margin:0}
+.mod-card .mod-meta{margin-top:.55rem;font-size:.78rem;color:var(--muted)}
+
+.btn{display:inline-block;padding:.6rem 1.1rem;border:1px solid transparent;border-radius:8px;font-weight:600;background:#e6eef0;color:var(--ink);transition:background .12s}
+.btn:hover{background:#d8e3e6}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-600)}
+.btn.danger{background:#dc2626;color:#fff}
+.btn.danger:hover{background:#b91c1c}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+.btn.ghost:hover{background:var(--line-soft)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-sm{padding:.35rem .7rem;font-size:.83rem}
+.btn-block{display:block;width:100%}
+
+label{display:block;margin-bottom:.9rem;font-weight:600;font-size:.9rem}
+input,textarea,select{display:block;width:100%;margin-top:.35rem;padding:.65rem .75rem;border:1px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--brand-100);outline-offset:0;border-color:var(--brand)}
+textarea{resize:vertical;min-height:90px}
+.form-card{max-width:420px;margin:2rem auto}
+.form-title{margin-bottom:1rem}
+
+.msg{padding:.75rem 1rem;border-radius:8px;margin-bottom:.75rem;font-size:.93rem}
+.msg.ok{background:var(--ok-50);color:var(--ok);border:1px solid #86efac}
+.msg.bad{background:var(--bad-50);color:var(--bad);border:1px solid #fca5a5}
+.msg.warn{background:var(--warn-50);color:var(--warn);border:1px solid #fbbf24}
+.msg.info{background:var(--brand-50);color:var(--brand-600);border:1px solid var(--brand-100)}
+
+.lesson-wrap{display:flex;gap:1rem}
+.lesson-nav{flex:0 0 240px;position:sticky;top:5rem;align-self:flex-start;max-height:calc(100vh - 6rem);overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:.75rem}
+.lesson-nav h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:.5rem 0 .4rem}
+.lesson-nav a{display:block;padding:.4rem .6rem;border-radius:6px;color:var(--ink-soft);font-size:.9rem;margin-bottom:.15rem;cursor:pointer}
+.lesson-nav a:hover{background:var(--line-soft)}
+.lesson-nav a.active{background:var(--brand-50);color:var(--brand-600);font-weight:600}
+.lesson-main{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
+.lesson-main .lesson-lead{font-size:1.05rem;color:var(--ink-soft)}
+.lesson-main h3.lesson-h{color:var(--brand-600);margin-top:1.5rem;padding-bottom:.3rem;border-bottom:2px solid var(--brand-50)}
+.lesson-callout{padding:.9rem 1.1rem;border-left:4px solid var(--brand);background:var(--brand-50);border-radius:6px;margin:1rem 0}
+.lesson-callout.warn{border-color:var(--warn);background:var(--warn-50)}
+.lesson-callout.danger{border-color:var(--bad);background:var(--bad-50)}
+.lesson-callout.ok{border-color:var(--ok);background:var(--ok-50)}
+.lesson-callout h4{margin:0 0 .4rem;font-size:.95rem}
+.lesson-callout p:last-child{margin-bottom:0}
+.lesson-tbl{margin:1rem 0}
+.lesson-tbl figcaption{font-weight:600;margin-bottom:.5rem;color:var(--brand-600)}
+.lesson-tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+.lesson-tbl table{width:100%;border-collapse:collapse;font-size:.9rem}
+.lesson-tbl th,.lesson-tbl td{padding:.55rem .7rem;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.lesson-tbl th{background:var(--line-soft);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.lesson-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1rem 0}
+.lesson-card{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:8px;padding:.85rem;position:relative}
+.lesson-card .card-num{display:inline-block;background:var(--brand);color:#fff;width:24px;height:24px;text-align:center;border-radius:50%;font-weight:700;font-size:.78rem;line-height:24px;margin-bottom:.35rem}
+.lesson-card h4{margin:.2rem 0 .4rem;font-size:.92rem;color:var(--brand-600)}
+.lesson-card p{margin:0;font-size:.87rem;color:var(--ink-soft)}
+.lesson-video{margin:1rem 0}
+.video-frame{background:linear-gradient(135deg,#0d7d76,#0a5f5a);color:#fff;border-radius:10px;padding:1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.video-play{font-size:2rem}
+.video-frame small{opacity:.85}
+.lesson-formula{background:#f8fafb;border:1px dashed var(--line);border-radius:8px;padding:1rem;margin:1rem 0;font-family:'Courier New',monospace;font-size:.92rem}
+.fx-label{display:block;font-weight:700;color:var(--brand-600);margin-bottom:.35rem;font-family:inherit}
+.lesson-calc{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:8px;padding:1rem;margin:1rem 0}
+.calc-q{font-weight:600;margin-bottom:.6rem}
+.calc-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.calc-row input{flex:1;min-width:120px;max-width:180px;margin:0}
+.calc-unit{font-weight:700;color:var(--brand-600)}
+.calc-feedback{margin-top:.5rem;font-weight:600}
+.calc-feedback.ok{color:var(--ok)}
+.calc-feedback.bad{color:var(--bad)}
+.lesson-discuss{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.25rem 0}
+.lesson-discuss h4{margin:0 0 .5rem}
+.lesson-discuss textarea{margin-top:.4rem;font-family:inherit}
+.note-status{font-size:.8rem;color:var(--muted);margin-top:.3rem;min-height:1.1rem}
+.note-status.ok{color:var(--ok)}
+.note-status.bad{color:var(--bad)}
+.lesson-pbl{background:var(--warn-50);border:1px solid #fcd34d;border-radius:10px;margin:1.25rem 0;overflow:hidden}
+.pbl-header{background:#f59e0b;color:#fff;padding:.65rem 1rem;font-weight:700;font-size:.92rem}
+.pbl-body{padding:1rem}
+.pbl-scenario{background:#fff;border-left:3px solid #f59e0b;padding:.75rem .9rem;margin-bottom:.85rem;font-style:italic;border-radius:4px}
+.lesson-checklist{background:#f8fafb;border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.25rem 0}
+.lesson-checklist h4{margin:0 0 .65rem}
+.lesson-checklist label{display:flex;align-items:flex-start;gap:.55rem;margin-bottom:.45rem;font-weight:400;font-size:.92rem;cursor:pointer}
+.lesson-checklist input[type=checkbox]{margin-top:.2rem;width:auto;flex-shrink:0}
+.lesson-actions{display:flex;justify-content:space-between;gap:.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line)}
+
+.quiz-block{margin-top:2rem;padding:1.25rem;background:#f8fafb;border:1px solid var(--line);border-radius:10px}
+.quiz-q{margin-bottom:1.25rem}
+.quiz-q .q-text{font-weight:600;margin-bottom:.6rem}
+.quiz-opt{display:flex;align-items:flex-start;gap:.5rem;padding:.55rem .75rem;border:1px solid var(--line);border-radius:8px;margin-bottom:.4rem;cursor:pointer;background:#fff}
+.quiz-opt:hover{border-color:var(--brand-100)}
+.quiz-opt input{width:auto;margin:0;flex-shrink:0;margin-top:.2rem}
+.quiz-opt.correct{border-color:var(--ok);background:var(--ok-50)}
+.quiz-opt.wrong{border-color:var(--bad);background:var(--bad-50)}
+.quiz-explain{background:var(--brand-50);padding:.6rem .8rem;border-radius:6px;margin-top:.5rem;font-size:.9rem}
+.quiz-result{padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-weight:600}
+.quiz-result.ok{background:var(--ok-50);color:var(--ok)}
+.quiz-result.bad{background:var(--bad-50);color:var(--bad)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table.data{width:100%;border-collapse:collapse;font-size:.9rem}
+table.data th,table.data td{padding:.55rem .75rem;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+table.data th{background:var(--line-soft);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+table.data tr:last-child td{border-bottom:none}
+table.data tr:hover{background:#f8fafb}
+
+.tabs{display:flex;gap:.25rem;border-bottom:1px solid var(--line);margin-bottom:1rem;overflow-x:auto}
+.tab{background:transparent;border:1px solid transparent;border-bottom:none;padding:.55rem .9rem;font-weight:600;color:var(--muted);border-radius:8px 8px 0 0;white-space:nowrap}
+.tab.active{background:var(--card);border-color:var(--line);color:var(--brand-600);margin-bottom:-1px}
+
+.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:1000;font-size:.9rem;max-width:90vw}
+.toast.ok{background:var(--ok)}
+.toast.bad{background:var(--bad)}
+.toast.warn{background:var(--warn)}
+
+.offline-banner{background:var(--warn);color:#fff;text-align:center;padding:.5rem 1rem;font-weight:600;font-size:.9rem}
+
+@media(max-width:760px){
+  .lesson-wrap{flex-direction:column}
+  .lesson-nav{position:static;flex:none;max-height:none}
+  .topbar{padding:.55rem .75rem;flex-wrap:wrap}
+  .brand{font-size:.95rem}
+  main#app{margin:.75rem auto;padding:0 .75rem}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand" id="brandLabel">Neonatal Nursing LMS</div>
+  <div class="topbar-right">
+    <span class="badge ok" id="netBadge">Online</span>
+    <span class="badge warn hidden" id="pendingBadge">0 queued</span>
+    <span class="small hidden" style="color:#e6f4f3" id="userName"></span>
+    <button class="btn-ghost hidden" id="logoutBtn">Log out</button>
+  </div>
+</header>
+
+<nav class="mainnav hidden" id="mainNav">
+  <button data-nav="dashboard" class="active">Learn</button>
+  <button data-nav="grades">My grades</button>
+  <button data-nav="certificates">Certificates</button>
+  <button data-nav="portfolio">Portfolio</button>
+  <button data-nav="admin" id="adminNavBtn" class="hidden">Admin</button>
+</nav>
+
+<div id="offlineBanner" class="offline-banner hidden">⚠ You are offline — read-only mode until the connection returns.</div>
+
+<main id="app"></main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+/* =====================================================================
+   Neonatal Nursing LMS — offline-first SPA
+   All API calls preserve the original action names. Offline adds an
+   IndexedDB cache and a replay queue flushed via the new `syncBatch`.
+   ===================================================================== */
+
+const CFG = window.LMS_CONFIG || {};
+const API_URL = CFG.API_URL || '';
+const COURSE_TITLE = CFG.COURSE_TITLE || 'Neonatal Nursing';
+const PASS_THRESHOLD = Number(CFG.PASS_THRESHOLD) || 80;
+const OFFLINE = Object.assign({
+  ENABLED: true, SERVICE_WORKER: 'sw.js', CACHE_VERSION: 'lms-v2',
+  QUEUE_MAX_ITEMS: 200, QUEUE_MAX_RETRIES: 5, SYNC_BATCH_SIZE: 25,
+  SYNC_INTERVAL_MS: 30000, PING_INTERVAL_MS: 60000
+}, CFG.OFFLINE || {});
+
+/* ---------- Tiny helpers ---------- */
+const $  = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36));
+function toast(msg, kind) {
+  const el = $('#toast'); el.textContent = msg;
+  el.className = 'toast ' + (kind || '');
+  el.hidden = false;
+  clearTimeout(toast._t); toast._t = setTimeout(() => { el.hidden = true; }, 2800);
+}
+function debounce(fn, ms) {
+  let t; return function() { const a = arguments, c = this; clearTimeout(t); t = setTimeout(() => fn.apply(c, a), ms); };
+}
+
+/* ---------- IndexedDB wrapper (KV + queue) ---------- */
+const DB_NAME = 'lms_offline';
+const DB_VERSION = 2;
+let _dbPromise = null;
+function dbOpen() {
+  if (_dbPromise) return _dbPromise;
+  _dbPromise = new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('kv'))      db.createObjectStore('kv',      { keyPath: 'key' });
+      if (!db.objectStoreNames.contains('pending')) db.createObjectStore('pending', { keyPath: 'id' });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+  return _dbPromise;
+}
+async function idbPut(store, val) {
+  const db = await dbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(val);
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  });
+}
+async function idbGet(store, key) {
+  const db = await dbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => res(req.result || null); req.onerror = () => rej(req.error);
+  });
+}
+async function idbAll(store) {
+  const db = await dbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).getAll();
+    req.onsuccess = () => res(req.result || []); req.onerror = () => rej(req.error);
+  });
+}
+async function idbDel(store, key) {
+  const db = await dbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).delete(key);
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  });
+}
+const kvGet = (k)      => idbGet('kv', k).then(r => r ? r.val : null);
+const kvSet = (k, v)   => idbPut('kv', { key: k, val: v, at: Date.now() });
+const kvDel = (k)      => idbDel('kv', k);
+
+/* ---------- State ---------- */
+const state = {
+  token: localStorage.getItem('lms_token') || '',
+  user:  safeJSON(localStorage.getItem('lms_user')) || null,
+  view:  'loading',
+  params: {},
+  content: null,
+  userData: {},
+  online: navigator.onLine,
+  pendingCount: 0
+};
+function safeJSON(s) { try { return s ? JSON.parse(s) : null; } catch { return null; } }
+
+/* ---------- HTTP ---------- */
+function fetchJSON(url, body) {
+  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+}
+
+/* ---------- Action classification ---------- */
+const READ_ACTIONS = new Set([
+  'me', 'listContent', 'listMyQuizScores', 'getQuizGroupScore', 'getUserData',
+  'listMyPortfolio', 'listAllPortfolios', 'listUsers', 'listAllGrades',
+  'listOsce', 'listCertificates', 'listAudit', 'computeLearnerGrade', 'ping'
+]);
+const WRITE_ACTIONS = new Set([
+  'saveUserData', 'submitQuizGroup', 'updateUser', 'deleteUser',
+  'createModule', 'updateModule', 'deleteModule',
+  'createLesson', 'updateLesson', 'deleteLesson',
+  'createQuiz', 'updateQuiz', 'deleteQuiz', 'submitOsce',
+  'updatePortfolioStatus', 'submitPortfolio'
+]);
+const ONLINE_ONLY = new Set([
+  'login', 'logout', 'register', 'forgot', 'reset',
+  'submitPortfolio', 'updatePortfolioStatus', 'updateUser', 'deleteUser',
+  'createModule', 'updateModule', 'deleteModule',
+  'createLesson', 'updateLesson', 'deleteLesson',
+  'createQuiz', 'updateQuiz', 'deleteQuiz', 'submitOsce'
+]);
+
+function cacheKey(action, body) {
+  const b = Object.assign({}, body || {}); delete b.token;
+  const s = JSON.stringify(b, Object.keys(b).sort());
+  return 'cache:' + action + ':' + s;
+}
+
+/* ---------- Core API call ---------- */
+async function apiCall(action, body, opts) {
+  opts = opts || {};
+  const payload = Object.assign({}, body || {}, { action: action, token: state.token });
+
+  if (state.online && !opts.forceCache) {
+    try {
+      const res = await fetchJSON(API_URL, payload);
+      if (res && res.ok) {
+        if (READ_ACTIONS.has(action)) {
+          await kvSet(cacheKey(action, body), { data: res.data, at: Date.now() });
+        }
+        return { ok: true, data: res.data, fromCache: false };
+      }
+      if (res && res.code === 401) { clearSession(); }
+      return { ok: false, error: (res && res.error) || 'Server error', code: res && res.code };
+    } catch (netErr) { /* offline path below */ }
+  }
+
+  if (ONLINE_ONLY.has(action)) {
+    return { ok: false, error: 'This action needs an internet connection.', offline: true };
+  }
+  if (READ_ACTIONS.has(action)) {
+    const cached = await kvGet(cacheKey(action, body));
+    if (cached && cached.data) return { ok: true, data: cached.data, fromCache: true };
+    return { ok: false, error: 'Offline and no cached copy of this data.' };
+  }
+  if (WRITE_ACTIONS.has(action)) {
+    const optimistic = await applyOptimisticLocal(action, body || {});
+    await queueAction(action, body || {});
+    return { ok: true, data: optimistic, queued: true, offline: true };
+  }
+  return { ok: false, error: 'Action not available offline: ' + action };
+}
+
+/* ---------- Optimistic local effects ---------- */
+async function applyOptimisticLocal(action, body) {
+  if (action === 'saveUserData') {
+    state.userData[body.dataKey] = body.dataValue;
+    await kvSet('userData', state.userData);
+    return { message: 'Saved locally. Will sync when online.', offline: true };
+  }
+  if (action === 'submitQuizGroup') {
+    const modules = (state.content && state.content.modules) || [];
+    const mod = modules.find(m => m.ModuleID === body.moduleId);
+    if (!mod) return { message: 'Queued.', offline: true };
+    const qmap = {}; (mod.Quizzes || []).forEach(q => qmap[q.QuizID] = q);
+    let correct = 0, total = 0; const results = [];
+    (body.answers || []).forEach(a => {
+      const q = qmap[a.quizId]; if (!q) return;
+      total++;
+      const ok = Number(a.chosenIndex) === Number(q.CorrectIndex);
+      if (ok) correct++;
+      results.push({ quizId: q.QuizID, question: q.Question, options: [q.OptionA, q.OptionB, q.OptionC, q.OptionD],
+        chosenIndex: a.chosenIndex, correctIndex: q.CorrectIndex, correct: ok, explanation: q.Explanation || '' });
+    });
+    const percentage = total ? Math.round((correct / total) * 1000) / 10 : 0;
+    const local = (await kvGet('quizLocal')) || {};
+    const prev = local[body.moduleId];
+    local[body.moduleId] = {
+      moduleId: body.moduleId, moduleTitle: mod.Title,
+      score: correct, total, percentage,
+      attemptCount: (prev ? prev.attemptCount : 0) + 1,
+      attemptedAt: new Date().toISOString(), offline: true
+    };
+    await kvSet('quizLocal', local);
+    return { attemptId: 'local-' + uid(), results, score: correct, total, percentage,
+      attemptCount: local[body.moduleId].attemptCount, attemptedAt: local[body.moduleId].attemptedAt, offline: true };
+  }
+  return { message: 'Queued. Will sync when online.', offline: true };
+}
+
+/* ---------- Queue ---------- */
+async function queueAction(action, body) {
+  const clean = Object.assign({}, body); delete clean.token; delete clean.action;
+  const item = { id: uid(), action, body: clean, at: Date.now(), retries: 0 };
+  const items = await idbAll('pending');
+  if (items.length >= OFFLINE.QUEUE_MAX_ITEMS) {
+    items.sort((a, b) => a.at - b.at);
+    await idbDel('pending', items[0].id);
+  }
+  await idbPut('pending', item);
+  await refreshPendingBadge();
+}
+async function refreshPendingBadge() {
+  const items = await idbAll('pending');
+  state.pendingCount = items.length;
+  const badge = $('#pendingBadge');
+  if (!items.length) badge.classList.add('hidden');
+  else { badge.textContent = items.length + ' queued'; badge.classList.remove('hidden'); }
+}
+async function flushQueue() {
+  if (!state.online || !state.token) return;
+  const items = await idbAll('pending');
+  if (!items.length) { await refreshPendingBadge(); return; }
+  const batches = [];
+  for (let i = 0; i < items.length; i += OFFLINE.SYNC_BATCH_SIZE) batches.push(items.slice(i, i + OFFLINE.SYNC_BATCH_SIZE));
+  for (const batch of batches) {
+    try {
+      const res = await fetchJSON(API_URL, {
+        action: 'syncBatch', token: state.token,
+        items: batch.map(it => ({ clientId: it.id, action: it.action, body: it.body }))
+      });
+      if (!res || !res.ok || !res.data || !Array.isArray(res.data.results)) return;
+      for (const r of res.data.results) {
+        if (r.ok) await idbDel('pending', r.clientId);
+        else {
+          const item = await idbGet('pending', r.clientId);
+          if (!item) continue;
+          item.retries = (item.retries || 0) + 1;
+          item.lastError = r.error || '';
+          if (item.retries >= OFFLINE.QUEUE_MAX_RETRIES || /session expired/i.test(item.lastError)) {
+            await idbDel('pending', item.id);
+            toast('Sync failed: ' + (item.lastError || 'giving up').slice(0, 80), 'bad');
+          } else await idbPut('pending', item);
+        }
+      }
+    } catch (e) { break; }
+  }
+  await refreshPendingBadge();
+}
+
+/* ---------- Session helpers ---------- */
+function saveSession(token, user) {
+  state.token = token; state.user = user;
+  localStorage.setItem('lms_token', token);
+  localStorage.setItem('lms_user', JSON.stringify(user));
+}
+function clearSession() {
+  state.token = ''; state.user = null;
+  localStorage.removeItem('lms_token');
+  localStorage.removeItem('lms_user');
+}
+function isInstructorOrAdmin() { return state.user && (state.user.role === 'admin' || state.user.role === 'instructor'); }
+function isAdmin() { return state.user && state.user.role === 'admin'; }
+
+/* ---------- Net badge ---------- */
+function updateNetBadge() {
+  const badge = $('#netBadge'), banner = $('#offlineBanner');
+  if (state.online) { badge.textContent = 'Online'; badge.className = 'badge ok'; banner.classList.add('hidden'); }
+  else { badge.textContent = 'Offline'; badge.className = 'badge warn'; banner.classList.remove('hidden'); }
+  $('#logoutBtn').classList.toggle('hidden', !state.token);
+  $('#userName').classList.toggle('hidden', !state.user);
+  if (state.user) $('#userName').textContent = state.user.name + ' · ' + state.user.role;
+  $('#mainNav').classList.toggle('hidden', !state.token);
+  $('#adminNavBtn').classList.toggle('hidden', !isInstructorOrAdmin());
+}
+
+async function ping() {
+  if (!API_URL) return;
+  try {
+    const res = await fetchJSON(API_URL, { action: 'ping' });
+    state.online = !!(res && res.ok);
+  } catch (e) { state.online = false; }
+  updateNetBadge();
+  if (state.online && state.pendingCount > 0) await flushQueue();
+}
+
+/* ---------- Preload ---------- */
+async function preloadAll() {
+  const [ud, co] = await Promise.all([
+    apiCall('getUserData', { prefix: '' }),
+    apiCall('listContent', {})
+  ]);
+  if (ud.ok && ud.data && ud.data.data) state.userData = Object.assign({}, ud.data.data, state.userData);
+  const localUD = await kvGet('userData');
+  if (localUD) state.userData = Object.assign({}, localUD, state.userData);
+  if (co.ok && co.data) state.content = co.data;
+}
+async function ensureContent() {
+  if (state.content && state.content.modules) return state.content;
+  const res = await apiCall('listContent', {});
+  if (res.ok) { state.content = res.data; return state.content; }
+  return null;
+}
+
+/* =====================================================================
+   RENDER — routing
+   ===================================================================== */
+function render() {
+  const app = $('#app');
+  updateNetBadge();
+  if (!state.token) return renderLogin(app);
+  switch (state.view) {
+    case 'dashboard':    return renderDashboard(app);
+    case 'module':       return renderModule(app, state.params.moduleId);
+    case 'grades':       return renderGrades(app);
+    case 'certificates': return renderCertificates(app);
+    case 'portfolio':    return renderPortfolio(app);
+    case 'admin':        return renderAdmin(app, state.params.tab);
+    default:             return renderDashboard(app);
+  }
+}
+
+/* =====================================================================
+   LOGIN / REGISTER
+   ===================================================================== */
+function renderLogin(app) {
+  app.innerHTML = `
+    <div class="form-card card">
+      <h2 class="form-title">${esc(COURSE_TITLE)}</h2>
+      <p class="small">Sign in, or create a new learner account.</p>
+      <div class="tabs" style="margin-bottom:1rem">
+        <button class="tab active" data-auth-tab="login">Sign in</button>
+        <button class="tab" data-auth-tab="register">Register</button>
+      </div>
+      <form id="loginForm">
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+        <button class="btn primary btn-block" type="submit">Sign in</button>
+        <p class="small" style="margin-top:.75rem"><a href="#" id="forgotLink">Forgot password?</a></p>
+      </form>
+      <form id="registerForm" class="hidden">
+        <label>Full name<input type="text" name="name" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Password (min 8 chars)<input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+        <button class="btn primary btn-block" type="submit">Create account</button>
+      </form>
+      <div id="authMsg"></div>
+    </div>
+  `;
+  const msgBox = () => $('#authMsg');
+  const showMsg = (text, kind) => { msgBox().innerHTML = `<div class="msg ${kind}">${esc(text)}</div>`; };
+
+  $$('[data-auth-tab]').forEach(b => b.addEventListener('click', () => {
+    $$('[data-auth-tab]').forEach(x => x.classList.toggle('active', x === b));
+    $('#loginForm').classList.toggle('hidden', b.dataset.authTab !== 'login');
+    $('#registerForm').classList.toggle('hidden', b.dataset.authTab !== 'register');
+    msgBox().innerHTML = '';
+  }));
+
+  $('#loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const btn = f.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    try {
+      const res = await fetchJSON(API_URL, { action: 'login', email: f.email.value.trim().toLowerCase(), password: f.password.value });
+      if (!res.ok) throw new Error(res.error || 'Login failed');
+      saveSession(res.data.token, res.data.user);
+      state.view = 'dashboard'; state.params = {};
+      await preloadAll();
+      render();
+    } catch (err) {
+      showMsg(err.message || 'Login failed', 'bad');
+      btn.disabled = false; btn.textContent = 'Sign in';
+    }
+  });
+
+  $('#registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const btn = f.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Creating…';
+    try {
+      const res = await fetchJSON(API_URL, {
+        action: 'register', name: f.name.value.trim(),
+        email: f.email.value.trim().toLowerCase(), password: f.password.value
+      });
+      if (!res.ok) throw new Error(res.error || 'Registration failed');
+      showMsg('Account created. You can now sign in.', 'ok');
+      f.reset();
+      $$('[data-auth-tab]').forEach(x => x.classList.toggle('active', x.dataset.authTab === 'login'));
+      $('#loginForm').classList.remove('hidden'); f.classList.add('hidden');
+    } catch (err) {
+      showMsg(err.message || 'Registration failed', 'bad');
+      btn.disabled = false; btn.textContent = 'Create account';
+    }
+  });
+
+  $('#forgotLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = prompt('Enter your account email:'); if (!email) return;
+    try {
+      const res = await fetchJSON(API_URL, { action: 'forgot', email: email.trim().toLowerCase() });
+      if (!res.ok) throw new Error(res.error || 'Request failed');
+      let text = res.data.message;
+      if (res.data.code) text += ' Code: ' + res.data.code;
+      const code = prompt(text + '\n\nEnter the reset code:');
+      if (!code) return;
+      const pw = prompt('Enter your new password (min 8 chars):');
+      if (!pw) return;
+      const r2 = await fetchJSON(API_URL, { action: 'reset', email: email.trim().toLowerCase(), code: code.trim(), password: pw });
+      if (!r2.ok) throw new Error(r2.error || 'Reset failed');
+      showMsg('Password reset. Please sign in.', 'ok');
+    } catch (err) { showMsg(err.message || 'Reset failed', 'bad'); }
+  });
+}
+
+/* =====================================================================
+   DASHBOARD
+   ===================================================================== */
+async function renderDashboard(app) {
+  app.innerHTML = `<div class="card"><p class="small">Loading modules…</p></div>`;
+  const content = await ensureContent();
+  if (!content || !content.modules) {
+    app.innerHTML = `<div class="msg bad">Could not load course content. ${state.online ? '' : 'You are offline and no cached copy is available.'}</div>`;
+    return;
+  }
+  const mods = content.modules.slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
+  app.innerHTML = `
+    <h1>Welcome back, ${esc(state.user ? state.user.name.split(' ')[0] : 'learner')}</h1>
+    <p class="small" style="margin-bottom:1.25rem">Pick a module to continue. Notes, checklists and quiz attempts are saved automatically — even offline.</p>
+    <div class="grid">
+      ${mods.map(m => `
+        <article class="mod-card" data-module-id="${esc(m.ModuleID)}">
+          <span class="mod-num">Module ${esc(m.SortOrder)}</span>
+          <h3>${esc(m.Title)}</h3>
+          <p>${esc(m.Description || '')}</p>
+          <div class="mod-meta">${(m.Lessons || []).length} lesson${(m.Lessons || []).length === 1 ? '' : 's'} · ${(m.Quizzes || []).length} quiz${(m.Quizzes || []).length === 1 ? '' : 'zes'}</div>
+        </article>
+      `).join('')}
+    </div>
+  `;
+  $$('.mod-card').forEach(el => el.addEventListener('click', () => {
+    state.view = 'module';
+    state.params = { moduleId: el.dataset.moduleId };
+    render();
+  }));
+}
+
+/* =====================================================================
+   MODULE VIEW
+   ===================================================================== */
+async function renderModule(app, moduleId) {
+  app.innerHTML = `<div class="card"><p class="small">Loading module…</p></div>`;
+  const content = await ensureContent();
+  if (!content || !content.modules) {
+    app.innerHTML = `<div class="msg bad">Module content unavailable.</div>`;
+    return;
+  }
+  const mod = content.modules.find(m => String(m.ModuleID) === String(moduleId));
+  if (!mod) { app.innerHTML = `<div class="msg bad">Module not found.</div>`; return; }
+
+  const lessons = (mod.Lessons || []).slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
+  const hasQuiz = (mod.Quizzes || []).length > 0;
+  let currentId = state.params.lessonId || (lessons[0] && lessons[0].LessonID) || (hasQuiz ? 'QUIZ' : '');
+  if (currentId !== 'QUIZ' && !lessons.find(l => l.LessonID === currentId)) currentId = lessons[0] ? lessons[0].LessonID : (hasQuiz ? 'QUIZ' : '');
+
+  const isQuiz = currentId === 'QUIZ';
+  const currentLesson = lessons.find(l => l.LessonID === currentId);
+
+  let navHtml = `<h4>${esc(mod.Title)}</h4>`;
+  lessons.forEach(l => {
+    navHtml += `<a data-lesson="${esc(l.LessonID)}" class="${l.LessonID === currentId ? 'active' : ''}">${esc(l.Title)}</a>`;
+  });
+  if (hasQuiz) {
+    navHtml += `<a data-lesson="QUIZ" class="${isQuiz ? 'active' : ''}">📝 Module quiz</a>`;
+  }
+
+  let mainHtml;
+  if (isQuiz) {
+    mainHtml = await renderQuizView(mod);
+  } else if (currentLesson) {
+    const idx = lessons.findIndex(l => l.LessonID === currentId);
+    const hasPrev = idx > 0;
+    const hasNext = idx < lessons.length - 1 || hasQuiz;
+    mainHtml = `
+      <h2>${esc(currentLesson.Title)}</h2>
+      <div class="lesson-content">${currentLesson.ContentHTML}</div>
+      <div class="lesson-actions">
+        <button class="btn ghost" data-lesson="prev" ${hasPrev ? '' : 'disabled'}>← Previous</button>
+        <button class="btn primary" data-lesson="next" ${hasNext ? '' : 'disabled'}>${idx === lessons.length - 1 && hasQuiz ? 'Go to quiz →' : 'Next →'}</button>
+      </div>
+    `;
+  } else {
+    mainHtml = `<div class="msg info">No lessons yet.</div>`;
+  }
+
+  app.innerHTML = `
+    <button class="btn ghost btn-sm" data-nav="dashboard" style="margin-bottom:1rem">← Back to modules</button>
+    <div class="lesson-wrap">
+      <aside class="lesson-nav">${navHtml}</aside>
+      <div class="lesson-main">${mainHtml}</div>
+    </div>
+  `;
+  bindLessonInteractions();
+}
+
+function bindLessonInteractions() {
+  // Restore note + checklist values
+  $$('[data-note-key]').forEach(ta => {
+    const key = ta.dataset.noteKey;
+    const val = state.userData[key];
+    if (val) ta.value = val;
+  });
+  $$('[data-check-key]').forEach(cb => {
+    const key = cb.dataset.checkKey;
+    cb.checked = !!state.userData[key];
+  });
+}
+
+/* =====================================================================
+   QUIZ VIEW
+   ===================================================================== */
+async function renderQuizView(mod) {
+  let banner = '';
+  let prevAttempt = null;
+  const remote = await apiCall('getQuizGroupScore', { moduleId: mod.ModuleID });
+  if (remote.ok && remote.data && remote.data.attempt) prevAttempt = remote.data.attempt;
+  const local = (await kvGet('quizLocal')) || {};
+  if (local[mod.ModuleID]) {
+    const l = local[mod.ModuleID];
+    if (!prevAttempt || Number(l.percentage) >= Number(prevAttempt.percentage)) prevAttempt = l;
+  }
+  if (prevAttempt) {
+    banner = `<div class="msg info">Previous attempt: <strong>${prevAttempt.percentage}%</strong>
+      (${prevAttempt.score}/${prevAttempt.total}) · attempt #${prevAttempt.attemptCount}</div>`;
+  }
+
+  const quizzes = mod.Quizzes || [];
+  let html = `${banner}<h2>${esc(mod.Title)} — Module quiz</h2>
+    <p class="small">Answer every question, then submit. Correct answers and explanations appear after submission.</p>
+    <div id="quizContainer">`;
+  quizzes.forEach((q, qi) => {
+    html += `<div class="quiz-q" data-quiz-id="${esc(q.QuizID)}">
+      <div class="q-text">${qi + 1}. ${esc(q.Question)}</div>`;
+    [q.OptionA, q.OptionB, q.OptionC, q.OptionD].forEach((opt, oi) => {
+      html += `<label class="quiz-opt">
+        <input type="radio" name="q${qi}" value="${oi}">
+        <span>${esc(opt)}</span>
+      </label>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>
+    <button class="btn primary" data-quiz-submit="${esc(mod.ModuleID)}">Submit quiz</button>
+    <div id="quizResults" hidden></div>`;
+  return html;
+}
+
+function renderQuizResults(data, moduleId) {
+  const box = $('#quizResults');
+  const pct = Number(data.percentage);
+  const cls = pct >= PASS_THRESHOLD ? 'ok' : 'bad';
+  let html = `<div class="quiz-result ${cls}">Score: ${data.score}/${data.total} — <strong>${pct}%</strong> (attempt #${data.attemptCount})</div>`;
+  html += `<div style="margin-top:1rem">`;
+  (data.results || []).forEach((r, i) => {
+    html += `<div class="quiz-q" style="margin-bottom:.75rem"><div class="q-text">${i + 1}. ${esc(r.question)}</div>`;
+    (r.options || []).forEach((opt, j) => {
+      const isChosen = j === r.chosenIndex;
+      const isCorrect = j === r.correctIndex;
+      const c = isCorrect ? 'correct' : (isChosen ? 'wrong' : '');
+      html += `<div class="quiz-opt ${c}">
+        <input type="radio" disabled ${isChosen ? 'checked' : ''}>
+        <span>${esc(opt)}</span></div>`;
+    });
+    if (r.explanation) html += `<div class="quiz-explain">💡 ${esc(r.explanation)}</div>`;
+    html += `</div>`;
+  });
+  html += `</div>`;
+  box.innerHTML = html;
+  box.hidden = false;
+  // Scroll to results
+  setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+/* =====================================================================
+   GRADES
+   ===================================================================== */
+async function renderGrades(app) {
+  app.innerHTML = `<div class="card"><p class="small">Loading your grades…</p></div>`;
+  const res = await apiCall('computeLearnerGrade', {});
+  if (!res.ok) {
+    app.innerHTML = `<div class="msg bad">Could not load grades: ${esc(res.error || '')}</div>`;
+    return;
+  }
+  const g = res.data.grade;
+  const cls = Number(g.finalPercentage) >= PASS_THRESHOLD ? 'ok' : 'bad';
+  let html = `<h1>My grades</h1>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem">
+        <div>
+          <h2 style="margin:0">Final weighted score</h2>
+          <p class="small" style="margin:.25rem 0">Weights — quiz ${(g.weights.quiz*100).toFixed(0)}% · OSCE ${(g.weights.osce*100).toFixed(0)}%</p>
+        </div>
+        <div class="quiz-result ${cls}" style="font-size:1.5rem;padding:1rem 1.5rem">${g.finalPercentage}%</div>
+      </div>
+      <div style="margin-top:1rem" class="small">
+        Quiz average <strong>${g.quizAverage}%</strong> (weighted ${g.quizWeighted}%) ·
+        OSCE ${g.osce ? `<strong>${g.osce.percentage}%</strong> (weighted ${g.osce.weighted}%, best of ${g.osce.attempts})` : 'not yet attempted'}
+      </div>
+    </div>
+    <div class="card">
+      <h3>Module-by-module</h3>
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>Module</th><th>Quiz</th><th>Attempts</th><th>Last attempt</th></tr></thead>
+        <tbody>
+          ${g.modules.map(m => `
+            <tr>
+              <td>${esc(m.moduleTitle)}</td>
+              <td>${m.attempted ? `<strong>${m.percentage}%</strong> (${m.score}/${m.total})` : '<span class="small">—</span>'}</td>
+              <td>${m.attemptCount || '—'}</td>
+              <td>${m.attemptedAt ? esc(String(m.attemptedAt).substring(0, 16).replace('T', ' ')) : '—'}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>`;
+  if (g.portfolio) {
+    html += `<div class="card">
+      <h3>Reflective portfolio</h3>
+      <p>${g.portfolio.submitted
+        ? `Submitted <strong>${g.portfolio.count}</strong> file(s). Latest: ${esc(g.portfolio.latestFileName || '')} on ${esc(String(g.portfolio.latestUploadedAt || '').substring(0, 10))} — status: <strong>${esc(g.portfolio.latestStatus || '')}</strong>`
+        : 'No portfolio submission yet.'}</p>
+    </div>`;
+  }
+  app.innerHTML = html;
+}
+
+/* =====================================================================
+   CERTIFICATES
+   ===================================================================== */
+async function renderCertificates(app) {
+  app.innerHTML = `<div class="card"><p class="small">Loading certificates…</p></div>`;
+  const res = await apiCall('listCertificates', {});
+  if (!res.ok) {
+    app.innerHTML = `<div class="msg bad">Could not load certificates: ${esc(res.error || '')}</div>`;
+    return;
+  }
+  const certs = res.data.certificates || [];
+  if (!certs.length) {
+    app.innerHTML = `<h1>Certificates</h1><div class="msg info">No certificates issued yet. Complete the OSCE with 80% or more to earn one.</div>`;
+    return;
+  }
+  app.innerHTML = `<h1>Certificates</h1>
+    <div class="grid">
+      ${certs.map(c => `
+        <div class="card">
+          <h3 style="margin-top:0">${esc(c.Name)}</h3>
+          <p class="small">Score: <strong>${c.Percentage}%</strong></p>
+          <p class="small">Issued: ${esc(String(c.IssuedAt || '').substring(0, 10))} · Valid until: ${esc(String(c.ValidUntil || '').substring(0, 10))}</p>
+          <p class="small">Code: <code>${esc(c.CertCode)}</code></p>
+          <p class="small">Assessor: ${esc(c.AssessorName || c.AssessorEmail || '—')}</p>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+/* =====================================================================
+   PORTFOLIO
+   ===================================================================== */
+async function renderPortfolio(app) {
+  app.innerHTML = `<div class="card"><p class="small">Loading portfolio…</p></div>`;
+  const [contentRes, subsRes] = await Promise.all([
+    ensureContent(),
+    apiCall('listMyPortfolio', {})
+  ]);
+  const submissions = (subsRes.ok && subsRes.data && subsRes.data.submissions) || [];
+  const portfolioMods = (contentRes && contentRes.modules || []).filter(m => {
+    const t = String(m.Title || '').toLowerCase();
+    return t.includes('clinical') || t.includes('practicum') || t.includes('rotation');
+  });
+
+  let html = `<h1>Reflective portfolio</h1>
+    <p class="small">Upload your reflective portfolio for the clinical practice / practicum module. Accepted: PDF, DOC, DOCX, JPG, JPEG, PNG. Maximum 10 MB.</p>`;
+  if (!portfolioMods.length) {
+    html += `<div class="msg info">The clinical practice module is not currently available.</div>`;
+  } else {
+    html += `<div class="card">
+      <h3>New submission</h3>
+      <label>Module
+        <select id="pfModule">
+          ${portfolioMods.map(m => `<option value="${esc(m.ModuleID)}">${esc(m.Title)}</option>`).join('')}
+        </select>
+      </label>
+      <label>File
+        <input type="file" id="pfFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+      </label>
+      <button class="btn primary" id="pfUploadBtn" ${state.online ? '' : 'disabled'}>Upload portfolio</button>
+      ${state.online ? '' : '<p class="small">Online-only: reconnect to upload.</p>'}
+      <div id="pfStatus"></div>
+    </div>`;
+  }
+  html += `<div class="card">
+    <h3>Past submissions</h3>
+    ${submissions.length ? `<div class="tbl-wrap"><table class="data">
+      <thead><tr><th>Module</th><th>File</th><th>Size</th><th>Status</th><th>Uploaded</th><th>Link</th></tr></thead>
+      <tbody>${submissions.map(s => `<tr>
+        <td>${esc(s.ModuleTitle)}</td>
+        <td>${esc(s.FileName)}</td>
+        <td>${(Number(s.FileSizeBytes) / 1024).toFixed(0)} KB</td>
+        <td><span class="badge ${s.Status === 'accepted' ? 'ok' : s.Status === 'rejected' ? 'bad' : 'warn'}">${esc(s.Status)}</span></td>
+        <td>${esc(String(s.UploadedAt).substring(0, 10))}</td>
+        <td><a href="${esc(s.DriveURL)}" target="_blank" rel="noopener">Open</a></td>
+      </tr>`).join('')}</tbody>
+    </table></div>` : '<p class="small">No submissions yet.</p>'}
+  </div>`;
+  app.innerHTML = html;
+
+  const btn = $('#pfUploadBtn');
+  if (btn) btn.addEventListener('click', async () => {
+    const moduleId = $('#pfModule').value;
+    const fileInput = $('#pfFile');
+    const status = $('#pfStatus');
+    if (!fileInput.files || !fileInput.files[0]) { status.innerHTML = '<div class="msg bad">Select a file first.</div>'; return; }
+    const file = fileInput.files[0];
+    const MAX = 10 * 1024 * 1024;
+    if (file.size > MAX) { status.innerHTML = '<div class="msg bad">File exceeds 10 MB.</div>'; return; }
+    btn.disabled = true; btn.textContent = 'Uploading…';
+    status.innerHTML = '';
+    try {
+      const base64 = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = () => res(String(r.result).substring(String(r.result).indexOf(',') + 1));
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+      const res = await apiCall('submitPortfolio', {
+        moduleId, fileName: file.name, fileType: file.type || 'application/octet-stream',
+        fileSizeBytes: file.size, fileBase64: base64
+      });
+      if (!res.ok) throw new Error(res.error || 'Upload failed');
+      status.innerHTML = '<div class="msg ok">Uploaded successfully.</div>';
+      setTimeout(() => renderPortfolio(app), 800);
+    } catch (err) {
+      status.innerHTML = `<div class="msg bad">${esc(err.message)}</div>`;
+      btn.disabled = false; btn.textContent = 'Upload portfolio';
+    }
+  });
+}
+
+/* =====================================================================
+   ADMIN
+   ===================================================================== */
+async function renderAdmin(app, tab) {
+  if (!isInstructorOrAdmin()) { app.innerHTML = `<div class="msg bad">Admin access required.</div>`; return; }
+  tab = tab || 'users';
+  app.innerHTML = `
+    <h1>Admin</h1>
+    <div class="tabs">
+      <button class="tab ${tab === 'users' ? 'active' : ''}" data-admin-tab="users">Users</button>
+      <button class="tab ${tab === 'grades' ? 'active' : ''}" data-admin-tab="grades">All grades</button>
+      <button class="tab ${tab === 'content' ? 'active' : ''}" data-admin-tab="content">Content</button>
+    </div>
+    <div id="adminBody"><div class="card"><p class="small">Loading…</p></div></div>
+  `;
+  $$('[data-admin-tab]').forEach(b => b.addEventListener('click', () => {
+    state.params.tab = b.dataset.adminTab;
+    renderAdmin(app, b.dataset.adminTab);
+  }));
+  const bodyEl = $('#adminBody');
+
+  if (tab === 'users') {
+    const res = await apiCall('listUsers', {});
+    if (!res.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(res.error)}</div>`; return; }
+    const users = res.data.users || [];
+    bodyEl.innerHTML = `<div class="tbl-wrap"><table class="data">
+      <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last login</th><th>Actions</th></tr></thead>
+      <tbody>${users.map(u => `
+        <tr>
+          <td>${esc(u.Name)}</td>
+          <td>${esc(u.Email)}</td>
+          <td>${esc(u.Role)}</td>
+          <td><span class="badge ${u.Status === 'active' ? 'ok' : u.Status === 'pending' ? 'warn' : 'bad'}">${esc(u.Status)}</span></td>
+          <td>${u.LastLogin ? esc(String(u.LastLogin).substring(0, 16).replace('T', ' ')) : '—'}</td>
+          <td>
+            ${u.Status === 'pending' ? `<button class="btn btn-sm primary" data-act="approve" data-email="${esc(u.Email)}">Approve</button> ` : ''}
+            ${u.Status === 'active' && u.Role !== 'admin' ? `<button class="btn btn-sm" data-act="suspend" data-email="${esc(u.Email)}">Suspend</button> ` : ''}
+            ${u.Status === 'suspended' ? `<button class="btn btn-sm primary" data-act="reactivate" data-email="${esc(u.Email)}">Reactivate</button> ` : ''}
+            <select data-role-email="${esc(u.Email)}" style="display:inline-block;width:auto;margin:0;padding:.25rem .5rem;font-size:.85rem">
+              <option value="learner" ${u.Role === 'learner' ? 'selected' : ''}>learner</option>
+              <option value="instructor" ${u.Role === 'instructor' ? 'selected' : ''}>instructor</option>
+              <option value="admin" ${u.Role === 'admin' ? 'selected' : ''}>admin</option>
+            </select>
+          </td>
+        </tr>`).join('')}</tbody>
+    </table></div>`;
+    bodyEl.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if (btn) {
+        const email = btn.dataset.email;
+        const act = btn.dataset.act;
+        const status = act === 'approve' || act === 'reactivate' ? 'active' : 'suspended';
+        btn.disabled = true;
+        const res = await apiCall('updateUser', { email, status });
+        if (!res.ok) { toast(res.error || 'Failed', 'bad'); btn.disabled = false; }
+        else { toast('Updated', 'ok'); renderAdmin(app, 'users'); }
+      }
+    });
+    bodyEl.addEventListener('change', async (e) => {
+      const sel = e.target.closest('select[data-role-email]');
+      if (sel) {
+        const email = sel.dataset.roleEmail;
+        const role = sel.value;
+        sel.disabled = true;
+        const res = await apiCall('updateUser', { email, role });
+        if (!res.ok) { toast(res.error || 'Failed', 'bad'); sel.disabled = false; }
+        else toast('Role updated', 'ok');
+      }
+    });
+  } else if (tab === 'grades') {
+    const res = await apiCall('listAllGrades', {});
+    if (!res.ok) { bodyEl.innerHTML = `<div class="msg bad">${esc(res.error)}</div>`; return; }
+    const grades = res.data.grades || [];
+    bodyEl.innerHTML = grades.length
+      ? `<div class="tbl-wrap"><table class="data">
+          <thead><tr><th>Learner</th><th>Modules</th><th>Quiz avg</th><th>OSCE</th><th>Final</th><th>Portfolio</th></tr></thead>
+          <tbody>${grades.map(g => `<tr>
+            <td>${esc(g.learnerName)}<br><span class="small">${esc(g.learnerEmail)}</span></td>
+            <td>${g.modulesAttempted}/${g.modulesTotal}</td>
+            <td>${g.quizAverage}%</td>
+            <td>${g.osce ? g.osce.percentage + '%' : '—'}</td>
+            <td><strong>${g.finalPercentage}%</strong></td>
+            <td>${g.portfolio.submitted ? g.portfolio.count + ' file(s)' : '—'}</td>
+          </tr>`).join('')}</tbody>
+        </table></div>`
+      : `<div class="msg info">No learners yet.</div>`;
+  } else if (tab === 'content') {
+    const content = await ensureContent();
+    if (!content) { bodyEl.innerHTML = `<div class="msg bad">Could not load content.</div>`; return; }
+    bodyEl.innerHTML = `<div class="tbl-wrap"><table class="data">
+      <thead><tr><th>#</th><th>Module</th><th>Lessons</th><th>Quizzes</th></tr></thead>
+      <tbody>${(content.modules || []).map(m => `<tr>
+        <td>${esc(m.SortOrder)}</td>
+        <td>${esc(m.Title)}<br><span class="small">${esc(m.Description || '')}</span></td>
+        <td>${(m.Lessons || []).length}</td>
+        <td>${(m.Quizzes || []).length}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+    <p class="small" style="margin-top:1rem">Content editing uses the existing backend actions (<code>createModule</code>, <code>updateModule</code>, <code>createLesson</code>, <code>createQuiz</code>, etc.). Add UI for them as needed.</p>`;
+  }
+}
+
+/* =====================================================================
+   GLOBAL EVENT DELEGATION
+   ===================================================================== */
+document.addEventListener('click', (e) => {
+  const navBtn = e.target.closest('#mainNav button[data-nav]');
+  if (navBtn) {
+    state.view = navBtn.dataset.nav;
+    state.params = {};
+    $$('#mainNav button').forEach(b => b.classList.toggle('active', b === navBtn));
+    render();
+    return;
+  }
+  const backBtn = e.target.closest('[data-nav]');
+  if (backBtn && backBtn.dataset.nav) {
+    state.view = backBtn.dataset.nav;
+    state.params = {};
+    $$('#mainNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === backBtn.dataset.nav));
+    render();
+    return;
+  }
+  const lessonLink = e.target.closest('[data-lesson]');
+  if (lessonLink && state.view === 'module') {
+    const target = lessonLink.dataset.lesson;
+    const mod = (state.content && state.content.modules || []).find(m => String(m.ModuleID) === String(state.params.moduleId));
+    if (!mod) return;
+    const lessons = (mod.Lessons || []).slice().sort((a, b) => Number(a.SortOrder) - Number(b.SortOrder));
+    const hasQuiz = (mod.Quizzes || []).length > 0;
+    const currentId = state.params.lessonId || (lessons[0] && lessons[0].LessonID) || (hasQuiz ? 'QUIZ' : '');
+    if (target === 'prev' || target === 'next') {
+      const idx = lessons.findIndex(l => l.LessonID === currentId);
+      if (target === 'next' && idx === lessons.length - 1 && hasQuiz) { state.params.lessonId = 'QUIZ'; render(); return; }
+      if (target === 'prev' && currentId === 'QUIZ') { state.params.lessonId = lessons[lessons.length - 1].LessonID; render(); return; }
+      const newIdx = target === 'next' ? idx + 1 : idx - 1;
+      if (newIdx >= 0 && newIdx < lessons.length) { state.params.lessonId = lessons[newIdx].LessonID; render(); }
+    } else {
+      state.params.lessonId = target;
+      render();
+    }
+    return;
+  }
+  const calcBtn = e.target.closest('[data-calc-check]');
+  if (calcBtn) {
+    const block = calcBtn.closest('.lesson-calc');
+    const input = block.querySelector('input');
+    const fb = block.querySelector('.calc-feedback');
+    const answer = Number(block.dataset.answer);
+    const tol = Number(block.dataset.tol) || 0.01;
+    const val = Number(input.value);
+    if (isNaN(val) || input.value === '') { fb.textContent = 'Enter a number'; fb.className = 'calc-feedback bad'; fb.hidden = false; return; }
+    const ok = Math.abs(val - answer) <= tol;
+    fb.textContent = ok ? '✓ Correct' : '✗ Try again. Solution: ' + (block.dataset.solution || answer);
+    fb.className = 'calc-feedback ' + (ok ? 'ok' : 'bad');
+    fb.hidden = false;
+    return;
+  }
+  const submitQuizBtn = e.target.closest('[data-quiz-submit]');
+  if (submitQuizBtn) {
+    const moduleId = submitQuizBtn.dataset.quizSubmit;
+    const answers = [];
+    $$('#quizContainer .quiz-q').forEach(qEl => {
+      const quizId = qEl.dataset.quizId;
+      const checked = qEl.querySelector('input[type=radio]:checked');
+      if (checked) answers.push({ quizId, chosenIndex: Number(checked.value) });
+    });
+    if (!answers.length) { toast('Answer at least one question', 'warn'); return; }
+    submitQuizBtn.disabled = true; const orig = submitQuizBtn.textContent; submitQuizBtn.textContent = 'Submitting…';
+    apiCall('submitQuizGroup', { moduleId, answers }).then(res => {
+      submitQuizBtn.disabled = false; submitQuizBtn.textContent = orig;
+      if (res.ok) {
+        renderQuizResults(res.data, moduleId);
+        toast(res.queued ? 'Saved offline — will sync when online' : 'Quiz submitted', res.queued ? 'warn' : 'ok');
+      } else toast(res.error || 'Submit failed', 'bad');
+    });
+    return;
+  }
+});
+
+document.addEventListener('input', debounce(async (e) => {
+  const ta = e.target.closest('[data-note-key]');
+  if (!ta) return;
+  const key = ta.dataset.noteKey;
+  state.userData[key] = ta.value;
+  await kvSet('userData', state.userData);
+  const res = await apiCall('saveUserData', { dataType: 'note', dataKey: key, dataValue: ta.value });
+  const statusEl = document.querySelector(`[data-note-status="${key}"]`);
+  if (statusEl) {
+    statusEl.textContent = res.queued ? 'Saved locally · will sync' : (res.ok ? 'Saved ✓' : 'Save failed');
+    statusEl.className = 'note-status ' + (res.ok ? 'ok' : 'bad');
+  }
+}, 700));
+
+document.addEventListener('change', async (e) => {
+  const cb = e.target.closest('[data-check-key]');
+  if (!cb) return;
+  const key = cb.dataset.checkKey;
+  state.userData[key] = cb.checked ? '1' : '';
+  await kvSet('userData', state.userData);
+  await apiCall('saveUserData', { dataType: 'check', dataKey: key, dataValue: cb.checked ? '1' : '' });
+});
+
+/* ---------- Logout ---------- */
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  try { await fetchJSON(API_URL, { action: 'logout', token: state.token }); } catch (e) {}
+  clearSession();
+  state.view = 'login';
+  render();
+});
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+async function boot() {
+  updateNetBadge();
+  await refreshPendingBadge();
+
+  // Service worker
+  if (OFFLINE.ENABLED && OFFLINE.SERVICE_WORKER && 'serviceWorker' in navigator) {
+    try { await navigator.serviceWorker.register(OFFLINE.SERVICE_WORKER); }
+    catch (e) { /* SW optional */ }
+  }
+
+  // Verify session online if possible
+  if (state.token) {
+    const me = await apiCall('me', {});
+    if (me.ok && me.data && me.data.user) {
+      state.user = me.data.user;
+    } else if (state.online) {
+      clearSession();
+    }
+  }
+
+  if (!state.token) {
+    state.view = 'login';
+  } else {
+    state.view = 'dashboard';
+    await preloadAll();
+  }
+  render();
+
+  // Background intervals
+  setInterval(ping, OFFLINE.PING_INTERVAL_MS);
+  setInterval(flushQueue, OFFLINE.SYNC_INTERVAL_MS);
+  ping(); // immediate probe
+}
+
+window.addEventListener('online', async () => {
+  state.online = true; updateNetBadge();
+  await flushQueue();
+  if (state.token) preloadAll().then(render);
+});
+window.addEventListener('offline', () => { state.online = false; updateNetBadge(); });
+window.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
