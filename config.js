@@ -3,7 +3,7 @@
 // ============================================================
 
 window.LMS_CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbwpJOE_nvwrOjI01sdCnHnr2uRAqbOuA54C6cKaJlV4UmZpj8qJfHg_bwydHRbULMa8Kg/exec',
+  API_URL: 'https://script.google.com/macros/s/AKfycby3GsOpDOZnMFIjNHBMO2CMYrL6J7B1QsgO19rl1CyOeBb7dcNrKywRocWlbT199AqWPw/exec',
 
   COURSE_TITLE: 'Neonatal Nursing',
   PASS_THRESHOLD: 80,
@@ -18,7 +18,7 @@ window.LMS_CONFIG = {
   OFFLINE: {
     ENABLED: true,
     SERVICE_WORKER: 'sw.js',
-    CACHE_VERSION: 'lms-v4',          // must match CACHE in sw.js
+    CACHE_VERSION: 'lms-v5',          // must match CACHE in sw.js
     QUEUE_MAX_ITEMS: 200,
     QUEUE_MAX_RETRIES: 5,
     SYNC_BATCH_SIZE: 25,
