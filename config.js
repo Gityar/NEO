@@ -9,8 +9,8 @@ window.LMS_CONFIG = {
   PASS_THRESHOLD: 80,
 
   EXAMS: {
-    MIDTERM_TITLE: 'Midterm Theory Examination (30 MCQs)',
-    FINAL_TITLE: 'Final Comprehensive Examination (40 MCQs)',
+    MIDTERM_TITLE: 'Midterm Theory Examination (30 MCQs · Modules 1–3)',
+    FINAL_TITLE: 'Final Comprehensive Examination (40 MCQs · Modules 1–6)',
     MIDTERM_PASSCODE: 'MIDTERM2026',
     FINAL_PASSCODE: 'FINAL2026'
   },
