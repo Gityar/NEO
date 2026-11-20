@@ -1,21 +1,15 @@
 /* ============================================================
-   Neonatal Nursing LMS — Service Worker
-   ============================================================
-   Served from http://localhost/lms/ → SW scope is /lms/.
-   All cache paths are relative so the same file works in any
-   subfolder (e.g. htdocs/lms/ or htdocs/myapp/).
+   Neonatal Nursing LMS — Service Worker (XAMPP / Subfolder Safe)
    ============================================================ */
 
-const CACHE = 'lms-v2';
+const CACHE = 'lms-v3';
 
-// The app shell — everything needed to boot offline.
 const SHELL = [
   './',
   './index.html',
   './config.js'
 ];
 
-/* ---------- INSTALL ---------- */
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE)
@@ -25,7 +19,6 @@ self.addEventListener('install', (event) => {
   );
 });
 
-/* ---------- ACTIVATE ---------- */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
@@ -38,19 +31,13 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-/* ---------- FETCH ---------- */
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // Only cache GET requests
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
-
-  // Never cache cross-origin requests (Apps Script API calls)
   if (url.origin !== self.location.origin) return;
 
-  // 1) Navigation requests (opening the page) → network-first, cache fallback
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
@@ -67,20 +54,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2) Same-origin assets → cache-first, network fallback
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
       return fetch(req)
         .then((res) => {
-          // Only cache successful basic responses
           if (res && res.ok && res.type === 'basic') {
             const copy = res.clone();
             caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
           }
           return res;
         })
-        .catch(() => cached); // final fallback (undefined if not cached)
+        .catch(() => cached);
     })
   );
 });
