@@ -17,6 +17,8 @@
       --brand-soft: #e6f4f2;
       --accent: #c86d2d;
       --accent-soft: #fdf0e6;
+      --gold: #b8892d;
+      --gold-soft: #fbf6ea;
       --ok: #1b7a43;
       --ok-soft: #e7f6ed;
       --warn: #9a5b13;
@@ -54,15 +56,46 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .brand-group { display: flex; align-items: center; gap: 10px; }
+    .brand-group { display: flex; align-items: center; gap: 11px; }
     .brand-badge {
-      width: 38px; height: 38px; border-radius: 10px;
+      width: 42px; height: 42px; border-radius: 10px;
       background: linear-gradient(135deg, var(--brand), #159a91);
       color: #fff; font-weight: 800; font-size: 0.95rem;
       display: grid; place-items: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+    .brand-badge.has-logo {
+      background: #fff;
+      padding: 2px;
+    }
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 8px;
     }
     .brand-title { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
     .brand-sub { font-size: 0.78rem; color: var(--muted); }
+
+    .welcome-hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .welcome-logo {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(19, 41, 46, 0.06);
+    }
 
     .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .pill {
@@ -243,24 +276,151 @@
       box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     }
 
-    /* Certificate card */
-    .cert-sheet {
-      border: 4px double var(--brand); border-radius: 14px; padding: 28px;
-      background: linear-gradient(180deg, #ffffff 0%, #f6fbfb 100%);
-      text-align: center;
+    /* Attractive Certificate Design */
+    .cert-outer {
+      padding: 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #095c57 0%, #14968d 45%, #b8892d 100%);
+      box-shadow: 0 14px 36px rgba(13, 62, 59, 0.16);
     }
+    .cert-sheet {
+      position: relative;
+      border: 2px solid var(--gold);
+      outline: 5px solid #ffffff;
+      outline-offset: -9px;
+      border-radius: 12px;
+      padding: 36px 32px 32px;
+      background:
+        radial-gradient(circle at top right, rgba(13, 125, 118, 0.07), transparent 45%),
+        radial-gradient(circle at bottom left, rgba(184, 137, 45, 0.08), transparent 45%),
+        linear-gradient(180deg, #ffffff 0%, #f7fbfb 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+    .cert-corner {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-color: var(--gold);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .cert-corner.tl { top: 14px; left: 14px; border-width: 3px 0 0 3px; }
+    .cert-corner.tr { top: 14px; right: 14px; border-width: 3px 3px 0 0; }
+    .cert-corner.bl { bottom: 14px; left: 14px; border-width: 0 0 3px 3px; }
+    .cert-corner.br { bottom: 14px; right: 14px; border-width: 0 3px 3px 0; }
+
+    .cert-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .cert-logo-img {
+      width: 86px;
+      height: 86px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 6px;
+      border: 2px solid rgba(184, 137, 45, 0.45);
+      box-shadow: 0 6px 18px rgba(19, 41, 46, 0.08);
+    }
+    .cert-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .cert-heading {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin: 0 0 10px;
+      letter-spacing: 0.02em;
+    }
+    .cert-recipient {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 8px auto 12px;
+      padding: 4px 24px 8px;
+      display: inline-block;
+      border-bottom: 2px solid var(--gold);
+    }
+    .cert-program {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin: 6px 0 14px;
+    }
+    .cert-score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(184, 137, 45, 0.45);
+      color: #6f4e12;
+      font-size: 0.92rem;
+      margin: 4px 0 22px;
+    }
+    .cert-footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      gap: 16px;
+      align-items: end;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed #c8d9dc;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .cert-footer-grid { grid-template-columns: 1fr; }
+    }
+    .cert-sig-line {
+      border-top: 1px solid var(--ink);
+      width: 78%;
+      margin: 22px auto 6px;
+    }
+    .cert-seal {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f6e3b4 0%, #d4a644 70%, #9f731c 100%);
+      color: #fff;
+      border: 3px double #fff;
+      box-shadow: 0 4px 12px rgba(159, 115, 28, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
     @media print {
       .topbar, .nav-bar, .no-print, .toast-wrap { display: none !important; }
-      body { background: #fff; }
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .container { margin: 0; padding: 0; max-width: 100%; }
-      .card { box-shadow: none; border: 0; }
+      .card { box-shadow: none; border: 0; padding: 0; }
+      .cert-outer { box-shadow: none; }
     }
   </style>
+  <script src="config.js"></script>
 </head>
 <body>
   <header class="topbar">
     <div class="brand-group">
-      <div class="brand-badge">NN</div>
+      <div class="brand-badge" id="brandBadge">NN</div>
       <div>
         <div class="brand-title">Neonatal Nursing LMS</div>
         <div class="brand-sub" id="userBanner">Not signed in</div>
@@ -289,9 +449,14 @@
     <!-- TAB 1: COURSE & QUIZZES -->
     <section id="tab-course" class="tab-panel">
       <div id="courseGuestNotice" class="card">
-        <h2>Welcome to Neonatal Nursing LMS</h2>
-        <p class="muted">Sign in with your learner, instructor, or administrator account to load lessons, module quizzes, midterm/final exams, portfolio uploads, and certificates.</p>
-        <div class="btn-row">
+        <div class="welcome-hero">
+          <img id="welcomeCourseLogo" class="welcome-logo" alt="Course Logo" style="display:none" />
+          <div>
+            <h2 style="margin:0 0 6px">Welcome to Neonatal Nursing LMS</h2>
+            <p class="muted" style="margin:0">Sign in with your learner, instructor, or administrator account to load lessons, module quizzes, midterm/final exams, portfolio uploads, and certificates.</p>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:16px">
           <button class="btn primary" onclick="openAuthModal('login')">Sign In</button>
           <button class="btn" onclick="openAuthModal('register')">Create Learner Account</button>
         </div>
@@ -438,7 +603,7 @@
 
     <!-- TAB 4: CERTIFICATES -->
     <section id="tab-certs" class="tab-panel" style="display:none">
-      <div class="card">
+      <div class="card no-print">
         <div class="card-header">
           <div>
             <h2>OSCE &amp; Course Certificates</h2>
@@ -790,12 +955,59 @@
 
   <script>
     /* ============================================================
-       CONFIGURATION — SET YOUR DEPLOYED APPS SCRIPT WEB APP URL HERE
+       CONFIGURATION — READS FROM config.js (window.LMS_CONFIG)
        ============================================================ */
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzzm2fdv1bHV1JJmElNVESAYbN8U7Vo25TYbH6GYKFFdCQzdjTWZ-Xggp360MruFLgFBQ/exec';
-    const STORAGE_KEY = 'nn_lms_state_v6';
-    const QUEUE_KEY = 'nn_lms_queue_v6';
-    const CONTENT_CACHE_KEY = 'nn_lms_content_v6';
+    const CFG = window.LMS_CONFIG || {};
+    const API_URL = CFG.API_URL || 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec';
+    const LOGO_URL = CFG.LOGO_URL || 'https://drive.google.com/thumbnail?id=1OMreBEo4wPtvWvTCjsKz6PtZfuH5hsJ9&sz=w1000';
+    const LOGO_FALLBACK_URL = CFG.LOGO_FALLBACK_URL || 'https://lh3.googleusercontent.com/d/1OMreBEo4wPtvWvTCjsKz6PtZfuH5hsJ9';
+    const OFFLINE_CFG = CFG.OFFLINE || {};
+    const CACHE_VER = OFFLINE_CFG.CACHE_VERSION || 'lms-v5';
+    const SW_FILE = OFFLINE_CFG.SERVICE_WORKER || 'sw.js';
+
+    const STORAGE_KEY = `nn_lms_state_${CACHE_VER}`;
+    const QUEUE_KEY = `nn_lms_queue_${CACHE_VER}`;
+    const CONTENT_CACHE_KEY = `nn_lms_content_${CACHE_VER}`;
+
+    if (CFG.COURSE_TITLE) {
+      document.title = CFG.COURSE_TITLE + ' LMS';
+      const titleEl = document.querySelector('.brand-title');
+      if (titleEl) titleEl.textContent = CFG.COURSE_TITLE + ' LMS';
+    }
+
+    function applyBrandLogos() {
+      const badge = document.getElementById('brandBadge');
+      if (badge && LOGO_URL) {
+        const img = document.createElement('img');
+        img.className = 'brand-logo-img';
+        img.alt = (CFG.COURSE_TITLE || 'Neonatal Nursing') + ' Logo';
+        img.src = LOGO_URL;
+        img.onerror = function () {
+          if (LOGO_FALLBACK_URL && this.src !== LOGO_FALLBACK_URL) {
+            this.src = LOGO_FALLBACK_URL;
+          } else {
+            badge.classList.remove('has-logo');
+            badge.textContent = 'NN';
+          }
+        };
+        badge.textContent = '';
+        badge.classList.add('has-logo');
+        badge.appendChild(img);
+      }
+
+      const welcomeLogo = document.getElementById('welcomeCourseLogo');
+      if (welcomeLogo && LOGO_URL) {
+        welcomeLogo.src = LOGO_URL;
+        welcomeLogo.style.display = 'block';
+        welcomeLogo.onerror = function () {
+          if (LOGO_FALLBACK_URL && this.src !== LOGO_FALLBACK_URL) {
+            this.src = LOGO_FALLBACK_URL;
+          } else {
+            this.style.display = 'none';
+          }
+        };
+      }
+    }
 
     const GENERAL_OSCE_DOMAINS = [
       'Assessment & history taking',
@@ -915,6 +1127,8 @@
 
     function enqueueAction(action, payload) {
       const q = getQueue();
+      const maxItems = OFFLINE_CFG.QUEUE_MAX_ITEMS || 200;
+      if (q.length >= maxItems) q.shift();
       q.push({ clientId: 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7), action, body: payload });
       setQueue(q);
       toast('Saved offline — will sync automatically when online.', 'warn');
@@ -1229,7 +1443,6 @@
     }
 
     function bindInteractiveWidgets() {
-      // Calculation widgets
       document.querySelectorAll('#activeLessonBody .calc-widget').forEach(box => {
         const expected = Number(box.dataset.answer);
         const tol = Number(box.dataset.calcTol || 0.01);
@@ -1262,7 +1475,6 @@
         });
       });
 
-      // Autosaving discussion textareas
       document.querySelectorAll('#activeLessonBody textarea[data-note-key]').forEach(ta => {
         const key = ta.dataset.noteKey;
         if (state.notes[key] !== undefined) ta.value = state.notes[key];
@@ -1658,7 +1870,7 @@
           <table class="data">
             <thead><tr><th>Learner</th><th>Type</th><th>OSCE Score</th><th>Code</th><th>Issued</th><th>Action</th></tr></thead>
             <tbody>
-              ${certs.map((c, idx) => `
+              ${certs.map((c) => `
                 <tr>
                   <td>${esc(c.Name)} <div class="small">${esc(c.Email)}</div></td>
                   <td><span class="badge info">${esc(String(c.CertType || 'general').toUpperCase())}</span></td>
@@ -1679,21 +1891,67 @@
     function previewCertificate(cert) {
       const card = document.getElementById('certPreviewCard');
       const sheet = document.getElementById('certPreviewSheet');
-      const typeLabel = String(cert.CertType || 'general').toLowerCase() === 'nrp'
+      const isNrp = String(cert.CertType || 'general').toLowerCase() === 'nrp';
+      const typeLabel = isNrp
         ? 'Neonatal Resuscitation Program (NRP) Clinical Competency'
         : 'Neonatal Nursing General Clinical OSCE Competency';
+      const courseTitle = CFG.COURSE_TITLE || 'Neonatal Nursing';
+      const passThreshold = CFG.PASS_THRESHOLD ?? 80;
+
       card.style.display = 'block';
       sheet.innerHTML = `
-        <div class="cert-sheet">
-          <div class="small" style="text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--brand-dark)">Certificate of Clinical Competency</div>
-          <h2 style="margin:10px 0 6px;font-size:1.7rem">${esc(cert.Name)}</h2>
-          <p class="muted" style="margin:0 0 14px">has successfully passed the 10-domain OSCE assessment in</p>
-          <h3 style="margin:0 0 14px;color:var(--brand-dark)">${esc(typeLabel)}</h3>
-          <p>Achieved Score: <strong>${esc(cert.Percentage)}%</strong> (Pass threshold: 80%)</p>
-          <div class="grid-3" style="margin-top:20px;font-size:0.85rem">
-            <div><strong>Certificate Code</strong><br><code>${esc(cert.CertCode)}</code></div>
-            <div><strong>Issued Date</strong><br>${esc(new Date(cert.IssuedAt).toLocaleDateString())}</div>
-            <div><strong>Assessor</strong><br>${esc(cert.AssessorName || cert.AssessorEmail || 'Course Faculty')}</div>
+        <div class="cert-outer">
+          <div class="cert-sheet">
+            <span class="cert-corner tl"></span>
+            <span class="cert-corner tr"></span>
+            <span class="cert-corner bl"></span>
+            <span class="cert-corner br"></span>
+
+            ${LOGO_URL ? `
+              <div class="cert-logo-wrap">
+                <img
+                  class="cert-logo-img"
+                  src="${esc(LOGO_URL)}"
+                  alt="${esc(courseTitle)} Certificate Logo"
+                  onerror="if('${esc(LOGO_FALLBACK_URL)}' && this.src !== '${esc(LOGO_FALLBACK_URL)}'){this.src='${esc(LOGO_FALLBACK_URL)}';}else{this.parentElement.style.display='none';}"
+                />
+              </div>
+            ` : ''}
+
+            <div class="cert-kicker">${esc(courseTitle)} Learning Management System</div>
+            <h2 class="cert-heading">Certificate of Clinical Competency</h2>
+            <p class="muted" style="margin:6px 0 4px">This is to certify that</p>
+            <div class="cert-recipient">${esc(cert.Name)}</div>
+            <p class="muted" style="margin:4px 0 8px">has successfully demonstrated clinical mastery and passed the 10-domain Objective Structured Clinical Examination (OSCE) in</p>
+            <div class="cert-program">${esc(typeLabel)}</div>
+
+            <div class="cert-score-pill">
+              <span>Achieved Score: <strong>${esc(cert.Percentage)}%</strong></span>
+              <span>&bull;</span>
+              <span>Pass Standard: ${esc(passThreshold)}%</span>
+            </div>
+
+            <div class="cert-footer-grid">
+              <div>
+                <div class="small" style="text-transform:uppercase;letter-spacing:.08em">Verification ID</div>
+                <div style="margin-top:4px"><code style="font-weight:700;font-size:0.9rem">${esc(cert.CertCode)}</code></div>
+                <div class="small" style="margin-top:4px">Issued: ${esc(new Date(cert.IssuedAt).toLocaleDateString())}</div>
+              </div>
+
+              <div>
+                <div class="cert-seal">
+                  <span>Verified</span>
+                  <span>OSCE</span>
+                  <span>Pass</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="cert-sig-line"></div>
+                <div><strong>${esc(cert.AssessorName || cert.AssessorEmail || 'Course Faculty')}</strong></div>
+                <div class="small">Clinical Assessor &bull; ${esc(courseTitle)}</div>
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -2254,15 +2512,36 @@
     }
 
     /* ============================================================
-       BOOTSTRAP
+       SERVICE WORKER & BOOTSTRAP
        ============================================================ */
+    function registerServiceWorker() {
+      if (OFFLINE_CFG.ENABLED === false) return;
+      if (!('serviceWorker' in navigator)) return;
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register(`./${SW_FILE}`).catch((err) => {
+          console.warn('[LMS] Service Worker registration failed:', err);
+        });
+      });
+    }
+
     window.addEventListener('online', updateNetPill);
     window.addEventListener('offline', updateNetPill);
+
+    applyBrandLogos();
+    registerServiceWorker();
 
     (async function init() {
       loadSavedSession();
       renderAuthShell();
       updateNetPill();
+
+      if (OFFLINE_CFG.SYNC_INTERVAL_MS) {
+        setInterval(() => {
+          if (navigator.onLine && state.token && getQueue().length > 0) {
+            flushOfflineQueue();
+          }
+        }, OFFLINE_CFG.SYNC_INTERVAL_MS);
+      }
 
       if (state.token) {
         try {
