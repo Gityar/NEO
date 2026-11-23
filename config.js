@@ -3,9 +3,11 @@
 // ============================================================
 
 window.LMS_CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbzzm2fdv1bHV1JJmElNVESAYbN8U7Vo25TYbH6GYKFFdCQzdjTWZ-Xggp360MruFLgFBQ/exec',
+  API_URL: 'https://script.google.com/macros/s/AKfycbwpJOE_nvwrOjI01sdCnHnr2uRAqbOuA54C6cKaJlV4UmZpj8qJfHg_bwydHRbULMa8Kg/exec',
 
   COURSE_TITLE: 'Neonatal Nursing',
+  LOGO_URL: 'https://drive.google.com/thumbnail?id=1OMreBEo4wPtvWvTCjsKz6PtZfuH5hsJ9&sz=w1000',
+  LOGO_FALLBACK_URL: 'https://lh3.googleusercontent.com/d/1OMreBEo4wPtvWvTCjsKz6PtZfuH5hsJ9',
   PASS_THRESHOLD: 80,
 
   EXAMS: {
